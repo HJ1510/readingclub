@@ -1,4 +1,4 @@
-import MeetingCalender from "./component/MeetingCalender";
+import MeetingCalender from "../component/MeetingCalender";
 import "./Meeting.css";
 
 function Meeting() {

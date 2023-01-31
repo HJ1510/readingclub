@@ -1,6 +1,6 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import "../Meeting.css";
+import "../pages/Meeting.css";
 
 function MeetingCalender() {
   return (

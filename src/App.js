@@ -2,9 +2,9 @@ import "./App.css";
 import Header from "./component/Header";
 import { Routes, Route } from "react-router-dom";
 import Home from "./component/Home";
-import Meeting from "./Meeting";
-import Note from "./Note";
-import Community from "./Community";
+import Meeting from "./pages/Meeting";
+import Note from "./pages/Note";
+import Community from "./pages/Community";
 
 const App = () => {
   return (
