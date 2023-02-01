@@ -4,13 +4,17 @@
   text-align: center;
 }
 
-.Meeting .LoginForm {
+/*.Meeting .LoginForm {
   float: right;
-  display: block;
-  margin: 0px 300px 0px 10px;
+  margin-right: 10%;
 }
 
 .Meeting .Calender {
   width: 50%;
-  margin: 0px 100px -500px 50px;
+  margin-bottom: -20%;
 }
+
+.Meeting .Catergory {
+  margin-top: 20%;
+  margin-left: -5%;
+}*/
