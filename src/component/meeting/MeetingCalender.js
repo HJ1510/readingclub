@@ -1,6 +1,6 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import "../pages/Meeting.css";
+import "../../assets/css/component/meeting/Meeting.css";
 
 function MeetingCalender() {
   return (
@@ -9,9 +9,10 @@ function MeetingCalender() {
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
         events={[
-          { title: "일정1", date: "2023-01-01" },
-          { title: "모임2", date: "2023-01-07" },
+          { title: "일정1", date: "2023-02-01" },
+          { title: "모임2", date: "2023-02-07" },
         ]}
+        weekends={true}
         height="700px"
       />
     </div>

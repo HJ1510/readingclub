@@ -1,0 +1,30 @@
+.Meeting {
+  width: 100%;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.Meeting .Calender {
+  width: 50%;
+  margin: 20px;
+}
+
+.Meeting .LoginForm {
+  float: right;
+  margin-right: 10%;
+}
+
+.Meeting .Catergory {
+  margin-top: 20%;
+  margin-left: -5%;
+}
+
+/* 일요일 날짜: 빨간색 */
+.Meeting .Calender .fc-day-sun a {
+  color: red;
+}
+
+/* 토요일 날짜: 파란색 */
+.fc-day-sat a {
+  color: blue;
+}

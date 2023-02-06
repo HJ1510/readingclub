@@ -1,17 +1,11 @@
-import MainImg from "../assets/tmpheader2.jpg";
-import "./Header.css";
+import "../assets/css/layout/Navigation.css";
+import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link } from "react-router-dom";
 
-function Header() {
+function Navigation() {
   return (
-    <div className="Header">
-      <div>
-        <Link to={"/"}>
-          <img src={MainImg} className="Header-logo" alt="logo" />
-        </Link>
-      </div>
+    <div className="Navigation">
       <div>
         <Link to={"/meeting"}>
           <Button className="Header-button" variant="secondary">
@@ -36,4 +30,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Navigation;

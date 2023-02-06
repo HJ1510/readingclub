@@ -7,17 +7,9 @@ function Category() {
     <div>
       <Form>
         {["checkbox"].map((type) => (
-          <div key={`inline-${type}`} className="mb-3">
+          <div key={type} className="mb-3">
             {categorys.map(function (category) {
-              return (
-                <Form.Check
-                  inline
-                  type={type}
-                  id={`inline-${type}`}
-                  label={category}
-                  key={category}
-                />
-              );
+              return <Form.Check inline label={category} key={category} />;
             })}
           </div>
         ))}
