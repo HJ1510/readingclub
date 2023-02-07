@@ -4,6 +4,8 @@ import Main from "./component/main/index";
 import Community from "./component/community";
 import Meeting from "./component/meeting";
 import Note from "./component/note";
+import NoteList from "component/note/NoteList";
+import NoteBookmark from "component/note/NoteBookmark";
 
 const App = () => {
   return (
@@ -12,6 +14,9 @@ const App = () => {
       <Route path="/meeting" element={<Meeting />} />
       <Route path="/note" element={<Note />} />
       <Route path="/community" element={<Community />} />
+      <Route path="/note/mynote" element={<Note />} />
+      <Route path="/note/notelist" element={<NoteList />} />
+      <Route path="/note/notebookmark" element={<NoteBookmark />} />
     </Routes>
   );
 };

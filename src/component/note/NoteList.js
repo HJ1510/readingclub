@@ -1,12 +1,12 @@
-import "../../assets/css/component/note/Note.css";
 import Layout from "../../layout/Layout";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
-function Note() {
+function NoteList() {
   return (
     <div>
       <Layout>
+        <h1>노트리스트</h1>
         <div className="noteNav">
           <Link to={"/note/mynote"}>
             <Button className="Header-button" variant="secondary">
@@ -24,12 +24,9 @@ function Note() {
             </Button>
           </Link>
         </div>
-        <div className="myNote">
-          <h1>My Note</h1>
-        </div>
       </Layout>
     </div>
   );
 }
 
-export default Note;
+export default NoteList;
