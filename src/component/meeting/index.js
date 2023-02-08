@@ -4,6 +4,7 @@ import MeetingCalender from "./MeetingCalender";
 import LoginJoin from "./LoginJoin";
 import MeetingInfo from "./MeetingInfo";
 import Dropdown from "react-bootstrap/Dropdown";
+import Board from "./Board";
 import "../../assets/css/component/meeting/Meeting.css";
 
 function Meeting() {
@@ -27,6 +28,9 @@ function Meeting() {
         </Dropdown>
         <div>
           <MeetingInfo />
+        </div>
+        <div>
+          <Board />
         </div>
       </Layout>
     </div>
