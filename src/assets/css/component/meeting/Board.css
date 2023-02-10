@@ -8,10 +8,10 @@
   border: 1px solid #333;
   padding: 10px 0 30px 0;
   border-radius: 5px;
-  margin-bottom : 50px;
+  margin-bottom: 50px;
 }
 
-.form-wrapper{
+.form-wrapper {
   width: 80%;
   margin: 0 auto;
 }
@@ -35,4 +35,31 @@
   border: none;
   background: indianred;
   border-radius: 5px;
+}
+
+.post-view-wrapper {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.post-view-go-list-btn {
+  border: 0;
+  padding: 10px;
+  background-color: #ffd9d9;
+}
+
+.post-view-row {
+  margin: 10px 0;
+  display: flex;
+}
+
+.post-view-row > label:first-child {
+  margin: 10px 0;
+  width: 30%;
+  font-weight: bold;
+}
+
+.post-view-row > *:nth-child(2) {
+  margin: 10px 0;
+  width: 70%;
 }
