@@ -1,48 +1,30 @@
+import Tables from "./Tables";
+import TableRow from "./TableRow";
+import TableColumn from "./TableColumn";
+
 function ArticleList(props) {
   return (
     <>
-      <table>
-        <thead>
-          <tr>
-            <th>글번호</th>
-            <th>제목</th>
-            <th>등록일</th>
-            <th>조회수</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>첫번째 게시글입니다.</td>
-            <td>2020-10-25</td>
-            <td>6</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>두번째 게시글입니다.</td>
-            <td>2020-10-25</td>
-            <td>5</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>세번째 게시글입니다.</td>
-            <td>2020-10-25</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>네번째 게시글입니다.</td>
-            <td>2020-10-25</td>
-            <td>2</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>다섯번째 게시글입니다.</td>
-            <td>2020-10-25</td>
-            <td>4</td>
-          </tr>
-        </tbody>
-      </table>
+      <Tables
+        headersName={["No.", "제목", "작성자", "작성일", "조회수", "댓글수"]}
+      >
+        <TableRow>
+          <TableColumn>1</TableColumn>
+          <TableColumn>첫번째 게시글입니다.</TableColumn>
+          <TableColumn>둘리</TableColumn>
+          <TableColumn>2023-02-10</TableColumn>
+          <TableColumn>6</TableColumn>
+          <TableColumn>1</TableColumn>
+        </TableRow>
+        <TableRow>
+          <TableColumn>2</TableColumn>
+          <TableColumn>두번째 게시글입니다.</TableColumn>
+          <TableColumn>마이콜</TableColumn>
+          <TableColumn>2023-02-10</TableColumn>
+          <TableColumn>0</TableColumn>
+          <TableColumn>0</TableColumn>
+        </TableRow>
+      </Tables>
     </>
   );
 }
