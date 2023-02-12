@@ -1,4 +1,5 @@
-import Board from "./board";
+// import Board from "./board";
+import NewBoard from "./newboard";
 import Layout from "layout/Layout";
 
 function MeetingInfo() {
@@ -6,7 +7,7 @@ function MeetingInfo() {
     <Layout>
       <div>모임정보</div>
       <div>
-        <Board />
+        <NewBoard />
       </div>
     </Layout>
   );
