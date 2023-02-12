@@ -8,6 +8,7 @@ import NoteList from "component/note/NoteList";
 import NoteBookmark from "component/note/NoteBookmark";
 import MeetingInfo from "component/meeting/MeetingInfo";
 import ArticleView from "component/meeting/newboard/ArticleView";
+import ArticleWrite from "component/meeting/newboard/ArticleWrite";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route index element={<Meeting />} />
         <Route path=":no" element={<MeetingInfo />} />
         <Route path=":no/:no" element={<ArticleView />} />
+        <Route path="write" element={<ArticleWrite />} />
       </Route>
       <Route path="community" element={<Community />} />
       <Route path="note">

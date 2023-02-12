@@ -48,6 +48,7 @@ const articleList = [
 
 const getArticleByNo = (no) => {
   const array = articleList.filter((x) => x.no === no);
+  console.log(articleList);
   if (array.length === 1) {
     return array[0];
   }
