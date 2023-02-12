@@ -1,15 +1,23 @@
 import "../../../assets/css/component/meeting/Board.css";
-import { getArticleByNo } from "Data";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Layout from "layout/Layout";
+import { getArticle } from "api";
 
 function ArticleView() {
   const [data, setData] = useState({});
   const { no } = useParams();
 
+  const articleLoad = async () => {
+    const { foods } = await getArticle();
+    setData(foods);
+  };
+
+  const getArticleByNo =(no)=>{
+    console.log(no+1);
+  };
+
   useEffect(() => {
-    console.log(no);
     setData(getArticleByNo(no));
     console.log(no);
   }, []);

@@ -15,7 +15,7 @@ function MeetingList() {
         {mockList
           ? mockList.map((item, idx) => {
               return (
-                <div>
+                <div key={idx}>
                   <Link to={`/meeting/${item.no}`}>
                     {item.title}/ 정원 {item.maxNum}
                   </Link>

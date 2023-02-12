@@ -15,14 +15,13 @@ function ArticleList({ items }) {
               return (
                 <TableRow key={idx}>
                   <TableColumn>{item.id}</TableColumn>
-                  <TableColumn>{item.title}</TableColumn>
+                  <TableColumn>
+                    <Link to={`${item.id}`}>{item.title}</Link>
+                  </TableColumn>
                   <TableColumn>{item.content}</TableColumn>
                   <TableColumn>{item.createdAt}</TableColumn>
                   <TableColumn>{item.calorie}</TableColumn>
                 </TableRow>
-                // <li>
-                //   <ArticleListItem item={item} />
-                // </li>
               );
             })
           : ""}

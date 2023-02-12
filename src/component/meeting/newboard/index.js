@@ -12,7 +12,7 @@ function NewBoard() {
 
   useEffect(() => {
     listLoad();
-  },[])
+  }, []);
 
   return (
     <div>
