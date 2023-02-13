@@ -1,27 +1,33 @@
 import "../../../assets/css/component/meeting/Board.css";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Layout from "layout/Layout";
-import { getArticle } from "api";
-import { getArticleByNo } from "Data";
+import { getArticle, deleteArticle } from "api";
 
 function ArticleView() {
   const [data, setData] = useState({});
-  const { no } = useParams();
+  const { id } = useParams();
+
+  const navigate = useNavigate();
 
   const articleLoad = async (id) => {
     const { foods } = await getArticle();
-
-    const arr = foods.filter((item) => item.id === no);
-    console.log(foods);
-    console.log(arr);
-    return arr;
+    const arr = foods.filter((item) => item.id === id);
+    if (arr.length === 1) {
+      return arr[0];
+    }
+    return null;
   };
 
   useEffect(() => {
-    setData(articleLoad(300124));
-    // setData(getArticleByNo(1));
+    // console.log(id);
+    setData(articleLoad(300143));
   }, []);
+
+  const onDelete = () => {
+    deleteArticle(id);
+    return;
+  };
 
   return (
     <div>
@@ -55,8 +61,16 @@ function ArticleView() {
             "해당 게시글을 찾을 수 없습니다."
           )}
         </div>
-        <button onClick>삭제</button>
+        <button
+          onClick={() => {
+            onDelete();
+            navigate(-1);
+          }}
+        >
+          삭제
+        </button>
         <button onClick>수정</button>
+        <button onClick={() => navigate(-1)}>목록으로</button>
       </Layout>
     </div>
   );

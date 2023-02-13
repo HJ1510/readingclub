@@ -1,6 +1,7 @@
 import { createArticle } from "api";
 import Layout from "layout/Layout";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import "./NewBoard.css";
 
 const INITIAL_VALUES = {
@@ -11,6 +12,8 @@ const INITIAL_VALUES = {
 };
 
 function ArticleWrite() {
+  const navigate = useNavigate();
+
   const [values, setValues] = useState(INITIAL_VALUES);
 
   const handleChange = (name, value) => {
@@ -58,7 +61,15 @@ function ArticleWrite() {
             ></textarea>
 
             <div id="post_submit">
-              <button type="submit" value="create">작성</button>
+              <button
+                type="submit"
+                value="create"
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                작성
+              </button>
             </div>
           </form>
         </div>

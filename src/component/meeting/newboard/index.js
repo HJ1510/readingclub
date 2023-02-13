@@ -9,7 +9,6 @@ function NewBoard() {
 
   const listLoad = async () => {
     const { foods } = await getArticle();
-
     setItems(foods);
   };
 
@@ -17,16 +16,10 @@ function NewBoard() {
     listLoad();
   }, []);
 
-  const articleDelete = async (id) => {
-    const result = await deleteArticle(id);
-    if(!result) return;
-    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
-  };
-
   return (
     <div>
       <h2>모임후기 게시판</h2>
-      <ArticleList items={items} onDelete={articleDelete} />
+      <ArticleList items={items} />
       <Link to="/meeting/write">
         <button>글쓰기</button>
       </Link>

@@ -20,7 +20,6 @@ export async function createArticle(formData) {
 }
 
 export async function deleteArticle(id) {
-  console.log(id);
   const response = await fetch(`https://learn.codeit.kr/1636/foods/${id}`, {
     method: "DELETE",
   });
