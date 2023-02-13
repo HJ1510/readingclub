@@ -4,6 +4,7 @@ import TableColumn from "./TableColumn";
 import { Link } from "react-router-dom";
 import { getArticle } from "api";
 import { useEffect, useState } from "react";
+import ModalBasic from "./ModalBasic";
 
 function ArticleList() {
   const [items, setItems] = useState([]);
@@ -16,6 +17,14 @@ function ArticleList() {
   useEffect(() => {
     listLoad();
   }, []);
+
+  // 모달창 노출 여부 state
+  const [modalOpen, setModalOpen] = useState(false);
+
+  // 모달창 노출
+  const showModal = () => {
+    setModalOpen(true);
+  };
 
   return (
     <div>
@@ -37,6 +46,11 @@ function ArticleList() {
                 <TableRow key={item.id}>
                   <TableColumn>{item.id}</TableColumn>
                   <TableColumn>
+                    <div>
+                      <button onClick={showModal}>{item.title}</button>
+                      {modalOpen && <ModalBasic setModalOpen={setModalOpen} />}
+                    </div>
+
                     <Link to={`${item.id}`}>{item.title}</Link>
                   </TableColumn>
                   <TableColumn>{item.content}</TableColumn>
