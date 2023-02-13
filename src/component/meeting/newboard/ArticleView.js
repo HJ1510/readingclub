@@ -10,19 +10,18 @@ function ArticleView() {
 
   const navigate = useNavigate();
 
-  const articleLoad = async (id) => {
-    const { foods } = await getArticle();
-    const arr = foods.filter((item) => item.id === id);
-    if (arr.length === 1) {
-      return arr[0];
-    }
-    return null;
-  };
-
   useEffect(() => {
-    // console.log(id);
-    setData(articleLoad(300143));
-  }, []);
+    const articleLoad = async (id) => {
+      const { foods } = await getArticle();
+      
+      const article = foods.filter((item) => item.id === parseInt(id));
+
+      console.log(article);
+      setData(article[0]);
+    };
+    articleLoad(id);
+    console.log(`2+${id}`);
+  }, [id]);
 
   const onDelete = () => {
     deleteArticle(id);
@@ -38,7 +37,7 @@ function ArticleView() {
             <>
               <div className="post-view-row">
                 <label>게시글 번호</label>
-                <label>{data.no}</label>
+                <label>{data.id}</label>
               </div>
               <div className="post-view-row">
                 <label>제목</label>
@@ -69,7 +68,7 @@ function ArticleView() {
         >
           삭제
         </button>
-        <button onClick>수정</button>
+        <button onClick={""}>수정</button>
         <button onClick={() => navigate(-1)}>목록으로</button>
       </Layout>
     </div>

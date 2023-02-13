@@ -2,7 +2,6 @@ import { getArticle } from "api";
 import { useEffect, useState } from "react";
 import ArticleList from "./ArticleList";
 import { Link } from "react-router-dom";
-import { deleteArticle } from "api";
 
 function NewBoard() {
   const [items, setItems] = useState([]);

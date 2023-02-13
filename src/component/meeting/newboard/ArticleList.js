@@ -24,7 +24,7 @@ function ArticleList({ items }) {
         {items
           ? items.map((item, idx) => {
               return (
-                <TableRow key={idx}>
+                <TableRow key={item.id}>
                   <TableColumn>{item.id}</TableColumn>
                   <TableColumn>
                     <Link to={`${item.id}`}>{item.title}</Link>
@@ -33,9 +33,6 @@ function ArticleList({ items }) {
                   <TableColumn>{item.createdAt}</TableColumn>
                   <TableColumn>{item.calorie}</TableColumn>
                   <TableColumn>{item.calorie}</TableColumn>
-                  <TableColumn>
-                    <button onClick={""}>삭제</button>
-                  </TableColumn>
                 </TableRow>
               );
             })
