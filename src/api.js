@@ -29,3 +29,15 @@ export async function deleteArticle(id) {
   const body = await response.json();
   return body;
 }
+
+export async function updateArticle(id, formData) {
+  const response = await fetch(`https://learn.codeit.kr/1636/foods/${id}`, {
+    method: "PUT",
+    body: formData,
+  });
+  if (!response.ok) {
+    throw new Error("수정하는데 실패하였습니다");
+  }
+  const body = await response.json();
+  return body;
+}

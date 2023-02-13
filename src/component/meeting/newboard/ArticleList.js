@@ -2,11 +2,23 @@ import Tables from "./Tables";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import { Link } from "react-router-dom";
-import ModalBasic from "./ModalBasic";
-import { useState } from "react";
-import { deleteArticle } from "api";
+import { getArticle } from "api";
+import { useEffect, useState } from "react";
 
-function ArticleList({ items }) {
+function ArticleList() {
+  const [items, setItems] = useState([]);
+  
+
+  const listLoad = async () => {
+    const { foods } = await getArticle();
+    setItems(foods);
+  };
+
+  useEffect(() => {
+    listLoad();
+  }, []);
+  
+
   return (
     <div>
       <h2>글 목록</h2>

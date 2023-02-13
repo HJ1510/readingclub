@@ -1,6 +1,6 @@
 import "../../../assets/css/component/meeting/Board.css";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Layout from "layout/Layout";
 import { getArticle, deleteArticle } from "api";
 
@@ -13,14 +13,14 @@ function ArticleView() {
   useEffect(() => {
     const articleLoad = async (id) => {
       const { foods } = await getArticle();
-      
+
       const article = foods.filter((item) => item.id === parseInt(id));
 
-      console.log(article);
+      // console.log(article);
       setData(article[0]);
     };
     articleLoad(id);
-    console.log(`2+${id}`);
+    // console.log(`2+${id}`);
   }, [id]);
 
   const onDelete = () => {
@@ -68,7 +68,9 @@ function ArticleView() {
         >
           삭제
         </button>
-        <button onClick={""}>수정</button>
+        <Link to={{ pathname: `modi` }}>
+          <button>수정</button>
+        </Link>
         <button onClick={() => navigate(-1)}>목록으로</button>
       </Layout>
     </div>

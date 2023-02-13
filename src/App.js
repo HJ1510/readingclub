@@ -9,6 +9,7 @@ import NoteBookmark from "component/note/NoteBookmark";
 import MeetingInfo from "component/meeting/MeetingInfo";
 import ArticleView from "component/meeting/newboard/ArticleView";
 import ArticleWrite from "component/meeting/newboard/ArticleWrite";
+import ArticleModiForm from "component/meeting/newboard/ArticleModiForm";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path=":no" element={<MeetingInfo />} />
         <Route path=":no/:id" element={<ArticleView />} />
         <Route path="write" element={<ArticleWrite />} />
+        <Route path=":no/:id/modi" element={<ArticleModiForm />} />
       </Route>
       <Route path="community" element={<Community />} />
       <Route path="note">
