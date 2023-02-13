@@ -1,7 +1,7 @@
-import { createArticle } from "api";
+import { updateArticle } from "api";
 import Layout from "layout/Layout";
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import "./Board.css";
 
@@ -12,8 +12,9 @@ const INITIAL_VALUES = {
   createAt: null,
 };
 
-function ArticleModiForm({ location }) {
+function ArticleModiForm() {
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const [values, setValues] = useState(INITIAL_VALUES);
 
@@ -33,10 +34,15 @@ function ArticleModiForm({ location }) {
     formData.append("title", values.title);
     formData.append("content", values.content);
 
-    await createArticle(formData);
+    await updateArticle(id, formData);
 
     setValues(INITIAL_VALUES);
   };
+
+  // const onUpdate = () => {
+  //   updateArticle(id);
+  //   return;
+  // };
 
   return (
     <div>
@@ -66,10 +72,10 @@ function ArticleModiForm({ location }) {
                 type="submit"
                 value="create"
                 onClick={() => {
-                  navigate(-1);
+                  navigate(-2);
                 }}
               >
-                <Link to={`/meeting/1/${values.id}`}>수정</Link>
+                <Link to={`/meeting/1/${id}`}>수정</Link>
               </button>
             </div>
           </form>
