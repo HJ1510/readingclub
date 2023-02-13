@@ -1,9 +1,8 @@
+import CommentItem from "./CommentItem";
 import { getArticle } from "api";
 import { useEffect, useState } from "react";
-import ArticleList from "./ArticleList";
-import { Link } from "react-router-dom";
 
-function NewBoard() {
+function CommentList() {
   const [items, setItems] = useState([]);
 
   const listLoad = async () => {
@@ -17,13 +16,16 @@ function NewBoard() {
 
   return (
     <div>
-      <h2>모임후기 게시판</h2>
-      <ArticleList items={items} />
-      <Link to="/meeting/write">
-        <button>글쓰기</button>
-      </Link>
+      <h4>댓글리스트</h4>
+      <div>
+        {items
+          ? items.map((item) => {
+              return <CommentItem title={item.title} content={item.content} />;
+            })
+          : ""}
+      </div>
     </div>
   );
 }
 
-export default NewBoard;
+export default CommentList;

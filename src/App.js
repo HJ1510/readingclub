@@ -7,9 +7,9 @@ import Note from "./component/note";
 import NoteList from "component/note/NoteList";
 import NoteBookmark from "component/note/NoteBookmark";
 import MeetingInfo from "component/meeting/MeetingInfo";
-import ArticleView from "component/meeting/newboard/ArticleView";
-import ArticleWrite from "component/meeting/newboard/ArticleWrite";
-import ArticleModiForm from "component/meeting/newboard/ArticleModiForm";
+import ArticleView from "component/meeting/board/ArticleView";
+import ArticleWrite from "component/meeting/board/ArticleWrite";
+import ArticleModiForm from "component/meeting/board/ArticleModiForm";
 
 const App = () => {
   return (

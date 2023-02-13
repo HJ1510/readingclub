@@ -1,40 +1,54 @@
 import Tables from "./Tables";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
-import { articleList } from "Data";
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getArticle } from "api";
+import { useEffect, useState } from "react";
 
-function ArticleList(props) {
-  const [dataList, setDataList] = useState([]);
+function ArticleList() {
+  const [items, setItems] = useState([]);
+
+  const listLoad = async () => {
+    const { foods } = await getArticle();
+    setItems(foods);
+  };
 
   useEffect(() => {
-    setDataList(articleList);
+    listLoad();
   }, []);
 
   return (
-    <>
+    <div>
+      <h2>글 목록</h2>
       <Tables
-        headersName={["No.", "제목", "작성자", "작성일", "조회수", "댓글수"]}
+        headersName={[
+          "No.",
+          "제목",
+          "작성자",
+          "작성일",
+          "조회수",
+          "댓글수",
+          "",
+        ]}
       >
-        {dataList
-          ? dataList.map((item, idx) => {
+        {items
+          ? items.map((item) => {
               return (
-                <TableRow key={idx}>
-                  <TableColumn>{item.no}</TableColumn>
+                <TableRow key={item.id}>
+                  <TableColumn>{item.id}</TableColumn>
                   <TableColumn>
-                    <Link to={`${item.no}`}>{item.title}</Link>
+                    <Link to={`${item.id}`}>{item.title}</Link>
                   </TableColumn>
-                  <TableColumn>{item.createUser}</TableColumn>
-                  <TableColumn>{item.createDate}</TableColumn>
-                  <TableColumn>{item.readCount}</TableColumn>
-                  <TableColumn>{item.replyCount}</TableColumn>
+                  <TableColumn>{item.content}</TableColumn>
+                  <TableColumn>{item.createdAt}</TableColumn>
+                  <TableColumn>{item.calorie}</TableColumn>
+                  <TableColumn>{item.calorie}</TableColumn>
                 </TableRow>
               );
             })
           : ""}
       </Tables>
-    </>
+    </div>
   );
 }
 

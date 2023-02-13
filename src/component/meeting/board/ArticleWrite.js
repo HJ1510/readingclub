@@ -2,8 +2,7 @@ import { createArticle } from "api";
 import Layout from "layout/Layout";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
-import "./NewBoard.css";
+import "./Board.css";
 
 const INITIAL_VALUES = {
   title: "",
@@ -12,7 +11,7 @@ const INITIAL_VALUES = {
   createAt: null,
 };
 
-function ArticleModiForm({location}) {
+function ArticleWrite() {
   const navigate = useNavigate();
 
   const [values, setValues] = useState(INITIAL_VALUES);
@@ -41,14 +40,14 @@ function ArticleModiForm({location}) {
   return (
     <div>
       <Layout>
-        <div>글 수정</div>
+        <div>글쓰기</div>
         <div className="Write">
           <form onSubmit={handleSubmit}>
             <input
               type="text"
               name="title"
               value={values.title}
-              placeholder={values.title}
+              placeholder="title"
               onChange={handleInputChange}
               id="title_txt"
             ></input>
@@ -69,7 +68,7 @@ function ArticleModiForm({location}) {
                   navigate(-1);
                 }}
               >
-                <Link to={`/meeting/1/${values.id}`}>수정</Link>
+                작성
               </button>
             </div>
           </form>
@@ -79,4 +78,4 @@ function ArticleModiForm({location}) {
   );
 }
 
-export default ArticleModiForm;
+export default ArticleWrite;
