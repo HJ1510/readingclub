@@ -41,6 +41,7 @@ function ArticleWrite() {
         <div className="Write">
           <form onSubmit={handleSubmit}>
             <input
+              type="text"
               name="title"
               value={values.title}
               placeholder="title"
@@ -57,7 +58,7 @@ function ArticleWrite() {
             ></textarea>
 
             <div id="post_submit">
-              <button type="submit">작성</button>
+              <button type="submit" value="create">작성</button>
             </div>
           </form>
         </div>

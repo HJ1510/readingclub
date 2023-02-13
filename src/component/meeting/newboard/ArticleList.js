@@ -2,8 +2,17 @@ import Tables from "./Tables";
 import TableRow from "./TableRow";
 import TableColumn from "./TableColumn";
 import { Link } from "react-router-dom";
+import ModalBasic from "./ModalBasic";
+import { useState } from "react";
 
 function ArticleList({ items, onDelete }) {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  // 모달창 노출
+  const showModal = () => {
+    setModalOpen(true);
+  };
+
   return (
     <div>
       <h2>글 목록</h2>
@@ -24,9 +33,17 @@ function ArticleList({ items, onDelete }) {
                 <TableRow key={idx}>
                   <TableColumn>{item.id}</TableColumn>
                   <TableColumn>
-                    <Link to={{ pathname: `${item.id}`, state: { items } }}>
-                      {item.title}
-                    </Link>
+                    <div>
+                      <button onClick={showModal}>{item.title}</button>
+                      {modalOpen && (
+                        <ModalBasic
+                          id={item.id}
+                          title={item.title}
+                          content={item.content}
+                          setModalOpen={setModalOpen}
+                        />
+                      )}
+                    </div>
                   </TableColumn>
                   <TableColumn>{item.content}</TableColumn>
                   <TableColumn>{item.createdAt}</TableColumn>
