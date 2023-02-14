@@ -1,5 +1,5 @@
-export async function getArticle() {
-  const response = await fetch("https://learn.codeit.kr/1636/foods");
+export async function getArticle(search="") {
+  const response = await fetch(`https://learn.codeit.kr/1636/foods?${search}`);
   if (!response.ok) {
     throw new Error("불러오는데 실패하였습니다");
   }
@@ -37,6 +37,31 @@ export async function updateArticle(id, formData) {
   });
   if (!response.ok) {
     throw new Error("수정하는데 실패하였습니다");
+  }
+  const body = await response.json();
+  return body;
+}
+
+export async function getComments({ order = "createdAt" }) {
+  // 쿼리 지정(정렬)
+  const query = `order=${order}`;
+  const response = await fetch(
+    `https://learn.codeit.kr/4543/film-reviews?${query}`
+  );
+  if (!response.ok) {
+    throw new Error("코멘트를 불러오는데 실패했습니다");
+  }
+  const body = await response.json();
+  return body;
+}
+
+export async function createComment(formData) {
+  const response = await fetch("https://learn.codeit.kr/4514/film-reviews/", {
+    method: "POST",
+    body: formData,
+  });
+  if (!response.ok) {
+    throw new Error("생성하는데 실패하였습니다");
   }
   const body = await response.json();
   return body;

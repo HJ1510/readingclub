@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Layout from "layout/Layout";
 import { getArticle, deleteArticle } from "api";
-import CommentList from "../comment/CommentList";
+import Comment from "component/comment";
 
 function ArticleView() {
   const [data, setData] = useState({});
@@ -56,6 +56,10 @@ function ArticleView() {
                 <label>내용</label>
                 <div>{data.content}</div>
               </div>
+              <div className="post-view-row">
+                <label>hashTag</label>
+                <div>{data.hashTag}</div>
+              </div>
             </>
           ) : (
             "해당 게시글을 찾을 수 없습니다."
@@ -73,7 +77,7 @@ function ArticleView() {
           <button>수정</button>
         </Link>
         <button onClick={() => navigate(-1)}>목록으로</button>
-        <CommentList />
+        <Comment />
       </Layout>
     </div>
   );

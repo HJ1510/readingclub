@@ -9,6 +9,7 @@ const INITIAL_VALUES = {
   content: "",
   writer: "",
   createAt: null,
+  hashTag: "",
 };
 
 function ArticleWrite() {
@@ -59,7 +60,14 @@ function ArticleWrite() {
               onChange={handleInputChange}
               id="content_txt"
             ></textarea>
-
+            <input
+              type="text"
+              name="hashTag"
+              value={values.hashTag}
+              placeholder="hashTag"
+              onChange={handleInputChange}
+              id="title_txt"
+            ></input>
             <div id="post_submit">
               <button
                 type="submit"

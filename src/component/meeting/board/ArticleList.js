@@ -4,26 +4,23 @@ import TableColumn from "./TableColumn";
 import { Link } from "react-router-dom";
 import { getArticle } from "api";
 import { useEffect, useState } from "react";
-import ModalBasic from "./ModalBasic";
 
 function ArticleList() {
   const [items, setItems] = useState([]);
+  const [search, setSearch] = useState("");
 
-  const listLoad = async () => {
-    const { foods } = await getArticle();
+  const listLoad = async (search) => {
+    const { foods } = await getArticle(search={search});
     setItems(foods);
   };
 
   useEffect(() => {
-    listLoad();
+    listLoad(search);
   }, []);
 
-  // 모달창 노출 여부 state
-  const [modalOpen, setModalOpen] = useState(false);
-
-  // 모달창 노출
-  const showModal = () => {
-    setModalOpen(true);
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    setSearch(e.target["search"].value);
   };
 
   return (
@@ -46,11 +43,6 @@ function ArticleList() {
                 <TableRow key={item.id}>
                   <TableColumn>{item.id}</TableColumn>
                   <TableColumn>
-                    <div>
-                      <button onClick={showModal}>{item.title}</button>
-                      {modalOpen && <ModalBasic setModalOpen={setModalOpen} />}
-                    </div>
-
                     <Link to={`${item.id}`}>{item.title}</Link>
                   </TableColumn>
                   <TableColumn>{item.content}</TableColumn>
@@ -62,6 +54,10 @@ function ArticleList() {
             })
           : ""}
       </Tables>
+      <form onSubmit={handleSearchSubmit}>
+        <input name="search" />
+        <button type="submit">검색</button>
+      </form>
     </div>
   );
 }
