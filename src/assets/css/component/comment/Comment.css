@@ -20,7 +20,3 @@
 .ReviewForm > :not(:last-child) {
   margin-bottom: 20px;
 }
-
-img {
-  width: 100px;
-}
