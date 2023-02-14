@@ -48,11 +48,9 @@ function CommentListItem({ item, onDelete }) {
         <img src={item.imgUrl} style={styles.image} alt={item.title} />
       </div>
       <div style={styles.contextContainer}>
-        <div>
-          <h4>{item.title}</h4>
-        </div>
+        <div>{/* <h4>{item.title}</h4> */}</div>
         <div>{item.content}</div>
-        <div>{item.rating}</div>
+        {/* <div>{item.rating}</div> */}
         <div>{formatDate(item.createdAt)}</div>
       </div>
       <div>

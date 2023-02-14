@@ -33,6 +33,7 @@ function Comment() {
     setItems(reviews);
   };
 
+
   useEffect(() => {
     commentLoad(order);
   }, [order]);
