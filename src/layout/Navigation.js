@@ -12,7 +12,7 @@ function Navigation() {
             MEETING
           </Button>
         </Link>
-        <Link to={"/note"}>
+        <Link to={"/booknote"}>
           <Button className="Header-button" variant="secondary">
             NOTE
           </Button>
@@ -24,7 +24,7 @@ function Navigation() {
         </Link>
       </div>
       <div className="LoginJoin">
-        <Button variant="info">Login/Join</Button>
+      <Link to="/login" style={{textDecoration:"none"}}>Login-in</Link>
       </div>
     </div>
   );
