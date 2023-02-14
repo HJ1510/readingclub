@@ -45,11 +45,7 @@ function CommentListItem({ item, onDelete }) {
   return (
     <div style={styles.wrapper}>
       <div style={styles.imageContainer}>
-        <img
-          src={item.imgUrl}
-          style={styles.image}
-          alt={item.title}
-        />
+        <img src={item.imgUrl} style={styles.image} alt={item.title} />
       </div>
       <div style={styles.contextContainer}>
         <div>

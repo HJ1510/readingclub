@@ -43,6 +43,7 @@ function Comment() {
         <button onClick={newestClick}>최신순</button>
         <button onClick={bestClick}>베스트순</button>
       </div>
+      <CommentForm />
       <CommentList items={sortedItems} onDelete={commentDelete} />
       {loadingError?.message && <span>{loadingError.message}</span>}
     </div>

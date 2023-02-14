@@ -4,19 +4,30 @@ import TableColumn from "./TableColumn";
 import { Link } from "react-router-dom";
 import { getArticle } from "api";
 import { useEffect, useState } from "react";
+import mockItems from "mock.json";
 
 function ArticleList() {
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState("");
+  const { _embedded } = mockItems;
 
   const listLoad = async (search) => {
-    const { foods } = await getArticle(search={search});
-    setItems(foods);
+    const { articles } = _embedded;
+    setItems(articles);
   };
 
   useEffect(() => {
     listLoad(search);
   }, []);
+
+  // const listLoad = async (search) => {
+  //   const { foods } = await getArticle(search={search});
+  //   setItems(foods);
+  // };
+
+  // useEffect(() => {
+  //   listLoad(search);
+  // }, []);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -40,15 +51,13 @@ function ArticleList() {
         {items
           ? items.map((item) => {
               return (
-                <TableRow key={item.id}>
-                  <TableColumn>{item.id}</TableColumn>
+                <TableRow key={item.createdAt}>
+                  <TableColumn>{item.createdAt}</TableColumn>
                   <TableColumn>
                     <Link to={`${item.id}`}>{item.title}</Link>
                   </TableColumn>
-                  <TableColumn>{item.content}</TableColumn>
+                  <TableColumn>{item.createdBy}</TableColumn>
                   <TableColumn>{item.createdAt}</TableColumn>
-                  <TableColumn>{item.calorie}</TableColumn>
-                  <TableColumn>{item.calorie}</TableColumn>
                 </TableRow>
               );
             })
