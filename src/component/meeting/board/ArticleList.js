@@ -21,7 +21,7 @@ function ArticleList() {
   // }, []);
 
   const listLoad = async (search) => {
-    const { foods } = await getArticle(search={search});
+    const { foods } = await getArticle((search = { search }));
     setItems(foods);
   };
 
@@ -30,7 +30,6 @@ function ArticleList() {
   }, []);
 
   const handleSearchSubmit = (e) => {
-    e.preventDefault();
     setSearch(e.target["search"].value);
   };
 

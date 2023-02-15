@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "../../assets/css/component/comment/Comment.css";
-import { createComment } from "api";
 
 const INITIAL_VALUES = {
   title: "",
@@ -9,10 +8,14 @@ const INITIAL_VALUES = {
   imgFile: null,
 };
 
-function CommentForm({ onSubmitSuccess }) {
-  const [values, setValues] = useState(INITIAL_VALUES);
+function CommentForm({
+  initialValues = INITIAL_VALUES,
+  onSubmitSuccess,
+  onCancel,
+  onSubmit,
+}) {
+  const [values, setValues] = useState(initialValues);
   const [isSubmitting, setIsubmitting] = useState(false);
-
   const [submittingError, setSubmittingError] = useState(null);
 
   const commentChange = (e) => {
@@ -32,14 +35,16 @@ function CommentForm({ onSubmitSuccess }) {
     try {
       setSubmittingError(null);
       setIsubmitting(true);
-      result = await createComment(formData);
+      result = await onSubmit(formData);
     } catch (error) {
       setSubmittingError(error);
       return;
     } finally {
       setIsubmitting(false);
     }
+    console.log(result);
     const { review } = result;
+
     onSubmitSuccess(review);
     setValues(INITIAL_VALUES);
   };
@@ -62,6 +67,7 @@ function CommentForm({ onSubmitSuccess }) {
         <button type="sumbit" disabled={isSubmitting}>
           확인
         </button>
+        {onCancel && <button onClick={onCancel}>취소</button>}
         {submittingError && <div>{submittingError.message}</div>}
         {/** type="sumbit" -> onSubmit 이벤트 발생 */}
       </form>

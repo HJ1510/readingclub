@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getComments } from "api";
+import { createComment, deleteComment, getComments, updateComment } from "api";
 import CommentList from "./CommentList";
 import CommentForm from "./CommentForm";
 
@@ -13,9 +13,10 @@ function Comment() {
   const newestClick = () => setOrder("createdAt");
   const bestClick = () => setOrder("rating");
 
-  const commentDelete = (id) => {
-    const nextItems = items.filter((item) => item.id !== id);
-    setItems(nextItems);
+  const commentDelete = async (id) => {
+    const result = await deleteComment(id);
+    if (!result) return;
+    setItems((prevComment) => prevComment.filter((item) => item.id !== id));
   };
 
   // options getComments에 전달할 파라미터(정렬)
@@ -33,22 +34,42 @@ function Comment() {
     setItems(reviews);
   };
 
-  const commentSubmitSuccess = (comment) => {
+  const createCommetSuccess = (comment) => {
     setItems((prevComment) => [comment, ...prevComment]);
+  };
+
+  const updateCommetSuccess = (comment) => {
+    setItems((prevComment) => {
+      const splitIdx = prevComment.findIndex((item) => item.id === comment.id);
+      return [
+        ...prevComment.splice(0, splitIdx),
+        comment,
+        ...prevComment.splice(splitIdx + 1),
+      ];
+    });
   };
 
   useEffect(() => {
     commentLoad(order);
   }, [order]);
 
+  
   return (
     <div>
       <div>
         <button onClick={newestClick}>최신순</button>
         <button onClick={bestClick}>베스트순</button>
       </div>
-      <CommentForm onSubmitSuccess={commentSubmitSuccess}/>
-      <CommentList items={sortedItems} onDelete={commentDelete} />
+      <CommentForm
+        onSubmit={createComment}
+        onSubmitSuccess={createCommetSuccess}
+      />
+      <CommentList
+        items={sortedItems}
+        onDelete={commentDelete}
+        onUpdate={updateComment}
+        onUpdateSuccess={updateCommetSuccess}
+      />
       {loadingError?.message && <span>{loadingError.message}</span>}
     </div>
   );

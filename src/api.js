@@ -19,17 +19,6 @@ export async function createArticle(formData) {
   return body;
 }
 
-export async function deleteArticle(id) {
-  const response = await fetch(`https://learn.codeit.kr/1636/foods/${id}`, {
-    method: "DELETE",
-  });
-  if (!response.ok) {
-    throw new Error("삭제에 실패하였습니다");
-  }
-  const body = await response.json();
-  return body;
-}
-
 export async function updateArticle(id, formData) {
   const response = await fetch(`https://learn.codeit.kr/1636/foods/${id}`, {
     method: "PUT",
@@ -37,6 +26,17 @@ export async function updateArticle(id, formData) {
   });
   if (!response.ok) {
     throw new Error("수정하는데 실패하였습니다");
+  }
+  const body = await response.json();
+  return body;
+}
+
+export async function deleteArticle(id) {
+  const response = await fetch(`https://learn.codeit.kr/1636/foods/${id}`, {
+    method: "DELETE",
+  });
+  if (!response.ok) {
+    throw new Error("삭제에 실패하였습니다");
   }
   const body = await response.json();
   return body;
@@ -62,6 +62,21 @@ export async function createComment(formData) {
   });
   if (!response.ok) {
     throw new Error("생성하는데 실패하였습니다");
+  }
+  const body = await response.json();
+  return body;
+}
+
+export async function updateComment(id, formData) {
+  const response = await fetch(
+    `https://learn.codeit.kr/4514/film-reviews/${id}`,
+    {
+      method: "PUT",
+      body: formData,
+    }
+  );
+  if (!response.ok) {
+    throw new Error("수정하는데 실패하였습니다");
   }
   const body = await response.json();
   return body;
