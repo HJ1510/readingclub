@@ -51,9 +51,8 @@ function Comment() {
 
   useEffect(() => {
     commentLoad(order);
-  }, [order]);
+  }, []);
 
-  
   return (
     <div>
       <div>

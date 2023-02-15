@@ -6,9 +6,7 @@ function NewBoard() {
     <div>
       <h2>모임후기 게시판</h2>
       <ArticleList />
-      <Link to="/meeting/write">
-        <button>글쓰기</button>
-      </Link>
+      
     </div>
   );
 }

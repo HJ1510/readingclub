@@ -45,3 +45,7 @@
   cursor: pointer;
   background-color: white;
 }
+
+.inline {
+  display: inline;
+}
