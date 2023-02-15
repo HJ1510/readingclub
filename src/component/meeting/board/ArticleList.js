@@ -11,23 +11,23 @@ function ArticleList() {
   const [search, setSearch] = useState("");
   const { _embedded } = mockItems;
 
-  const listLoad = async (search) => {
-    const { articles } = _embedded;
-    setItems(articles);
-  };
-
-  useEffect(() => {
-    listLoad(search);
-  }, []);
-
   // const listLoad = async (search) => {
-  //   const { foods } = await getArticle(search={search});
-  //   setItems(foods);
+  //   const { articles } = _embedded;
+  //   setItems(articles);
   // };
 
   // useEffect(() => {
   //   listLoad(search);
   // }, []);
+
+  const listLoad = async (search) => {
+    const { foods } = await getArticle(search={search});
+    setItems(foods);
+  };
+
+  useEffect(() => {
+    listLoad(search);
+  }, []);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();

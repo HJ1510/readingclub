@@ -9,7 +9,7 @@ const INITIAL_VALUES = {
   imgFile: null,
 };
 
-function CommentForm() {
+function CommentForm({ onSubmitSuccess }) {
   const [values, setValues] = useState(INITIAL_VALUES);
   const [isSubmitting, setIsubmitting] = useState(false);
 
@@ -28,17 +28,19 @@ function CommentForm() {
     formData.append("title", "제목");
     formData.append("rating", 2);
 
-
+    let result;
     try {
       setSubmittingError(null);
       setIsubmitting(true);
-      await createComment(formData);
+      result = await createComment(formData);
     } catch (error) {
       setSubmittingError(error);
       return;
     } finally {
       setIsubmitting(false);
     }
+    const { review } = result;
+    onSubmitSuccess(review);
     setValues(INITIAL_VALUES);
   };
 
