@@ -1,0 +1,14 @@
+
+
+.header{
+  height: 70px;
+  background-color:white;
+  text-align: center;
+  margin-top: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.panel{
+
+  height: 400px;
+  width: 500px;
+}
