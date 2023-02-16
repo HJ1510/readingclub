@@ -33,10 +33,10 @@ function ArticleList() {
     listLoad(search);
   }, []);
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    setSearch(e.target["search"].value);
-  };
+  // const handleSearchSubmit = (e) => {
+  //   e.preventDefault();
+  //   setSearch(e.target["search"].value);
+  // };
 
   return (
     <div>
@@ -67,9 +67,9 @@ function ArticleList() {
         {items
           ? items.map((item) => {
               return (
-                <div key={item.createdAt}>
+                <div key={item.id}>
                   <Row>
-                    <Col>{item.createdAt}</Col>
+                    <Col>{item.id}</Col>
                     <Col md={4}>
                       <Link to={`${item.id}`}>{item.title}</Link>
                     </Col>

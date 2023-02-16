@@ -35,7 +35,7 @@ function ArticleWrite() {
 
     await createArticle(formData);
 
-    setValues(INITIAL_VALUES);
+    setValues(values);
   };
 
   return (
