@@ -1,6 +1,5 @@
 .Meeting {
   width: 100%;
-
   text-align: center;
 }
 
@@ -15,8 +14,12 @@
 }
 
 .Meeting .Catergory {
-  margin-top: 20%;
-  margin-left: -5%;
+  margin-top: 5%;
+  margin-left: 5%;
+}
+
+.Meeting .sort {
+  float: right;
 }
 
 /* 일요일 날짜: 빨간색 */
