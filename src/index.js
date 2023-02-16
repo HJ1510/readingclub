@@ -1,25 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-import { Provider } from 'react-redux';
-import { applyMiddleware, createStore } from 'redux';
-import promiseMiddleware from 'redux-promise';
-import ReduxThunk from 'redux-thunk';
-import Reducer from './reducers'
+import App from "./App";
 
-const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore);
+import { Provider } from "react-redux";
+import { applyMiddleware, legacy_createStore as createStore } from "redux";
+import promiseMiddleware from "redux-promise";
+import ReduxThunk from "redux-thunk";
+import Reducer from "./reducers";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Provider 
-      store={createStoreWithMiddleware(Reducer, 
-          window.__REDUX_DEVTOOLS_EXTENSION__ &&
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+const createStoreWithMiddleware = applyMiddleware(
+  promiseMiddleware,
+  ReduxThunk
+)(createStore);
+
+root.render(
+  
+    <Provider
+      store={createStoreWithMiddleware(
+        Reducer,
+        window.__REDUX_DEVTOOLS_EXTENSION__ &&
           window.__REDUX_DEVTOOLS_EXTENSION__()
-        )}>
+      )}
+    >
       <App />
     </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  
 );

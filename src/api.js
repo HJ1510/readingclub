@@ -7,6 +7,7 @@ export async function getArticle(search="") {
   return body;
 }
 
+
 export async function createArticle(formData) {
   const response = await fetch("https://learn.codeit.kr/1636/foods", {
     method: "POST",

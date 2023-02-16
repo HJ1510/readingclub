@@ -4,26 +4,31 @@ import Footer from 'layout/Footer';
 import TestEditorForm from './WriteEditor';
 import { PieChartComponent } from "./PieChartComponent";
 import "../../assets/css/component/note/Writebook.css";
+import Chart from "./Chart";
+import Chartdata from './Chartdata';
+import Layout from './../../layout/Layout';
+import { Container } from "react-bootstrap";
 
 function Writebook(){
     return(
-        <div>
-            <Header></Header>
-            
-            <div className="writebook">
+     <div>
+            <Layout>
+          <Container style={{height:"1000px"}}>
+         
+         
+            <TestEditorForm>
                 
-            <div className="writemain">
-                
-            <TestEditorForm></TestEditorForm>
+            </TestEditorForm>
           
-                </div>
+   
                 
-            </div>
+         
            <div>
-           <PieChartComponent></PieChartComponent>
+        
            </div>
-            <Footer></Footer>
-        </div>
+           </Container>
+          </Layout>
+          </div>
     )
 }
 export default Writebook;

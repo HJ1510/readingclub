@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Layout from "layout/Layout";
 import { getArticle, deleteArticle } from "api";
 import Comment from "component/comment";
+import App from './../../../App';
 
 function ArticleView() {
   const [data, setData] = useState({});
@@ -14,11 +15,14 @@ function ArticleView() {
   useEffect(() => {
     const articleLoad = async (id) => {
       const { foods } = await getArticle();
-
+   
+    
       const article = foods.filter((item) => item.id === parseInt(id));
 
       // console.log(article);
       setData(article[0]);
+      console.log(foods)
+   
     };
     articleLoad(id);
     // console.log(`2+${id}`);

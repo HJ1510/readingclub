@@ -73,7 +73,7 @@ function WriteEditor(){
   const [viewContent, setViewContent] = useState([]);
 
   useEffect(()=>{
-    axios.get('http://localhost:5000/api/notelist').then((response)=>{
+    axios.get('/api/notelist').then((response)=>{
       setViewContent(response.data);
 
     })

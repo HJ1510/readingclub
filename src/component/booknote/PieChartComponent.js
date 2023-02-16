@@ -3,30 +3,30 @@ import { useEffect ,useState} from "react";
 import { PieChart, Pie,  Cell } from "recharts";
 import axios from "axios";
 import * as PieCharts from "./style";
-PieChartComponent.defaultProps = {
-  codeRatioArray: [
-    { value: 44.53 },
-    {  value: 35.57 },
-    { value: 13.27 },
-    {  value: 6.64 },
-  ],
-};
 
 
 
-export function PieChartComponent({ codeRatioArray }) {
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
+export function PieChartComponent() {
+ 
 
   const [date,setDate] =useState([]);
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 useEffect(()=>{
   axios.get("/api/category")
   .then((response) =>{
     
     setDate(response.data)
-
-  })      
+   
+  }); 
+     
 },[])
+
+const datename =date.map(v => v.name);
+const nodate = date.map(v => v.value);
+
+
   return (
 
 
@@ -40,11 +40,15 @@ useEffect(()=>{
           {date &&
             date.map((it, idx) => (
               <PieCharts.LangColorBoxWrapper key={`${it.name}-${it.value}`} >
+         
                 <PieCharts.LangColorBox idx={COLORS[idx]} />
                 <div>
                   <PieCharts.LangText>{it.value}%</PieCharts.LangText>
+               
                   <PieCharts.LangText>{it.name}</PieCharts.LangText>
                 </div>
+                       
+         
               </PieCharts.LangColorBoxWrapper>
             ))}
         </PieCharts.RatioWrapper>
@@ -52,31 +56,33 @@ useEffect(()=>{
               
       <PieCharts.PieWrapper>
         <PieChart width={200} height={200}>
-
-          
-              <Pie
-          
-              data={date.value}
-              cx="50%"
-              cy="50%"
-              innerRadius={40}
-              outerRadius={70}
-              fill="#8884d8"
-              dataKey="value" 
-        
-              
-            >
-                </Pie>
        
-        
-            {date.map((entry, index) => (
+  <Pie
+            
+  data={date}
+  cx="50%"
+  cy="50%"
+  innerRadius={40}
+  outerRadius={70}
+  paddingAngle={2}
+  fill="#8884d8"
+  dataKey="value" 
+
+
+  
+>
+      
+    </Pie>
+            
+                
+        </PieChart>
+        {date.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={COLORS[index % COLORS.length]}
               />
             ))}
-        
-        </PieChart>
+            
       </PieCharts.PieWrapper>
       <div>
         <h1></h1>
