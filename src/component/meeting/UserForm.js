@@ -1,4 +1,5 @@
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "../../assets/css/component/meeting/Meeting.css";
 
 function UserForm() {
@@ -24,9 +25,11 @@ function UserForm() {
           <button>모임2</button>
         </p>
         <p>
-          <Button variant="outline-danger" size="lg">
-            모임개설
-          </Button>
+          <Link to="/meeting/createmeeting">
+            <Button variant="outline-danger" size="lg">
+              모임개설
+            </Button>
+          </Link>
         </p>
       </div>
     </div>

@@ -37,7 +37,7 @@ const meetingList = [
     maxNum: 12,
     firstDate: "2023-02-25",
     location: "서울",
-    hashTags: ["#1", "#2", "#3"],
+    hashTags: ["#1", "#2"],
   },
 ];
 
