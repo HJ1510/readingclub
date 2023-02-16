@@ -5,7 +5,7 @@ const meetingList = [
     maxNum: 5,
     firstDate: "2023-02-21",
     location: "서울",
-    hashTag: "해시태그",
+    hashTags: ["#1", "#2", "#3"],
   },
   {
     no: 2,
@@ -13,7 +13,7 @@ const meetingList = [
     maxNum: 6,
     firstDate: "2023-02-22",
     location: "서울",
-    hashTag: "해시태그",
+    hashTags: ["#1", "#2", "#3"],
   },
   {
     no: 3,
@@ -21,7 +21,7 @@ const meetingList = [
     maxNum: 4,
     firstDate: "2023-02-23",
     location: "서울",
-    hashTag: "해시태그",
+    hashTags: ["#1", "#2", "#3"],
   },
   {
     no: 4,
@@ -29,7 +29,7 @@ const meetingList = [
     maxNum: 3,
     firstDate: "2023-02-24",
     location: "서울",
-    hashTag: "해시태그",
+    hashTags: ["#1", "#2", "#3"],
   },
   {
     no: 5,
@@ -37,7 +37,7 @@ const meetingList = [
     maxNum: 12,
     firstDate: "2023-02-25",
     location: "서울",
-    hashTag: "해시태그",
+    hashTags: ["#1", "#2", "#3"],
   },
 ];
 
