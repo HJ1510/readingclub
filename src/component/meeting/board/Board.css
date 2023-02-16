@@ -25,7 +25,7 @@
   width: 91%;
   resize: none;
   border: none;
-  height: 500px;
+  height: 200px;
 }
 
 #content_txt:focus {
@@ -44,4 +44,8 @@
   border: solid 1px #ababab;
   cursor: pointer;
   background-color: white;
+}
+
+.inline {
+  display: inline;
 }

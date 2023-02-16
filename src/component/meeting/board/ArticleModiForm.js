@@ -36,13 +36,8 @@ function ArticleModiForm() {
 
     await updateArticle(id, formData);
 
-    setValues(INITIAL_VALUES);
+    setValues(values);
   };
-
-  // const onUpdate = () => {
-  //   updateArticle(id);
-  //   return;
-  // };
 
   return (
     <div>

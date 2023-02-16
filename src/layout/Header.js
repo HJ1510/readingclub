@@ -1,5 +1,5 @@
 import MainImg from "../assets/images/tmpheader2.jpg";
-import "../assets/css/layout/Header.css";
+import "assets/css/layout/Layout.css";
 import { Link } from "react-router-dom";
 
 function Header() {
