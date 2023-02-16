@@ -46,15 +46,15 @@ function MeetingList() {
                         <p>모임날짜: {item.firstDate}</p>
                         <p>정원: {item.maxNum}</p>
                         <p>모임지역: {item.location}</p>
-                        <Link to={""}>
-                          {item.hashTags.map((hashTag, idx) => {
-                            return (
-                              <p className="hashTag" key={idx}>
-                                {hashTag}
-                              </p>
-                            );
-                          })}
-                        </Link>
+                        {/* <Link to={""}> */}
+                        {item.hashTags.map((hashTag, idx) => {
+                          return (
+                            <p className="hashTag" key={idx}>
+                              {hashTag}
+                            </p>
+                          );
+                        })}
+                        {/* </Link> */}
                       </Col>
                     </Row>
                   </Link>
