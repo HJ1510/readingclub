@@ -8,6 +8,7 @@ import ReduxThunk from "redux-thunk";
 import Reducer from "./reducers";
 import "bootstrap/dist/css/bootstrap.css";
 
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const createStoreWithMiddleware = applyMiddleware(
   promiseMiddleware,
