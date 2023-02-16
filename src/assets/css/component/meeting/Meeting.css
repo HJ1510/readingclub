@@ -1,22 +1,25 @@
 .Meeting {
   width: 100%;
-
   text-align: center;
 }
 
 .Meeting .Calender {
-  width: 50%;
+  width: 80%;
   margin: 20px;
 }
 
 .Meeting .LoginForm {
-  float: right;
-  margin-right: 10%;
+  float: left;
+  margin-top: 15%;
 }
 
 .Meeting .Catergory {
-  margin-top: 20%;
-  margin-left: -5%;
+  margin-top: 5%;
+  margin-left: 5%;
+}
+
+.Meeting .sort {
+  float: right;
 }
 
 /* 일요일 날짜: 빨간색 */
