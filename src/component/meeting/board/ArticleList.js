@@ -7,15 +7,28 @@ import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
 import { getArticle } from "api";
 import { useEffect, useState } from "react";
-// import mockItems from "mock.json";
 import "./Board.css";
+import mockItems from "mock.json";
 
 function ArticleList() {
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState("");
-  // const { _embedded } = mockItems;
 
+  // mockjson
+  const { _embedded } = mockItems;
+
+  const listLoad = () => {
+    const { articles } = _embedded;
+    setItems(articles);
+  };
+
+  useEffect(() => {
+    listLoad();
+  }, []);
+
+  // 백엔드 api
   // const listLoad = async (search) => {
+  //   const { _embedded } = await getArticle();
   //   const { articles } = _embedded;
   //   setItems(articles);
   // };
@@ -24,15 +37,15 @@ function ArticleList() {
   //   listLoad(search);
   // }, []);
 
-  const listLoad = async () => {
-    const { _embedded } = await getArticle();
-    const { articles } = _embedded;
-    setItems(articles);
-  };
+  // 코드잇 api
+  // const listLoad = async () => {
+  //   const { foods } = await getArticle();
+  //   setItems(foods);
+  // };
 
-  useEffect(() => {
-    listLoad();
-  }, []);
+  // useEffect(() => {
+  //   listLoad();
+  // }, []);
 
   // const handleSearchSubmit = (e) => {
   //   e.preventDefault();
