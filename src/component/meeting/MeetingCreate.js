@@ -6,13 +6,22 @@ import "assets/css/Calendar.css";
 import { useCallback, useState } from "react";
 import { Calendar } from "react-calendar";
 
-// // const checkboxList = ["글쓰기", "토론"];
 const meetingTypeList = ["글쓰기", "토론"];
 const meetingCategoryList = ["소설", "시", "인문"];
 
 function MeetingCreate() {
-  const [isCheckedType, setIsCheckedType] = useState("false");
-  const [isCheckedCategory, setIsCheckedCategory] = useState("false");
+  const [meetingType, setMeetingType] = useState([]);
+  const [meetingCategory, setMeetingCategory] = useState([]);
+
+  const onMeetingTypeChecked = (selected) => {
+    setMeetingType(selected);
+    console.log(selected);
+  };
+
+  const onMeetingCategoryChecked = (selected) => {
+    setMeetingCategory(selected);
+    console.log(selected);
+  };
 
   return (
     <Layout>
@@ -30,8 +39,16 @@ function MeetingCreate() {
                 <input
                   type="checkbox"
                   id={item}
-                  checked={true}
-                  // checked="" onChange=""
+                  checked={meetingType?.includes(item)}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      onMeetingTypeChecked([...meetingType, item]);
+                    } else {
+                      onMeetingTypeChecked(
+                        meetingType.filter((_item) => _item !== item)
+                      );
+                    }
+                  }}
                 />
                 <label htmlFor={item}>{item}</label>
               </div>
@@ -47,7 +64,16 @@ function MeetingCreate() {
               <input
                 type="checkbox"
                 id={item}
-                // checked="" onChange=""
+                checked={meetingCategory?.includes(item)}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    onMeetingCategoryChecked([...meetingCategory, item]);
+                  } else {
+                    onMeetingCategoryChecked(
+                      meetingCategory.filter((_item) => _item !== item)
+                    );
+                  }
+                }}
               />
               <label htmlFor={item}>{item}</label>
             </div>
