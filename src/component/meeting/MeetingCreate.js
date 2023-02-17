@@ -2,7 +2,9 @@ import Layout from "layout/Layout";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "../../assets/css/component/meeting/Meeting.css";
+import "assets/css/Calendar.css";
 import { useCallback, useState } from "react";
+import { Calendar } from "react-calendar";
 
 // // const checkboxList = ["글쓰기", "토론"];
 const meetingTypeList = ["글쓰기", "토론"];
@@ -72,7 +74,7 @@ function MeetingCreate() {
       </Row>
       <Row>
         <Col>
-          < />
+          <Calendar />
         </Col>
       </Row>
       <Row>
