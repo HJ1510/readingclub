@@ -4,7 +4,9 @@ import Col from "react-bootstrap/Col";
 import "../../assets/css/component/meeting/Meeting.css";
 import { useCallback, useState } from "react";
 
-const checkboxList = ["글쓰기", "토론"];
+// const checkboxList = ["글쓰기", "토론"];
+const meetingTypeList = ["글쓰기", "토론"];
+const meetingCategoryList = ["소설", "시", "인문"];
 
 function MeetingCreate() {
   const [checkedList, setCheckedList] = useState([]);
@@ -32,9 +34,10 @@ function MeetingCreate() {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      console.log("checkedList:", checkboxList);
+      console.log("meetingTypeList:", meetingTypeList);
+      console.log("meetingCategoryList:", meetingCategoryList);
     },
-    [checkboxList]
+    [meetingTypeList, meetingCategoryList]
   );
 
   return (
@@ -46,12 +49,12 @@ function MeetingCreate() {
       </Row>
       <form onSubmit={onSubmit}>
         <Row>
-          {checkboxList.map((item, idx) => (
+          {meetingTypeList.map((item, idx) => (
             <div key={idx}>
               <input
                 type="checkbox"
                 id={item}
-                checked={checkboxList.includes(item)} // 여기부터 봐야할것
+                checked={meetingTypeList.includes(item)} // 여기부터 봐야할것
                 onChange={(e) => checkedHandler(e, item)}
               />
               <label htmlFor={item}>{item}</label>
@@ -60,28 +63,66 @@ function MeetingCreate() {
         </Row>
       </form>
       <Row>
-        <Col>카테고리</Col>
+        <Col>
+          {meetingCategoryList.map((item, idx) => (
+            <div key={idx}>
+              <input
+                type="checkbox"
+                id={item}
+                checked={meetingCategoryList.includes(item)} // 여기부터 봐야할것
+                onChange={(e) => checkedHandler(e, item)}
+              />
+              <label htmlFor={item}>{item}</label>
+            </div>
+          ))}
+          <input type="checkbox"></input>
+          <label>카테고리</label>
+          <input type="checkbox"></input>
+          <label>카테고리</label>
+          <input type="checkbox"></input>
+          <label>카테고리</label>
+        </Col>
       </Row>
       <Row>
-        <Col>해시태크</Col>
+        <Col>
+          <input type="text" placeholder="해시태그" />
+        </Col>
       </Row>
       <Row>
-        <Col>장소</Col>
+        <Col>
+          <input type="text" placeholder="장소" />
+        </Col>
       </Row>
       <Row>
-        <Col>인원</Col>
+        <Col>
+          <input type="text" placeholder="인원" />
+        </Col>
       </Row>
       <Row>
-        <Col>소개</Col>
+        <Col>
+          <textarea name="content" placeholder="내용을 입력하세요" />
+        </Col>
       </Row>
       <Row>
         <Col>일정</Col>
       </Row>
       <Row>
-        <Col>성별 공개 여부</Col>
+        <Col>
+          성별
+          <input type="checkbox"></input>
+          <label>공개</label>
+          <input type="checkbox"></input>
+          <label>비공개</label>
+        </Col>
       </Row>
       <Row>
-        <Col>나이 공개 여부</Col>
+        <Col>
+          나이
+          <input type="checkbox"></input>
+          <label>공개</label>
+          <input type="checkbox"></input>
+          <label>비공개</label>
+        </Col>
       </Row>
 
       <Row>

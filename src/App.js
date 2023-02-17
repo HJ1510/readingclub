@@ -35,7 +35,6 @@ const App = () => {
         <Route path="booknote">
           <Route index element={<Booknote />} />
           <Route path="mynote" element={<Note />} />
-
           <Route path="writebook" element={<Writebook />} />
           <Route path=":no" element={<Booknoteno></Booknoteno>} />
         </Route>
