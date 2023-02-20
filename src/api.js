@@ -1,14 +1,5 @@
-// export async function getArticle(search = "") {
-//   const response = await fetch(`https://learn.codeit.kr/1636/foods?${search}`);
-//   if (!response.ok) {
-//     throw new Error("불러오는데 실패하였습니다");
-//   }
-//   const body = await response.json();
-//   return body;
-// }
-
 export async function getArticle(search = "") {
-  const response = await fetch("/api/articles");
+  const response = await fetch(`https://learn.codeit.kr/1636/foods?${search}`);
   if (!response.ok) {
     throw new Error("불러오는데 실패하였습니다");
   }
@@ -17,7 +8,7 @@ export async function getArticle(search = "") {
 }
 
 export async function createArticle(formData) {
-  const response = await fetch("/api/articles", {
+  const response = await fetch("https://learn.codeit.kr/1636/foods", {
     method: "POST",
     body: formData,
   });
@@ -28,8 +19,17 @@ export async function createArticle(formData) {
   return body;
 }
 
+// export async function getArticle(search = "") {
+//   const response = await fetch("/api/articles");
+//   if (!response.ok) {
+//     throw new Error("불러오는데 실패하였습니다");
+//   }
+//   const body = await response.json();
+//   return body;
+// }
+
 // export async function createArticle(formData) {
-//   const response = await fetch("https://learn.codeit.kr/1636/foods", {
+//   const response = await fetch("/api/articles", {
 //     method: "POST",
 //     body: formData,
 //   });

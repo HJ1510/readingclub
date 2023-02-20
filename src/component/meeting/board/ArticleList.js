@@ -15,16 +15,16 @@ function ArticleList() {
   const [search, setSearch] = useState("");
 
   // mockjson
-  const { _embedded } = mockItems;
+  // const { _embedded } = mockItems;
 
-  const listLoad = () => {
-    const { articles } = _embedded;
-    setItems(articles);
-  };
+  // const listLoad = () => {
+  //   const { articles } = _embedded;
+  //   setItems(articles);
+  // };
 
-  useEffect(() => {
-    listLoad();
-  }, []);
+  // useEffect(() => {
+  //   listLoad();
+  // }, []);
 
   // 백엔드 api
   // const listLoad = async (search) => {
@@ -38,14 +38,14 @@ function ArticleList() {
   // }, []);
 
   // 코드잇 api
-  // const listLoad = async () => {
-  //   const { foods } = await getArticle();
-  //   setItems(foods);
-  // };
+  const listLoad = async () => {
+    const { foods } = await getArticle();
+    setItems(foods);
+  };
 
-  // useEffect(() => {
-  //   listLoad();
-  // }, []);
+  useEffect(() => {
+    listLoad();
+  }, []);
 
   // const handleSearchSubmit = (e) => {
   //   e.preventDefault();

@@ -26,109 +26,105 @@ function MeetingCreate() {
   return (
     <Layout>
       <form /*onSubmit=""*/>
-        <Row>
-          <Col>
-            <input type="text" placeholder="모임명"></input>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col>
-            모임방식
-            {meetingTypeList.map((item, idx) => (
-              <div key={idx}>
-                <input
-                  type="checkbox"
-                  id={item}
-                  checked={meetingType?.includes(item)}
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      onMeetingTypeChecked([...meetingType, item]);
-                    } else {
-                      onMeetingTypeChecked(
-                        meetingType.filter((_item) => _item !== item)
-                      );
-                    }
-                  }}
-                />
-                <label htmlFor={item}>{item}</label>
-              </div>
-            ))}
-          </Col>
-        </Row>
-
-        <Row>
-          <Col>
-            카테고리
-            {meetingCategoryList.map((item, idx) => (
-              <div key={idx}>
-                <input
-                  type="checkbox"
-                  id={item}
-                  checked={meetingCategory?.includes(item)}
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      onMeetingCategoryChecked([...meetingCategory, item]);
-                    } else {
-                      onMeetingCategoryChecked(
-                        meetingCategory.filter((_item) => _item !== item)
-                      );
-                    }
-                  }}
-                />
-                <label htmlFor={item}>{item}</label>
-              </div>
-            ))}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <input type="text" placeholder="해시태그" />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <input type="text" placeholder="장소" />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <input type="text" placeholder="인원" />
-          </Col>
-        </Row>
-        <Row>
-          <Col>소개</Col>
-        </Row>
-        <Row>
-          <Col>
-            <Calendar />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            성별
-            <input type="checkbox"></input>
-            <label>공개</label>
-            <input type="checkbox"></input>
-            <label>비공개</label>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            나이
-            <input type="checkbox"></input>
-            <label>공개</label>
-            <input type="checkbox"></input>
-            <label>비공개</label>
-          </Col>
-        </Row>
+        <label htmlFor="meeting_title">모임명</label>
+        <input type="text" placeholder="모임명" id="meeting_title"></input>
+        <div>
+          모임방식
+          {meetingTypeList.map((item, idx) => (
+            <div key={idx}>
+              <input
+                name="meetingType"
+                type="checkbox"
+                id={item}
+                checked={meetingType?.includes(item)}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    onMeetingTypeChecked([...meetingType, item]);
+                  } else {
+                    onMeetingTypeChecked(
+                      meetingType.filter((_item) => _item !== item)
+                    );
+                  }
+                }}
+              />
+              <label htmlFor={item}>{item}</label>
+            </div>
+          ))}
+        </div>
+        <div>
+          카테고리
+          {meetingCategoryList.map((item, idx) => (
+            <div key={idx}>
+              <input
+                name="meetingCategory"
+                type="checkbox"
+                id={item}
+                checked={meetingCategory?.includes(item)}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    onMeetingCategoryChecked([...meetingCategory, item]);
+                  } else {
+                    onMeetingCategoryChecked(
+                      meetingCategory.filter((_item) => _item !== item)
+                    );
+                  }
+                }}
+              />
+              <label htmlFor={item}>{item}</label>
+            </div>
+          ))}
+        </div>
+        <div>
+          <label htmlFor="hashtag">hashtag</label>
+          <input type="text" placeholder="해시태그" id="hashtag" />
+        </div>
+        <div>
+          <label htmlFor="location">장소</label>
+          <input type="text" placeholder="장소" id="location" />
+        </div>
+        <div>
+          <label htmlFor="max_num">정원</label>
+          <input
+            type="number"
+            placeholder="2~10"
+            id="max_num"
+            min="2"
+            max="10"
+          />
+        </div>
+        <div>
+          <label htmlFor="content">소개</label>
+          <textarea name="content" id="content"></textarea>
+        </div>
+        <div>
+          첫 모임일
+          <input type="date" />
+          <Calendar />
+        </div>
+        <div>
+          <label>성별</label>
+          <label htmlFor="sex">
+            <input name="sex" value="male" type="radio" />
+            남성
+          </label>
+          <label>
+            <input name="sex" value="female" type="radio" />
+            여성
+          </label>
+        </div>
+        <div>
+          <label>나이</label>
+          <label htmlFor="age">
+            <input name="age" value="true" type="radio" />
+            공개
+          </label>
+          <label>
+            <input name="age" value="false" type="radio" />
+            비공개
+          </label>
+        </div>
       </form>
-
-      <Row>
-        <Col>
-          <button>모임개설</button>
-        </Col>
-      </Row>
+      <button type="submit">모임개설</button>
     </Layout>
   );
 }

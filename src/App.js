@@ -15,6 +15,7 @@ import Booknote from "component/booknote/Booknote";
 import Writebook from "./component/booknote/Writebook";
 import Booknoteno from "./component/booknote/Booknoteno";
 import MeetingCreate from "component/meeting/MeetingCreate";
+import MeetingCreate2 from "component/meeting/MeetingCreate2";
 
 const App = () => {
   return (
@@ -29,7 +30,7 @@ const App = () => {
           <Route path=":no/:id" element={<ArticleView />} />
           <Route path="write" element={<ArticleWrite />} />
           <Route path=":no/:id/modi" element={<ArticleModiForm />} />
-          <Route path="createmeeting" element={<MeetingCreate />} />
+          <Route path="createmeeting" element={<MeetingCreate2 />} />
         </Route>
         <Route path="community" element={<Community />} />
         <Route path="booknote">
