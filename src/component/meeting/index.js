@@ -16,8 +16,8 @@ function Meeting() {
         <Container>
           <h1>meeting</h1>
           <Row>
-            <Col md={8}>{<MeetingCalender />}</Col>
-            <Col md={4}>{<UserForm />}</Col>
+            <Col md={9}>{<MeetingCalender />}</Col>
+            <Col md={3}>{<UserForm />}</Col>
           </Row>
           <Row className="Catergory">
             <Col>

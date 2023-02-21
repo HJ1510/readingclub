@@ -1,111 +1,130 @@
 import Layout from "layout/Layout";
 import { useState } from "react";
 
+const INITIAL_VALUES = {
+  title: "",
+  type: [false, false],
+  content: "",
+  createAt: null,
+  hashTag: [],
+  location: "",
+  maxNum: "",
+  sex: "",
+};
+
 function MeetingCreate2() {
-  // 초기값 세팅
-  const [title, setTitle] = useState("");
-  const [type, setType] = useState("");
-  const [hashtag, setHashtag] = useState("");
-  const [location, setLocation] = useState("");
-  const [maxNum, setMaxNum] = useState("");
-  const [content, setContent] = useState("");
-  const [sex, setSex] = useState("");
-  const [age, setAge] = useState("");
+  const [meetingName, setMeetingName] = useState("");
+  const [capacity, setCapacity] = useState("");
+  const [topics, setTopics] = useState({ writing: false, discussion: false });
+  const [hashtags, setHashtags] = useState([]);
+  const [gender, setGender] = useState("");
 
-  // 오류메세지
-  const [titleMessage, setTitleMessage] = useState("");
-  const [typeMessage, setTypeMessage] = useState("");
-  const [hashtagMessage, setHashtagMessage] = useState("");
-  const [locationMessage, setLocationMessage] = useState("");
-  const [maxNumMessage, setMaxNumMessage] = useState("");
-  const [contentMessage, setContentMessage] = useState("");
-  const [sexMessage, setSexMessage] = useState("");
-  const [ageMessage, setAgeMessage] = useState("");
+  const handleMeetingNameChange = (event) => {
+    setMeetingName(event.target.value);
+  };
 
-  // 유효성 검사
-  const [isTitle, setIsTitle] = useState(false);
-  const [isType, setIsType] = useState(false);
-  const [isHashtag, setIsHashtag] = useState(false);
-  const [isLocation, setIsLocation] = useState(false);
-  const [isMaxNum, setIsMaxNum] = useState(false);
-  const [isContent, setIsContent] = useState(false);
-  const [isSex, setIsSex] = useState(false);
-  const [isAge, setIsAge] = useState(false);
+  const handleCapacityChange = (event) => {
+    const value = parseInt(event.target.value);
+    setCapacity(value);
+  };
+
+  const handleTopicChange = (event) => {
+    const { name, checked } = event.target;
+    setTopics((prevState) => ({
+      ...prevState,
+      [name]: checked,
+    }));
+  };
+
+  const handleHashtagsChange = (event) => {
+    const value = event.target.value;
+    const tags = value.split(" ");
+    setHashtags(tags);
+  };
+
+  const handleGenderChange = (event) => {
+    setGender(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(`Meeting name: ${meetingName}`);
+    console.log(`Capacity: ${capacity}`);
+    console.log(`Topics: ${JSON.stringify(topics)}`);
+    console.log(`Hashtags: ${JSON.stringify(hashtags)}`);
+    console.log(`Gender: ${gender}`);
+  };
 
   return (
     <Layout>
-      <div className="">
-        <label htmlFor="meeting_title">모임명</label>
-        <input
-          type="text"
-          id="meeting_title"
-          name="meeting_title"
-          value={""}
-          onChange={""}
-          placeholder="모임명"
-        />
-      </div>
-      <div>
-        <label htmlFor="meeting_type">모임 방식</label>
+      <form onSubmit={handleSubmit}>
         <label>
-          글쓰기
+          Meeting name:
           <input
-            type="checkbox"
-            id="meeting_type"
-            name="meeting_type"
-            value="writing"
-            onChange={""}
+            type="text"
+            value={meetingName}
+            onChange={handleMeetingNameChange}
           />
         </label>
+        <br />
         <label>
-          토론
+          Capacity:
           <input
-            type="checkbox"
-            id="meeting_type"
-            name="meeting_type"
-            value="discussion"
-            onChange={""}
+            type="number"
+            value={capacity}
+            onChange={handleCapacityChange}
           />
         </label>
-      </div>
-      <div>
-        <label htmlFor="hashtag">hashtag</label>
-        <input type="text" placeholder="해시태그" id="hashtag" />
-      </div>
-      <div>
-        <label htmlFor="location">장소</label>
-        <input type="text" placeholder="장소" id="location" />
-      </div>
-      <div>
-        <label htmlFor="max_num">정원</label>
-        <input type="number" placeholder="2~10" id="max_num" min="2" max="10" />
-      </div>
-      <div>
-        <label htmlFor="content">소개</label>
-        <textarea name="content" id="content"></textarea>
-      </div>
-      <div>
-        <label>성별</label>
-        <label htmlFor="sex">
-          <input name="sex" value="male" type="radio" />
-          남성
-        </label>
+        <br />
         <label>
-          <input name="sex" value="female" type="radio" />
-          여성
+          Topics:
+          <input
+            type="checkbox"
+            name="writing"
+            checked={topics.writing}
+            onChange={handleTopicChange}
+          />{" "}
+          Writing
+          <input
+            type="checkbox"
+            name="discussion"
+            checked={topics.discussion}
+            onChange={handleTopicChange}
+          />{" "}
+          Discussion
         </label>
-      </div>
-      <div>
-        <label>나이</label>
-        <label htmlFor="age">
-          <input name="age" value="true" type="radio" />
-          공개
-        </label>
+        <br />
         <label>
-          <input name="age" value="false" type="radio" />
-          비공개
+          Hashtags:
+          <input
+            type="text"
+            value={hashtags.join(" ")}
+            onChange={handleHashtagsChange}
+          />
         </label>
-      </div>
+        <br />
+        <label>
+          Gender:
+          <input
+            type="radio"
+            name="gender"
+            value="male"
+            checked={gender === "male"}
+            onChange={handleGenderChange}
+          />{" "}
+          Male
+          <input
+            type="radio"
+            name="gender"
+            value="female"
+            checked={gender === "female"}
+            onChange={handleGenderChange}
+          />{" "}
+          Female
+        </label>
+        <br />
+        <button type="submit">Submit</button>
+      </form>
     </Layout>
   );
 }

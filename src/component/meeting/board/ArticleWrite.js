@@ -28,7 +28,7 @@ function ArticleWrite() {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // preventDefault(): 기본 동작 막는 함수
-
+    // console.log(e.target.title);
     const formData = new FormData();
     formData.append("title", values.title);
     formData.append("content", values.content);
