@@ -13,7 +13,7 @@ function MeetingCalender() {
           { title: "모임2", date: "2023-02-07" },
         ]}
         weekends={true}
-        height="700px"
+        height="500px"
       />
     </div>
   );
