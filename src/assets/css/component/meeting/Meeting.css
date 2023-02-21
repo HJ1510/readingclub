@@ -4,13 +4,9 @@
 }
 
 .Meeting .Calender {
-  width: 80%;
-  margin: 20px;
-}
-
-.Meeting .LoginForm {
-  float: left;
-  margin-top: 15%;
+  width: 70%;
+  height: 30%;
+  margin: auto;
 }
 
 .Meeting .Catergory {
@@ -18,8 +14,31 @@
   margin-left: 5%;
 }
 
-.Meeting .sort {
+.sort {
   float: right;
+}
+
+.meetingList {
+  border-style: solid;
+  border-width: var(--primer-borderWidth-thin, 1px);
+  border-color: #aaa7a7;
+  margin-right: 30px;
+  margin-top: -11px;
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+
+.meetingList img {
+  width: 200px;
+  margin: 10px;
+}
+
+.meetingList .hashTag {
+  display: inline-block;
+}
+
+.meetingList P {
+  margin: 0.8em;
 }
 
 /* 일요일 날짜: 빨간색 */
@@ -30,4 +49,8 @@
 /* 토요일 날짜: 파란색 */
 .fc-day-sat a {
   color: blue;
+}
+
+.LoginForm {
+  border: 1px solid black;
 }

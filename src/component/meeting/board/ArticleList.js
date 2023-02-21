@@ -7,15 +7,28 @@ import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
 import { getArticle } from "api";
 import { useEffect, useState } from "react";
-import mockItems from "mock.json";
 import "./Board.css";
+import mockItems from "mock.json";
 
 function ArticleList() {
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState("");
-  const { _embedded } = mockItems;
 
+  // mockjson
+  // const { _embedded } = mockItems;
+
+  // const listLoad = () => {
+  //   const { articles } = _embedded;
+  //   setItems(articles);
+  // };
+
+  // useEffect(() => {
+  //   listLoad();
+  // }, []);
+
+  // 백엔드 api
   // const listLoad = async (search) => {
+  //   const { _embedded } = await getArticle();
   //   const { articles } = _embedded;
   //   setItems(articles);
   // };
@@ -24,13 +37,14 @@ function ArticleList() {
   //   listLoad(search);
   // }, []);
 
-  const listLoad = async (search) => {
-    const { foods } = await getArticle((search = { search }));
+  // 코드잇 api
+  const listLoad = async () => {
+    const { foods } = await getArticle();
     setItems(foods);
   };
 
   useEffect(() => {
-    listLoad(search);
+    listLoad();
   }, []);
 
   // const handleSearchSubmit = (e) => {
@@ -65,9 +79,9 @@ function ArticleList() {
           <Col>댓글수</Col>
         </Row>
         {items
-          ? items.map((item) => {
+          ? items.map((item, idx) => {
               return (
-                <div key={item.id}>
+                <div key={idx}>
                   <Row>
                     <Col>{item.id}</Col>
                     <Col md={4}>
