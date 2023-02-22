@@ -60,6 +60,9 @@ function ArticleList({ title }) {
       const { _embedded } = mockItems;
       const { articles } = _embedded;
       setItems(articles);
+    } else if (title === "모임원 게시판") {
+      const { foods } = await getArticle();
+      setItems(foods);
     } else {
       console.log("게시판이 생성되지 않았습니다");
       console.log(title);

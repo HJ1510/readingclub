@@ -7,7 +7,7 @@ import Comment from "component/comment";
 
 function ArticleView() {
   const [data, setData] = useState({});
-  const { id } = useParams();
+  const { id, no } = useParams();
 
   const navigate = useNavigate();
 
@@ -73,10 +73,12 @@ function ArticleView() {
         >
           삭제
         </button>
-        <Link to={{ pathname: `modi` }}>
+        <Link to={`../info/${no}/modi/${id}`}>
           <button>수정</button>
         </Link>
-        <button onClick={() => navigate(-1)}>목록으로</button>
+        <Link to={`../info/${no}`}>
+          <button>목록으로</button>
+        </Link>
         <Comment />
       </Layout>
     </div>

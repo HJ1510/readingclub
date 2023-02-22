@@ -1,21 +1,42 @@
 import Board from "./board";
 import Layout from "layout/Layout";
 import { meetingList } from "MeetigData";
+import MeetingCalender from "./MeetingCalender";
+import { Col, Container, Row, Card } from "react-bootstrap";
 
 function MeetingGroup() {
   return (
     <Layout>
-      <div>
-        <p>모임원들이 보는 모임페이지</p>
+      <Container>
+        <h5>모임원들이 보는 모임페이지</h5>
         <h2>모임명</h2>
-        <p>달력</p>
-        <p>소개글</p>
-        <p>지역</p>
-        <p>참여자</p>
-      </div>
-      <div>
-        <Board title="모임원 게시판" />
-      </div>
+        <Row>
+          <Col>
+            <MeetingCalender />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Card>
+              <Card.Header>#... #...</Card.Header>
+              <Card.Body>
+                <Card.Text></Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col>
+            <p>지역</p>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <p>참여자</p>
+          </Col>
+        </Row>
+        <Row>
+          <Board title="모임원 게시판" />
+        </Row>
+      </Container>
     </Layout>
   );
 }

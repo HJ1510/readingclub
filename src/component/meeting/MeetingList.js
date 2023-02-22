@@ -36,7 +36,7 @@ function MeetingList() {
           ? mockList.map((item, idx) => {
               return (
                 <div key={idx}>
-                  <Link to={`/meeting/${item.no}`}>
+                  <Link to={`/meeting/info/${item.no}`}>
                     <Row className="meetingList">
                       <Col md={2}>
                         <img src={meetingImgSample} alt="sample" />

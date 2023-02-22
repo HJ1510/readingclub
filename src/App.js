@@ -28,9 +28,9 @@ const App = () => {
         <Route index element={<Meeting />} />
         <Route path="info/:no" element={<MeetingInfo />} />
         <Route path="info/:no/:id" element={<ArticleView />} />
+        <Route path="info/:no/modi/:id" element={<ArticleModiForm />} />
         <Route path="group/:no" element={<MeetingGroup />} />
         <Route path="write" element={<ArticleWrite />} />
-        <Route path=":no/:id/modi" element={<ArticleModiForm />} />
         <Route path="createmeeting" element={<MeetingCreate2 />} />
       </Route>
       <Route path="community" element={<Community />} />
