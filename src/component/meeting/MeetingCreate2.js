@@ -1,9 +1,10 @@
 import Layout from "layout/Layout";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "assets/css/component/meeting/Meeting.css";
 import { Row, Col } from "react-bootstrap";
+import axios from "axios";
 
 function MeetingCreate2() {
   const [name, setName] = useState("");
@@ -65,6 +66,23 @@ function MeetingCreate2() {
     setContent(e.target.value);
   };
 
+  const [meetups, setMeetups] = useState([]);
+
+  const fetchMeetups = () => {
+    axios
+      .get("/api/meetups")
+      .then((response) => {
+        setMeetups(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchMeetups();
+  }, []);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (name === "") {
@@ -104,6 +122,28 @@ function MeetingCreate2() {
     formData.append("discussion", topics.discussion);
     formData.append("hashtags", hashtags.join(","));
     formData.append("genderOpened", genderOpened);
+
+    const data = {
+      name,
+      capacity,
+      topics,
+      category,
+      genderOpened,
+      hashtags,
+      location,
+      agesOpened,
+      content,
+    };
+
+    axios
+      .post("/api/meetups", data)
+      .then((response) => {
+        console.log(response);
+        fetchMeetups();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     // fetch("https://jsonplaceholder.typicode.com/posts", {
     //   method: "POST",
