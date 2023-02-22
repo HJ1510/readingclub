@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import "./Board.css";
 import mockItems from "mock.json";
 
-function ArticleList() {
+function ArticleList({ title }) {
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState("");
 
@@ -38,22 +38,42 @@ function ArticleList() {
   // }, []);
 
   // 코드잇 api
-  const listLoad = async () => {
-    const { foods } = await getArticle();
-    setItems(foods);
-  };
+  // const listLoad = async () => {
+  //   const { foods } = await getArticle();
+  //   setItems(foods);
+  // };
 
-  useEffect(() => {
-    listLoad();
-  }, []);
+  // useEffect(() => {
+  //   listLoad();
+  // }, []);
 
   // const handleSearchSubmit = (e) => {
   //   e.preventDefault();
   //   setSearch(e.target["search"].value);
   // };
 
-  return (
+  const listLoad = async () => {
+    if (title === "FAQ") {
+      const { foods } = await getArticle();
+      setItems(foods);
+    } else if (title === "모임후기") {
+      const { _embedded } = mockItems;
+      const { articles } = _embedded;
+      setItems(articles);
+    } else {
+      console.log("게시판이 생성되지 않았습니다");
+      console.log(title);
+      return;
+    }
+  };
+
+  useEffect(() => {
+    listLoad();
+  }, []);
+
+  return title ? (
     <div>
+      <h2>{title}</h2>
       <h2>글 목록</h2>
       <Container>
         <Row>
@@ -92,7 +112,6 @@ function ArticleList() {
                     <Col>조회수</Col>
                     <Col>댓글수</Col>
                   </Row>
-                  <Row md={4}></Row>
                 </div>
               );
             })
@@ -102,6 +121,8 @@ function ArticleList() {
         </Row>
       </Container>
     </div>
+  ) : (
+    ""
   );
 }
 

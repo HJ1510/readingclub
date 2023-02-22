@@ -66,45 +66,45 @@ function MeetingCreate2() {
     setContent(e.target.value);
   };
 
-  const [meetups, setMeetups] = useState([]);
+  // const [meetups, setMeetups] = useState([]);
 
-  const fetchMeetups = () => {
-    axios
-      .get("/api/meetups")
-      .then((response) => {
-        setMeetups(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const fetchMeetups = () => {
+  //   axios
+  //     .get("/api/meetups")
+  //     .then((response) => {
+  //       setMeetups(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
-  useEffect(() => {
-    fetchMeetups();
-  }, []);
+  // useEffect(() => {
+  //   fetchMeetups();
+  // }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (name === "") {
-      alert("모임명을 작성해주세요");
-      return;
-    }
-    if (capacity === "") {
-      alert("모임정원을 지정해주세요");
-      return;
-    }
-    if (location === "") {
-      alert("지역을 적어주세요");
-      return;
-    }
-    if (genderOpened === "") {
-      alert("성비공개여부는 필수입력사항입니다");
-      return;
-    }
-    if (content === "") {
-      alert("모임 소개글을 작성해주세요");
-      return;
-    }
+    // if (name === "") {
+    //   alert("모임명을 작성해주세요");
+    //   return;
+    // }
+    // if (capacity === "") {
+    //   alert("모임정원을 지정해주세요");
+    //   return;
+    // }
+    // if (location === "") {
+    //   alert("지역을 적어주세요");
+    //   return;
+    // }
+    // if (genderOpened === "") {
+    //   alert("성비공개여부는 필수입력사항입니다");
+    //   return;
+    // }
+    // if (content === "") {
+    //   alert("모임 소개글을 작성해주세요");
+    //   return;
+    // }
     console.log(`Meeting name: ${name}`);
     console.log(`Capacity: ${capacity}`);
     console.log(`Topics: ${JSON.stringify(topics)}`);
@@ -123,27 +123,27 @@ function MeetingCreate2() {
     formData.append("hashtags", hashtags.join(","));
     formData.append("genderOpened", genderOpened);
 
-    const data = {
-      name,
-      capacity,
-      topics,
-      category,
-      genderOpened,
-      hashtags,
-      location,
-      agesOpened,
-      content,
-    };
+    // const data = {
+    //   name,
+    //   capacity,
+    //   topics,
+    //   category,
+    //   genderOpened,
+    //   hashtags,
+    //   location,
+    //   agesOpened,
+    //   content,
+    // };
 
-    axios
-      .post("/api/meetups", data)
-      .then((response) => {
-        console.log(response);
-        fetchMeetups();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // axios
+    //   .post("meetingList", data)
+    //   .then((response) => {
+    //     console.log(response);
+    //     fetchMeetups();
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
 
     // fetch("https://jsonplaceholder.typicode.com/posts", {
     //   method: "POST",

@@ -5,7 +5,7 @@ import Community from "./component/community";
 import Meeting from "./component/meeting";
 import Note from "./component/note";
 
-import MeetingInfo from "component/meeting/MeetingInfo";
+import MeetingInfo from "component/meeting/MeetinfInfo";
 import ArticleView from "component/meeting/board/ArticleView";
 import ArticleWrite from "component/meeting/board/ArticleWrite";
 import ArticleModiForm from "component/meeting/board/ArticleModiForm";
@@ -16,6 +16,7 @@ import Writebook from "./component/booknote/Writebook";
 import Booknoteno from "./component/booknote/Booknoteno";
 import MeetingCreate from "component/meeting/MeetingCreate";
 import MeetingCreate2 from "component/meeting/MeetingCreate2";
+import MeetingGroup from "component/meeting/MeetingGroup";
 
 const App = () => {
   return (
@@ -25,8 +26,9 @@ const App = () => {
       <Route path="/join" element={<Join />} />
       <Route path="meeting">
         <Route index element={<Meeting />} />
-        <Route path=":no" element={<MeetingInfo />} />
-        <Route path=":no/:id" element={<ArticleView />} />
+        <Route path="info/:no" element={<MeetingInfo />} />
+        <Route path="info/:no/:id" element={<ArticleView />} />
+        <Route path="group/:no" element={<MeetingGroup />} />
         <Route path="write" element={<ArticleWrite />} />
         <Route path=":no/:id/modi" element={<ArticleModiForm />} />
         <Route path="createmeeting" element={<MeetingCreate2 />} />

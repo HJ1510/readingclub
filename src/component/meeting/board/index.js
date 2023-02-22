@@ -1,10 +1,10 @@
 import ArticleList from "./ArticleList";
 
-function Board() {
+function Board({ title }) {
   return (
     <div>
-      <h2>모임후기 게시판</h2>
-      <ArticleList />
+      <h2>{title} 게시판</h2>
+      <ArticleList title={title} />
     </div>
   );
 }
