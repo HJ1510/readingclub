@@ -1,18 +1,14 @@
+import React, { useState } from "react";
 import Layout from "layout/Layout";
 import { meetingList } from "MeetigData";
-import {
-  Col,
-  Container,
-  Row,
-  Card,
-  ProgressBar,
-  Table,
-  Button,
-} from "react-bootstrap";
+import { Col, Container, Row, Card, ProgressBar } from "react-bootstrap";
 import profile from "assets/images/profile.png";
+import AttendanceList from "./AttendanceList";
+import data from "mockAttend.json";
 
 function MeetingAdmin() {
   const now = 60;
+
   return (
     <Layout className="meeting">
       <Container>
@@ -85,47 +81,8 @@ function MeetingAdmin() {
             </div>
           </Col>
         </Row>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>관리자</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>4</td>
-              <td>
-                
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>
-                <Button variant="light">O</Button>{" "}
-                <Button variant="light">X</Button>{" "}
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>
-                <Button variant="light">O</Button>{" "}
-                <Button variant="light">X</Button>{" "}
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>
-                <Button variant="light">O</Button>{" "}
-                <Button variant="light">X</Button>{" "}
-              </td>
-            </tr>
-            <tr>
-              <td>합산</td>
-              <td>Larry the Bird</td>
-            </tr>
-          </tbody>
-        </Table>
+        <p>출석부</p>
+        <AttendanceList orders={data.order} />
       </Container>
     </Layout>
   );

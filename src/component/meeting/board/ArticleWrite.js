@@ -2,6 +2,7 @@ import { createArticle } from "api";
 import Layout from "layout/Layout";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import TextEditor from "../TextEditor";
 import "./Board.css";
 
