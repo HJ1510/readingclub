@@ -1,28 +1,29 @@
-import Board from "./board";
 import Layout from "layout/Layout";
 import { meetingList } from "MeetigData";
-import MeetingCalender from "./MeetingCalender";
-import { Col, Container, Row, Card, ProgressBar } from "react-bootstrap";
+import {
+  Col,
+  Container,
+  Row,
+  Card,
+  ProgressBar,
+  Table,
+  Button,
+} from "react-bootstrap";
 import profile from "assets/images/profile.png";
 
-function MeetingGroup() {
+function MeetingAdmin() {
   const now = 60;
   return (
     <Layout className="meeting">
       <Container>
-        <h5>모임원들이 보는 모임페이지</h5>
+        <h5>모임장이 보는 페이지</h5>
         <h2>모임명</h2>
-        <Row>
-          <Col>
-            <MeetingCalender />
-          </Col>
-        </Row>
         <Row>
           <Col>
             <Card>
               <Card.Header>#... #...</Card.Header>
               <Card.Body>
-                <Card.Text></Card.Text>
+                <Card.Text>소개글</Card.Text>
               </Card.Body>
             </Card>
           </Col>
@@ -40,6 +41,7 @@ function MeetingGroup() {
                 now={now}
                 label={`${now}%`}
               />
+              <button>내보내기</button>
             </div>
             <div className="member">
               <img src={profile} />
@@ -49,6 +51,7 @@ function MeetingGroup() {
                 now={now}
                 label={`${now}%`}
               />
+              <button>내보내기</button>
             </div>
             <div className="member">
               <img src={profile} />
@@ -58,6 +61,7 @@ function MeetingGroup() {
                 now={now}
                 label={`${now}%`}
               />
+              <button>내보내기</button>
             </div>
             <div className="member">
               <img src={profile} />
@@ -67,6 +71,7 @@ function MeetingGroup() {
                 now={now}
                 label={`${now}%`}
               />
+              <button>내보내기</button>
             </div>
             <div className="member">
               <img src={profile} />
@@ -76,14 +81,53 @@ function MeetingGroup() {
                 now={now}
                 label={`${now}%`}
               />
+              <button>내보내기</button>
             </div>
           </Col>
         </Row>
-        <Row>
-          <Board title="모임원 게시판" />
-        </Row>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>관리자</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>4</td>
+              <td>
+                
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>
+                <Button variant="light">O</Button>{" "}
+                <Button variant="light">X</Button>{" "}
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>
+                <Button variant="light">O</Button>{" "}
+                <Button variant="light">X</Button>{" "}
+              </td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>
+                <Button variant="light">O</Button>{" "}
+                <Button variant="light">X</Button>{" "}
+              </td>
+            </tr>
+            <tr>
+              <td>합산</td>
+              <td>Larry the Bird</td>
+            </tr>
+          </tbody>
+        </Table>
       </Container>
     </Layout>
   );
 }
-export default MeetingGroup;
+export default MeetingAdmin;

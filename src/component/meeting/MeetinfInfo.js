@@ -115,6 +115,9 @@ function MeetingInfo() {
           <Link to={`/meeting/group/${no}`}>
             <button>모임 게시판</button>
           </Link>
+          <Link to={`/meeting/admin/${no}`}>
+            <button>관리</button>
+          </Link>
         </Row>
         <Row>
           <Board title="FAQ" />

@@ -17,6 +17,7 @@ import Booknoteno from "./component/booknote/Booknoteno";
 import MeetingCreate from "component/meeting/MeetingCreate";
 import MeetingCreate2 from "component/meeting/MeetingCreate2";
 import MeetingGroup from "component/meeting/MeetingGroup";
+import MeetingAdmin from "component/meeting/MeetingAdmin";
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="info/:no/:id" element={<ArticleView />} />
         <Route path="info/:no/modi/:id" element={<ArticleModiForm />} />
         <Route path="group/:no" element={<MeetingGroup />} />
+        <Route path="admin/:no" element={<MeetingAdmin />} />
         <Route path="write" element={<ArticleWrite />} />
         <Route path="createmeeting" element={<MeetingCreate2 />} />
       </Route>
