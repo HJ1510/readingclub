@@ -15,7 +15,6 @@ import Booknote from "component/booknote/Booknote";
 import Writebook from "./component/booknote/Writebook";
 import Booknoteno from "./component/booknote/Booknoteno";
 import MeetingCreate from "component/meeting/MeetingCreate";
-import MeetingCreate2 from "component/meeting/MeetingCreate2";
 import MeetingGroup from "component/meeting/MeetingGroup";
 import MeetingAdmin from "component/meeting/MeetingAdmin";
 
@@ -33,7 +32,7 @@ const App = () => {
         <Route path="group/:no" element={<MeetingGroup />} />
         <Route path="admin/:no" element={<MeetingAdmin />} />
         <Route path="write" element={<ArticleWrite />} />
-        <Route path="createmeeting" element={<MeetingCreate2 />} />
+        <Route path="createmeeting" element={<MeetingCreate />} />
       </Route>
       <Route path="community" element={<Community />} />
       <Route path="booknote">
