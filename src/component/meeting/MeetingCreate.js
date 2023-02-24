@@ -16,6 +16,7 @@ function MeetingCreate() {
     genderOpened: "",
     ageOpened: "",
     introduce: "",
+    firstDate: "",
   });
 
   const handleChange = (e) => {
@@ -45,6 +46,9 @@ function MeetingCreate() {
     } else if (name === "hashtags") {
       const hashtags = value.split(","); // 입력된 값을 쉼표로 분리하여 배열로 변환
       setValues((prevValues) => ({ ...prevValues, [name]: hashtags }));
+      // } else if (name === "firstDate") {
+      //   const date = new Date(value); // 입력된 값을 Date 객체로 변환
+      //   setValues((prevValues) => ({ ...prevValues, [name]: date }));
     } else {
       setValues((prevValues) => ({ ...prevValues, [name]: value }));
     }
@@ -291,7 +295,10 @@ function MeetingCreate() {
           </Form.Text>
         </Form.Group>
 
-        <Form.Group>일정</Form.Group>
+        <Form.Group>
+          <Form.Label>첫 모임 예정일</Form.Label>
+          <Form.Control type="date" name="firstDate" onChange={handleChange} />
+        </Form.Group>
         <Button variant="outline-secondary" type="submit">
           제출
         </Button>
