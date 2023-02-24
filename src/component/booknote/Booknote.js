@@ -7,8 +7,9 @@ import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 
-import Modal from "../booknote/Modal";
+import parse from 'html-react-parser';
 import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
 
 function Booknote() {
   let [countspan, setcountspan] = useState(5);
@@ -25,13 +26,15 @@ function Booknote() {
     setModalOpen(false);
   };
 
-  const notebookdel = (no) => {
-    if (window.confirm("삭제하시겟습니까")) {
-      axios.delete(`/api/notelist/${no}`);
-    } else {
-      console.log("error");
-    }
-  };
+  const handleDelete = (no) => {
+    axios.delete(`/api/notelist/${no}`)
+      .then(res => {
+        if (res.data.success) {
+          setNoteList(notelist.filter(notelist => notelist.id !== no));
+        }
+      })
+      .catch(err => console.error(err));
+  }
   useEffect(() => {
     axios.get("/api/notelist").then((response) => {
       setNoteList(response.data);
@@ -43,8 +46,9 @@ function Booknote() {
     });
   }, []);
   return (
+    <Layout>
     <div className="main">
-      <Layout>
+
         <div className="noteNav" style={{ display: "" }}>
           <Link to={"/booknote"}>
             <Button className="Header-button" variant="secondary">
@@ -63,7 +67,7 @@ function Booknote() {
           </Link>
         </div>
 
-        <div className="booknote" style={{ height: "1400px", width: "2000px" }}>
+        <div className="booknote">
           <div className="booknotelay">
             <div className="booknote-sidebar">
               <div className="sidebar-card"></div>
@@ -96,7 +100,7 @@ function Booknote() {
                 <Link
                   style={{
                     color: "var(--color-fg-muted) !important",
-                    textDecorationLine: "none",
+                    textDecorationLine: "none"
                   }}
                   to="https://github.com/YuumiNam?tab=following"
                 >
@@ -163,7 +167,7 @@ function Booknote() {
             </div>
           </div>
           <hr></hr>
-          <div className="booknote-under" style={{ height: "800px" }}>
+          <div className="booknote-under" >
             <div className="booknote-select">
               <select
                 className="form-select"
@@ -212,7 +216,7 @@ function Booknote() {
                     {notelist.map((booknotlist) => {
                       return (
                         <div
-                          key={booknotlist.title}
+                          key={booknotlist.id}
                           className="booklist"
                           style={{
                             paddingTop: "30px",
@@ -221,13 +225,12 @@ function Booknote() {
                             borderBottom:'1px solid  #e6e0e0'
                           }}
                         >
-                          <div className="tumb">
+                          <Col md={2} className="tumb">
                             <img
-                              src="https://cdn.imweb.me/thumbnail/20230204/1225630397680.jpg"
-                              style={{ width: "160px" }}
+                             src={booknotlist.thumbnail}
                             ></img>
-                          </div>
-                          <div
+                          </Col>
+                          <Col
                             className="booknotelisttitle1"
                             style={{
                               width: "900px",
@@ -241,9 +244,9 @@ function Booknote() {
                             </h3>
 
                             <h5 style={{ margin: "10px" }}>
-                              내용: {booknotlist.content}
+                              내용: {parse(booknotlist.content)}
                             </h5>
-                          </div>
+                          </Col>
                           <div
                             className="booknotelisticon"
                             style={{ display: "block" }}
@@ -258,7 +261,7 @@ function Booknote() {
                             </span>
                             <br />
                             <span
-                              onClick={notebookdel}
+                              onClick={handleDelete}
                               style={{ height: "50px", width: "80px" }}
                             >
                               🗑
@@ -307,8 +310,8 @@ function Booknote() {
             </ul>
           </nav>
         </div>
-      </Layout>
     </div>
+    </Layout>
   );
 }
 export default Booknote;

@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./component/main/index";
 import Community from "./component/community";
 import Meeting from "./component/meeting";
-import Note from "./component/note";
+
 
 import MeetingInfo from "component/meeting/MeetingInfo";
 import ArticleView from "component/meeting/board/ArticleView";
@@ -14,8 +14,9 @@ import Join from "component/user/Join";
 import Booknote from "component/booknote/Booknote";
 import Writebook from "./component/booknote/Writebook";
 import Booknoteno from "./component/booknote/Booknoteno";
-import MeetingCreate from "component/meeting/MeetingCreate";
+
 import MeetingCreate2 from "component/meeting/MeetingCreate2";
+import Booknoteupdate from "component/booknote/Booknoteupdate";
 
 const App = () => {
   return (
@@ -35,9 +36,9 @@ const App = () => {
         <Route path="community" element={<Community />} />
         <Route path="booknote">
           <Route index element={<Booknote />} />
-          <Route path="mynote" element={<Note />} />
           <Route path="writebook" element={<Writebook />} />
           <Route path=":no" element={<Booknoteno></Booknoteno>} />
+          <Route path=":no/edit" element={<Booknoteupdate/>} />
         </Route>
       </Routes>
     </BrowserRouter>

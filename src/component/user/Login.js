@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "../../actions/user_action";
 import styles from "./Login.module.css";
+import Auth from "hoc/auth";
+
 
 
 function LoginPage() {
@@ -33,6 +35,7 @@ function LoginPage() {
       }
     });
   };
+  
   return (
     <div className={styles.login}>
       <h1 className={styles.header} onClick={()=>{
@@ -62,7 +65,7 @@ function LoginPage() {
                         <div className="icon-cell"></div>
                         <input
                           type="email"
-                         s
+                        
                           value={email}
                           onChange={onEmailHandler}
                           placeholder="이메일"
@@ -102,4 +105,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default Auth(LoginPage, false);

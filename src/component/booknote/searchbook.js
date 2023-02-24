@@ -1,94 +1,107 @@
-
-import {useEffect, useState } from 'react';
-import { blogSearch } from 'actions/bookapi';
-import Item from 'actions/item';
-
-// function Libray(){
-
-//     const [text, setText]= useState("")
-    
-//     const [book,searchBook]= useState("")
-//     const onEnter = (e) => {
-//         if (e.keyCode === 13) {
-//           searchBook(text);
-//         }
-//       };
-//       // text 검색어가 바뀔 때 호출되는 함수
-//       const onTextUpdate = (e) => {
-//         setText(e.target.value);
-// //       };
-
-// // const getBooks = async()=>{
-
-// // }
+import { useEffect, useState } from "react";
+import { blogSearch } from "actions/bookapi";
+import { Container, Col, Row } from "react-bootstrap";
 
 
 
-const Libray = props => {
-    const [blogs, setBlogs] = useState([]);
-    const [text, setText] = useState("");
-    const [query, setQuery] = useState("");
-  
-    useEffect(() => {
-      if (query.length > 0) {
-        blogSearchHttpHandler(query, true);
-      }
-    }, [query]);
-  
-    // 엔터를 눌렀을 때 호출 되는 함수
-    const onEnter = e => {
-      if (e.keyCode === 13) {
-        setQuery(text);
-      }
-    };
-  
-    // text 검색어가 바뀔 때 호출되는 함수.
-    const onTextUpdate = e => {
-      setText(e.target.value);
-    };
-  
-    const blogSearchHttpHandler = async (query, reset) => {
-      const params = {
-        query: query,
-        sort: "accuracy", // accuracy | recency 정확도 or 최신
-        page: 1, // 페이지번호
-        size: 2 // 한 페이지에 보여 질 문서의 개수
-      };
-  
-      const { data } = await blogSearch(params);
-      if (reset) {
-        setBlogs(data.documents);
-      } else {
-        setBlogs(blogs.concat(data.documents));
-      }
-    };
-  
-    return (
-      <div className="container">
-        <input
-          type="search"
-          placeholder="검색어를 입력 하세요..."
-          name="query"
-          className="input_search"
-          onKeyDown={onEnter} // enter
-          onChange={onTextUpdate} // change
-          value={text} // view
-        />
-  
-        <ul>
-          {blogs.map((blog, index) => (
-            <Item
-              key={index}
-              thumbnail={blog.thumbnail}
-              title={blog.title}
-              blogname={blog.blogname}
-              contents={blog.contents}
-              url={blog.url}
-            />
-          ))}
-        </ul>
-      </div>
-    );
+const Libray = ({onBookSelect}) => {
+  const [books, setBooks] = useState([]);
+  const [text, setText] = useState("");
+  const [query, setQuery] = useState("");
+  const [selectedBook, setSelectedBook] = useState([]);
+ 
+
+  useEffect(() => {
+    if (query.length > 0) {
+      blogSearchHttpHandler(query, true);
+    }
+  }, [query]);
+
+  const onEnter = (e) => {
+    if (e.keyCode === 13) {
+      setQuery(text);
+    }
   };
+
+  const onTextUpdate = (e) => {
+    setText(e.target.value);
+  };
+
+  const blogSearchHttpHandler = async (query, reset) => {
+    const params = {
+      query: query,
+      sort: "accuracy",
+      page: 1,
+      size: 5,
+    };
+
+    const { data } = await blogSearch(params);
+    if (reset) {
+      setBooks(data.documents);
+    } else {
+      setBooks(books.concat(data.documents));
+    }
+  };
+
+  const handleBookSelect = (book) => {
+    setSelectedBook(book);
+    onBookSelect(book);
+    const bookElements = document.getElementsByClassName("book");
+  for (let i = 0; i < bookElements.length; i++) {
+    bookElements[i].classList.remove("selected");
+  }
+  const selectedBookElement = document.querySelector(`.book[data-isbn="${book.isbn}"]`);
+  if (selectedBookElement) {
+    selectedBookElement.classList.add("selected");
+  }
+  };
+
   
+
+  return (
+    <div>
+      <div>
+        <label >도서 정보 불러오기 </label>
+      <input
+        type="search"
+        placeholder="검색어를 입력하세요..."
+        name="query"
+        className="booksearchbox"
+        onKeyDown={onEnter}
+        onChange={onTextUpdate}
+        value={text}
+      />
+      </div>
+      
+
+      <Container style={{height:"500px"}} className="cs">
+        <Row>
+          {books.map((book, index) => (
+            <Col key={book.isbn}>
+                 <div
+      className={`book${selectedBook?.isbn === book.isbn ? " selected" : ""}`}
+      data-isbn={book.isbn}
+      onClick={() => handleBookSelect(book)}
+    >
+                <img src={book.thumbnail} alt={book.title} />
+                <h5>{book.title}</h5>
+              </div>
+            </Col>
+          ))}
+        </Row>
+        <Row>
+          <Col>
+            {selectedBook && (
+              <div>
+                <h3 style={{margin:"20px"}}>{selectedBook.title}</h3>
+                <p>{selectedBook.contents}</p>
+              </div>
+            )}
+          </Col>
+        </Row>
+      </Container>
+    </div>
+  );
+};
+
 export default Libray;

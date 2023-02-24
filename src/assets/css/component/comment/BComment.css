@@ -1,0 +1,38 @@
+.ReviewForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.ReviewForm textarea {
+  width: 100%;
+  height: 8rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+
+.ReviewForm button {
+  width: 100%;
+  max-width: 10rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  background-color: #2b2d42;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.ReviewForm button:hover {
+  background-color: #1d1f2f;
+}
+
+.ReviewForm button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

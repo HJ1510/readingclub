@@ -1,0 +1,61 @@
+.post-view-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
+  }
+  
+  .post-view-row {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .post-view-row label {
+    width: 100px;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .post-view-go-list-btn {
+    display: block;
+    margin-top: 30px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .post-view-go-list-btn:hover {
+    background-color: #0069d9;
+  }
+  .bookspan{
+    display: block;
+    line-height: 20px;
+    color: #666;
+    margin: 15px;
+ 
+  }
+  .em{
+    font-style: normal;
+  }
+ 
+  .bookviewcontent{
+    border: solid;
+    border-color: #e6e0e0;
+    border-radius: var(--primer-borderRadius-medium, 6px);
+    border-style: solid;
+    border-width: var(--primer-borderWidth-thin, 1px);
+  
+  }
+
+  .bookviewnotelisttitle1{
+    border-style: solid;
+    border-width: var(--primer-borderWidth-thin, 1px);
+    border-radius: 20px;
+    border-color: #aaa7a7;
+  
+    font-family: 'Dongle', sans-serif;
+   
+    font-size: larger;
+  }
