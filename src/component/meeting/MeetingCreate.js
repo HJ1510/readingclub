@@ -85,7 +85,6 @@ function MeetingCreate() {
     const form = e.target; // 이벤트가 발생한 폼 요소
     console.log(form);
     const formData = new FormData(form); // 폼 데이터 추출
-    console.log(formData);
 
     fetch("https://jsonplaceholder.typicode.com/posts", {
       // 서버의 API 엔드포인트 지정

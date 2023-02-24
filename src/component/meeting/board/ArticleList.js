@@ -54,8 +54,9 @@ function ArticleList({ title }) {
 
   const listLoad = async () => {
     if (title === "FAQ") {
-      const { foods } = await getArticle();
-      setItems(foods);
+      const { content } = await getArticle();
+      console.log(content);
+      setItems(content);
     } else if (title === "모임후기") {
       const { _embedded } = mockItems;
       const { articles } = _embedded;

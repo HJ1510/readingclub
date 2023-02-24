@@ -13,9 +13,9 @@ function ArticleView() {
 
   useEffect(() => {
     const articleLoad = async (id) => {
-      const { foods } = await getArticle();
+      const { content } = await getArticle();
 
-      const article = foods.filter((item) => item.id === parseInt(id));
+      const article = content.filter((item) => item.id === parseInt(id));
 
       // console.log(article);
       setData(article[0]);
