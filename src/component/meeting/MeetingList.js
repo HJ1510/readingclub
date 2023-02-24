@@ -17,7 +17,7 @@ function MeetingList() {
   }, []);
 
   return (
-    <Container>
+    <div>
       <Row>
         <Col>
           <Dropdown className="sort">
@@ -46,6 +46,7 @@ function MeetingList() {
                         <p>모임날짜: {item.firstDate}</p>
                         <p>정원: {item.maxNum}</p>
                         <p>모임지역: {item.location}</p>
+                        <p>개설일: {item.createdAt}</p>
                         {/* <Link to={""}> */}
                         {item.hashTags.map((hashTag, idx) => {
                           return (
@@ -63,7 +64,7 @@ function MeetingList() {
             })
           : ""}
       </div>
-    </Container>
+    </div>
   );
 }
 export default MeetingList;
