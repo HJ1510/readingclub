@@ -5,7 +5,7 @@ import "../../assets/css/component/meeting/Meeting.css";
 function UserForm() {
   return (
     <div>
-      {/* <div className="LoginForm">
+      {/* <div>
         <p>
           <input type={"text"} placeholder="ID"></input>
         </p>
@@ -17,7 +17,7 @@ function UserForm() {
           <button>로그인</button>
         </p>
       </div> */}
-      <div className="LoginForm">
+      <div>
         <p>유저id</p>
         <p>현재모임</p>
         <p>

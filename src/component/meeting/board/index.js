@@ -1,10 +1,11 @@
 import ArticleList from "./ArticleList";
+import "./Board.css";
 
-function Board() {
+function Board({ title }) {
   return (
-    <div>
-      <h2>모임후기 게시판</h2>
-      <ArticleList />
+    <div className="Board">
+      <h2>{title}</h2>
+      <ArticleList title={title} />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import MainImg from "../assets/images/tmpheader2.jpg";
+import MainLogo from "../assets/images/gobook_logo3.png";
 import "assets/css/layout/Layout.css";
 import { Link } from "react-router-dom";
 
@@ -7,7 +7,7 @@ function Header() {
     <div className="Header">
       <div>
         <Link to={"/"}>
-          <img src={MainImg} className="Header-logo" alt="logo" />
+          <img src={MainLogo} className="Header-logo" alt="logo" />
         </Link>
       </div>
     </div>
