@@ -46,8 +46,8 @@ function Main() {
       setTimeout(() => {
         setCurrentImage(images[randomIndex]);
         imageRef.current.classList.remove("next");
-      }, 600);
-    }, 2300);
+      }, 1000);
+    }, 3000);
 
     return () => clearInterval(intervalId);
   }, []);
