@@ -20,7 +20,7 @@ function ArticleView() {
 
       // console.log(article);
       setData(article[0]);
-      console.log(foods)
+      console.log(article[0])
    
     };
     articleLoad(id);
