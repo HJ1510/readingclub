@@ -11,7 +11,8 @@ function Navigation() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [inlogin, setinlogin] = useState(false);
-
+  const { userInfo } = useSelector(state => state.user);
+  
   const onClickHandler = () => {
     axios.get(`/api/users/logout`).then((response) => {
       if (response.data.success) {
@@ -63,7 +64,9 @@ function Navigation() {
          
           </>
         ) : (
-          <>
+          <> 
+
+                <h1>{userInfo && userInfo.name}</h1>
               <Link to="#"  onClick={onClickHandler}>로그아웃</Link>
           </>
         )}
