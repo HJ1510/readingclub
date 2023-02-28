@@ -9,19 +9,19 @@ import io from "socket.io-client";
 import { Button } from "react-bootstrap";
 import ChatModal from "./ChatModal";
 
-const socket = io("http://localhost:3001");
+// const socket = io("http://localhost:3001");
 
 function MeetingGroup() {
   const now = 60;
 
   const [showModal, setShowModal] = useState(false);
-  const [messages, setMessages] = useState([]);
+  // const [messages, setMessages] = useState([]);
 
-  useEffect(() => {
-    socket.on("chat message", (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
-    });
-  }, []);
+  // useEffect(() => {
+  //   socket.on("chat message", (message) => {
+  //     setMessages((prevMessages) => [...prevMessages, message]);
+  //   });
+  // }, []);
 
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
@@ -32,11 +32,11 @@ function MeetingGroup() {
         <h5>모임원들이 보는 모임페이지</h5>
         <h2>모임명</h2>
         <Button onClick={handleOpenModal}>채팅 열기</Button>
-        <ChatModal
+        {/* <ChatModal
           show={showModal}
           handleClose={handleCloseModal}
           messages={messages}
-        />
+        /> */}
         <Row>
           <Col>
             <MeetingCalender />

@@ -5,11 +5,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function Navigation() {
   const handleMouseEnter = (e) => {
-    e.target.querySelector("::before").style.width = "100%";
+    e.target.querySelector("::before");
   };
 
   const handleMouseLeave = (e) => {
-    e.target.querySelector("::before").style.width = "0%";
+    e.target.querySelector("::before");
   };
 
   return (
