@@ -2,7 +2,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "../../assets/css/component/meeting/Meeting.css";
-import { Container, Dropdown } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 
 function Category() {
   const categorys = ["건강/취미", "경제경영", "공무원수험서", "과학", "달력"];
@@ -14,13 +14,19 @@ function Category() {
           {["checkbox"].map((type) => (
             <div key={type} className="mb-3">
               {categorys.map(function (category) {
-                return <Form.Check inline label={category} key={category} />;
+                return (
+                  <Form.Check
+                    inline
+                    label={category}
+                    key={category}
+                  />
+                );
               })}
             </div>
           ))}
         </Form>
       </Col>
-      <Col md={3}>
+      <Col md={3} className="meetingSearch">
         <input></input>
         <button>검색</button>
       </Col>

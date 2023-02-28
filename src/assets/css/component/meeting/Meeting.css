@@ -14,7 +14,15 @@
 }
 
 .Meeting .Catergory {
-  margin: 5% 0 0 12%;
+  margin: 5% 0 0 15%;
+}
+
+.form-check-inline .form-check-input {
+  margin-top: 1.5em;
+}
+
+.meetingSearch.col-md-3 {
+  margin-top: 1rem;
 }
 
 .Meeting .UserForm {
