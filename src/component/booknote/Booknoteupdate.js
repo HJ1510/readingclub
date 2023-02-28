@@ -6,9 +6,10 @@ import "../../assets/css/component/note/WirteEdbook.css";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import axios from "axios";
-import { Button, Form } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import Libray from "./searchbook";
 import { useParams } from "react-router-dom";
+import Layout from './../../layout/Layout';
 const Booknoteupdate = () => {
   const dispatch = useDispatch();
   const [imageList, setImageList] = useState([]);
@@ -30,7 +31,7 @@ const Booknoteupdate = () => {
     axios.get(`/api/notelist/${no}`).then((res) => setPostData(res.data)); // 추가: 수정할 데이터 가져오기
   }, [no]);
  
-  const submitReview = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     let body = {
       title: movieContent.title,
@@ -62,13 +63,12 @@ const Booknoteupdate = () => {
     setImageList([...imageList, ...e.target.files]);
   };
   return (
-    <div >
-      <Form onSubmit={submitReview}>
-      <h1 style={{marginLeft:"20px"}}>독서 노트 만들기</h1>
-      <Libray onBookSelect={handleBookSelect} />
+    <Layout>
+     
+      <Container className="cs">
+        <h1 style={{ marginLeft: "20px" }}>독서 노트 만들기</h1>
+        <Libray  />
         <div className="App">
-        
-
           <div className="form-wrapper">
             <input
               className="title-input"
@@ -77,7 +77,9 @@ const Booknoteupdate = () => {
               onChange={getValue}
               name="title"
               style={{ width: "500px" }}
+              value={postData?.noteList.title || ""}
             />
+
             <input
               type="file"
               accept="image/jpg,image/png,image/jpeg,image/gif"
@@ -86,7 +88,7 @@ const Booknoteupdate = () => {
             />
             <CKEditor
               editor={ClassicEditor}
-              data="<p>Hello from CKEditor 5!</p>"
+              data={postData?.noteList.content || ""}
               onReady={(editor) => {
                 // You can store the "editor" and use when it is needed.
                 console.log("Editor is ready to use!", editor);
@@ -107,17 +109,18 @@ const Booknoteupdate = () => {
               }}
             />
           </div>
-         
-          <Button variant="primary" type="submit">
-           수정완료
+
+          <Button variant="primary" onClick={handleSubmit}>
+            수정완료
           </Button>
-           
+
           <Button variant="primary" type="submit">
-           수정 취소
+            수정 취소
           </Button>
         </div>
-      </Form>
-    </div>
+        </Container>
+    
+    </Layout>
   );
 };
 
