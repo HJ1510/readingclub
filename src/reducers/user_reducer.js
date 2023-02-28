@@ -1,4 +1,4 @@
-import { LOGIN_USER, REGISTER_USER, INSERT_BOARD ,AUTH_USER} from "../actions/types";
+import { LOGIN_USER, REGISTER_USER, INSERT_BOARD ,AUTH_USER,PUTNOTE_LIST} from "../actions/types";
 
 export default function (state = {}, action) {
   switch (action.type) {
@@ -13,6 +13,9 @@ export default function (state = {}, action) {
     case AUTH_USER:
       return { ...state, userData: action.payload };
       break;
+      case PUTNOTE_LIST:
+        return { ...state, putSuccess: action.payload };
+        break;
 
     default:
       return state;

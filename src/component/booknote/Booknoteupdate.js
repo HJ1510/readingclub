@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { noteList } from "../../actions/borad_action";
+
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "../../assets/css/component/note/WirteEdbook.css";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import axios from "axios";
-import { Button, Form } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import Libray from "./searchbook";
 import { useParams } from "react-router-dom";
+import Layout from "./../../layout/Layout";
 const Booknoteupdate = () => {
   const dispatch = useDispatch();
   const [imageList, setImageList] = useState([]);
   const navigate = useNavigate();
   const [postData, setPostData] = useState(null); // 추가: 수정할 데이터 상태
-  const [isEditMode, setIsEditMode] = useState(false); // 추가: 수정 모드 상태
   const [selectedBook, setSelectedBook] = useState(null);
   const { no } = useParams();
   const handleBookSelect = (book) => {
@@ -27,28 +27,50 @@ const Booknoteupdate = () => {
   });
 
   useEffect(() => {
-    axios.get(`/api/notelist/${no}`).then((res) => setPostData(res.data)); // 추가: 수정할 데이터 가져오기
+    const fetchPostData = async () => {
+      try {
+        const res = await axios.get(`/api/notelist/${no}`);
+        setPostData(res.data);
+        setMovieContent({
+          title: res.data.title,
+          content: res.data.content,
+        });
+        setSelectedBook({
+          title: res.data.booktitle,
+          thumbnail: res.data.thumbnail,
+          url: res.data.url,
+          contents: res.data.bookcontents,
+          publisher: res.data.publisher,
+          authors: res.data.authors,
+          datetime: res.data.bookdatetime,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    if (no) {
+      fetchPostData();
+    }
   }, [no]);
- 
-  const submitReview = (e) => {
-    e.preventDefault();
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Form 요소의 기본 동작을 방지합니다.
+
     let body = {
       title: movieContent.title,
       content: movieContent.content,
-      thumbnail: selectedBook.thumbnail,
-      url: selectedBook.url,
-      bookcontents: selectedBook.contents,
-      booktitle: selectedBook.title,
-      publisher: selectedBook.publisher,
-      authors: selectedBook.authors,
-      bookdatetime: selectedBook.datetime,
     };
-    dispatch(noteList(body)).then((response) => {
-      if (response.payload.success) {
-        alert("등록완료");
-        navigate("/booknote");
-      }
-    });
+    axios
+      .put(`/api/notelist/${no}`, body)
+      .then((response) => {
+        console.log(response.data);
+        alert("수정완료 되었습니다");
+        navigate("/booknote")
+      })
+      .catch((error) => {
+        console.error(error);
+        // 리뷰 업데이트 실패 시 처리할 코드
+      });
   };
 
   const getValue = (e) => {
@@ -57,18 +79,25 @@ const Booknoteupdate = () => {
       ...movieContent,
       [name]: value,
     });
+    setPostData({
+      ...postData,
+      noteList: {
+        ...postData.noteList,
+        [name]: value,
+      },
+    });
   };
+
   const onChangeImageInput = (e) => {
     setImageList([...imageList, ...e.target.files]);
   };
   return (
-    <div >
-      <Form onSubmit={submitReview}>
-      <h1 style={{marginLeft:"20px"}}>독서 노트 만들기</h1>
-      <Libray onBookSelect={handleBookSelect} />
+    <Layout>
+      <div >
+      <Container className="cs">
+        <h1 style={{ marginLeft: "20px" }}>독서 노트 만들기</h1>
+        <Libray  />
         <div className="App">
-        
-
           <div className="form-wrapper">
             <input
               className="title-input"
@@ -77,7 +106,9 @@ const Booknoteupdate = () => {
               onChange={getValue}
               name="title"
               style={{ width: "500px" }}
+              value={postData?.noteList.title || ""}
             />
+
             <input
               type="file"
               accept="image/jpg,image/png,image/jpeg,image/gif"
@@ -86,7 +117,7 @@ const Booknoteupdate = () => {
             />
             <CKEditor
               editor={ClassicEditor}
-              data="<p>Hello from CKEditor 5!</p>"
+              data={postData?.noteList.content || ""}
               onReady={(editor) => {
                 // You can store the "editor" and use when it is needed.
                 console.log("Editor is ready to use!", editor);
@@ -107,17 +138,18 @@ const Booknoteupdate = () => {
               }}
             />
           </div>
-         
-          <Button variant="primary" type="submit">
-           수정완료
+
+          <Button variant="primary" onClick={handleSubmit}>
+            수정완료
           </Button>
-           
+
           <Button variant="primary" type="submit">
-           수정 취소
+            수정 취소
           </Button>
         </div>
-      </Form>
-    </div>
+        </Container>
+      </div>
+    </Layout>
   );
 };
 

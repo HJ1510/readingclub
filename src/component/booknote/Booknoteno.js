@@ -18,15 +18,11 @@ function PostView(props) {
   const [notelist, setNoteList] = useState([]);
   const { no } = useParams();
  
-  const [postData, setPostData] = useState(null); // 추가: 수정할 데이터 상태
-  const [isEditMode, setIsEditMode] = useState(false); // 추가: 수정 모드 상태
 
   useEffect(() => {
     axios.get("/api/notelist").then((res) => setNoteList(res.data));
   }, []);
-  useEffect(() => {
-    axios.get(`/api/notelist/${no}`).then((res) => setPostData(res.data)); // 추가: 수정할 데이터 가져오기
-  }, [no]);
+
   const array = notelist.filter((x) => x.no === parseInt(no));
 
   const handleDeleteClick = async () => {
@@ -41,20 +37,6 @@ function PostView(props) {
     }
   };
 
-  const handleEditSubmit = async (e) => {
-    e.preventDefault();
-    const { title, content } = e.target;
-    try {
-      await axios.patch(`/api/notelist/${no}`, {
-        title: title.value,
-        content: content.value,
-      });
-      setIsEditMode(false);
-      setPostData((prev) => ({ ...prev, title: title.value, content: content.value }));
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const handleEditClick = () => {
     navigate(`/booknote/${no}/edit`);
