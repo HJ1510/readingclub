@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap");
+
 .Write {
   padding: 20px;
   padding-left: 30px;
@@ -48,4 +50,20 @@
 
 .inline {
   display: inline;
+}
+
+.articleList a {
+  text-decoration: none;
+  color: black;
+}
+
+.articles {
+  border-top: 1px solid #a3a3a3;
+  border-bottom: 1px solid #a3a3a3;
+  margin-bottom: -1px;
+  line-height: 1.7em;
+}
+
+.Board {
+  font-family: "Noto Sans KR", sans-serif;
 }

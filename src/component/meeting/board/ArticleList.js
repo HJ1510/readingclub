@@ -10,6 +10,13 @@ import { useEffect, useState } from "react";
 import "./Board.css";
 import mockItems from "mock.json";
 
+function formatDate(value) {
+  const date = new Date(value);
+  return `${date.getFullYear()}. ${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}. ${date.getDate().toString().padStart(2, "0")}`;
+}
+
 function ArticleList({ title }) {
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState("");
@@ -76,8 +83,7 @@ function ArticleList({ title }) {
   }, []);
 
   return title ? (
-    <div>
-      <h2>{title}</h2>
+    <div className="articleList">
       <h2>글 목록</h2>
       <Container>
         <Row>
@@ -96,25 +102,23 @@ function ArticleList({ title }) {
         </Row>
         <Row>
           <Col>No.</Col>
-          <Col md={4}>제목</Col>
+          <Col md={5}>제목</Col>
           <Col>작성자</Col>
           <Col>작성일</Col>
           <Col>조회수</Col>
-          <Col>댓글수</Col>
         </Row>
         {items
           ? items.map((item, idx) => {
               return (
                 <div key={idx}>
-                  <Row>
+                  <Row className="articles">
                     <Col>{item.id}</Col>
-                    <Col md={4}>
+                    <Col md={5}>
                       <Link to={`${item.id}`}>{item.title}</Link>
                     </Col>
                     <Col>{item.createdBy}</Col>
-                    <Col>{item.createdAt}</Col>
+                    <Col>{formatDate(item.createdAt)}</Col>
                     <Col>조회수</Col>
-                    <Col>댓글수</Col>
                   </Row>
                 </div>
               );

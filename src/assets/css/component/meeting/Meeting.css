@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap");
+
 .Calender {
   width: 60%;
   height: 30%;
@@ -16,8 +18,11 @@
 }
 
 .Meeting .UserForm {
+  background-color: aliceblue;
+  height: 30%;
   text-align: center;
   margin-left: -9%;
+  border: 1px solid black;
 }
 
 .meetingCreateForm {
@@ -110,6 +115,6 @@
   color: blue;
 }
 
-.LoginForm {
-  border: 1px solid black;
+.Meeting {
+  font-family: "Noto Sans KR", sans-serif;
 }

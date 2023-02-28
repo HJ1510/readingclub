@@ -1,4 +1,4 @@
-import "../../../assets/css/component/meeting/Board.css";
+import "./Board.css";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Layout from "layout/Layout";

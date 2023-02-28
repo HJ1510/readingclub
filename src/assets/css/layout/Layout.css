@@ -41,7 +41,6 @@
   padding-top: 20px;
   padding-bottom: 20px;
 }
-
 .site-header {
   color: #fff;
   padding: 20px 0;
@@ -61,7 +60,7 @@
 .site-header .nav-menu {
   display: flex;
   list-style: none;
-  margin: 0;
+  margin-bottom: 3rem;
   padding: 0;
 }
 
@@ -71,14 +70,22 @@
 }
 
 .site-header .nav-menu li a {
+  width: 10rem;
   position: relative;
+  display: inline-block;
   text-decoration: none;
   text-transform: uppercase;
   color: #171717;
+  padding-bottom: 5px;
+}
+
+.login {
+  margin-left: 15rem;
 }
 
 .site-header .nav-menu li a:hover {
   color: #ccc;
+  width: 10em;
 }
 
 .site-header .nav-menu li a::before {
@@ -88,7 +95,6 @@
   bottom: -5px;
   height: 1px;
   width: 10em;
-  /* width: 100%; */
   background-color: #171717;
   transition: bottom 0.2s ease-in-out;
 }
