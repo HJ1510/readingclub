@@ -4,6 +4,7 @@ import { meetingList } from "MeetigData";
 import { Col, Container, Row } from "react-bootstrap";
 import Chart from "react-apexcharts";
 import { Link, useParams } from "react-router-dom";
+import "../../assets/css/component/meeting/Meeting.css";
 
 function MeetingInfo() {
   const { no } = useParams();
@@ -98,7 +99,6 @@ function MeetingInfo() {
       <Container>
         <Row>
           <Col md={4}>
-            <p>모임소개 페이지</p>
             <h2>모임명 #해시태그</h2>
             <p>소개글</p>
             <p>인원:n/정원</p>
@@ -115,6 +115,7 @@ function MeetingInfo() {
           <Link to={`/meeting/group/${no}`}>
             <button>모임 게시판</button>
           </Link>
+
           <Link to={`/meeting/admin/${no}`}>
             <button>관리</button>
           </Link>

@@ -4,7 +4,7 @@ import "./Board.css";
 function Board({ title }) {
   return (
     <div className="Board">
-      <h2>{title} 게시판</h2>
+      <h2>{title}</h2>
       <ArticleList title={title} />
     </div>
   );

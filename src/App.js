@@ -20,7 +20,7 @@ import MeetingAdmin from "component/meeting/MeetingAdmin";
 
 const App = () => {
   return (
-    <Routes>
+    <Routes >
       <Route path="/" element={<Main />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/join" element={<Join />} />

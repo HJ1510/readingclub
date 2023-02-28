@@ -84,7 +84,6 @@ function ArticleList({ title }) {
 
   return title ? (
     <div className="articleList">
-      <h2>글 목록</h2>
       <Container>
         <Row>
           <Col></Col>
@@ -100,25 +99,27 @@ function ArticleList({ title }) {
           </form>
         </Col> */}
         </Row>
-        <Row>
-          <Col>No.</Col>
+        <Row className="boardHeader">
+          <Col md={1}></Col>
+          <Col md={1}>No.</Col>
           <Col md={5}>제목</Col>
-          <Col>작성자</Col>
-          <Col>작성일</Col>
-          <Col>조회수</Col>
+          <Col md={1}>작성자</Col>
+          <Col md={2}>작성일</Col>
+          <Col md={1}>조회수</Col>
         </Row>
         {items
           ? items.map((item, idx) => {
               return (
                 <div key={idx}>
                   <Row className="articles">
-                    <Col>{item.id}</Col>
-                    <Col md={5}>
+                    <Col md={1}></Col>
+                    <Col md={1}>{item.id}</Col>
+                    <Col md={5} className="articlesTitle">
                       <Link to={`${item.id}`}>{item.title}</Link>
                     </Col>
-                    <Col>{item.createdBy}</Col>
-                    <Col>{formatDate(item.createdAt)}</Col>
-                    <Col>조회수</Col>
+                    <Col md={1}>{item.createdBy}</Col>
+                    <Col md={2}>{formatDate(item.createdAt)}</Col>
+                    <Col md={1}>조회수</Col>
                   </Row>
                 </div>
               );
