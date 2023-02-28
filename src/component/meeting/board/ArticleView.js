@@ -1,4 +1,4 @@
-import "../../../assets/css/component/meeting/Board.css";
+import "./Board.css";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Layout from "layout/Layout";
@@ -8,16 +8,15 @@ import App from './../../../App';
 
 function ArticleView() {
   const [data, setData] = useState({});
-  const { id } = useParams();
+  const { id, no } = useParams();
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const articleLoad = async (id) => {
-      const { foods } = await getArticle();
-   
-    
-      const article = foods.filter((item) => item.id === parseInt(id));
+      const { content } = await getArticle();
+
+      const article = content.filter((item) => item.id === parseInt(id));
 
       // console.log(article);
       setData(article[0]);
@@ -77,10 +76,12 @@ function ArticleView() {
         >
           삭제
         </button>
-        <Link to={{ pathname: `modi` }}>
+        <Link to={`../info/${no}/modi/${id}`}>
           <button>수정</button>
         </Link>
-        <button onClick={() => navigate(-1)}>목록으로</button>
+        <Link to={`../info/${no}`}>
+          <button>목록으로</button>
+        </Link>
         <Comment />
       </Layout>
     </div>

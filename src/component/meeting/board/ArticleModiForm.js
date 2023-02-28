@@ -14,7 +14,7 @@ const INITIAL_VALUES = {
 
 function ArticleModiForm() {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id, no } = useParams();
 
   const [values, setValues] = useState(INITIAL_VALUES);
 
@@ -70,7 +70,7 @@ function ArticleModiForm() {
                   navigate(-2);
                 }}
               >
-                <Link to={`/meeting/1/${id}`}>수정</Link>
+                <Link to={`/meeting/info/${no}`}>수정</Link>
               </button>
             </div>
           </form>

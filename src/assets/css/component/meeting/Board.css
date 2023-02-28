@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap");
+
 .Board {
   text-align: center;
 }
@@ -62,4 +64,10 @@
 .post-view-row > *:nth-child(2) {
   margin: 10px 0;
   width: 70%;
+}
+
+.Board {
+  text-align: center;
+  font-family: "Noto Sans KR", sans-serif;
+  text-decoration: none;
 }

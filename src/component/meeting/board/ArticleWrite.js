@@ -2,6 +2,8 @@ import { createArticle } from "api";
 import Layout from "layout/Layout";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import TextEditor from "../TextEditor";
 import "./Board.css";
 
 const INITIAL_VALUES = {
@@ -52,7 +54,6 @@ function ArticleWrite() {
               onChange={handleInputChange}
               id="title_txt"
             ></input>
-
             <textarea
               name="content"
               value={values.content}

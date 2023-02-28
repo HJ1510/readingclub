@@ -8,6 +8,14 @@ import { auth } from 'actions/user_action';
 import axios from "axios";
 
 function Navigation() {
+  const handleMouseEnter = (e) => {
+    e.target.querySelector("::before");
+  };
+
+  const handleMouseLeave = (e) => {
+    e.target.querySelector("::before");
+  };
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [inlogin, setinlogin] = useState(false);
@@ -36,43 +44,63 @@ function Navigation() {
   })
 }, [])
   return (
-    <div className="Navigation">
-      <div>
-        <Link to={"/meeting"}>
-          <Button className="Header-button" variant="secondary">
-            MEETING
-          </Button>
-        </Link>
-        <Link to={"/booknote"}>
-          <Button className="Header-button" variant="secondary">
-            NOTE
-          </Button>
-        </Link>
-        <Link to={"/community"}>
-          <Button className="Header-button" variant="secondary">
-            COMMUNITY
-          </Button>
-        </Link>
+    <header className="site-header">
+      <div className="container">
+        <nav>
+          <ul className="nav-menu">
+            <li>
+              <a
+                href="/"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                Home&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </a>
+            </li>
+            <li>
+              <Link
+                to={"/meeting"}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                Meeting
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/booknote"}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                booknote
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/community"}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                Community
+              </Link>
+            </li>
+            <li>
+            {inlogin ?(
+             
+              <Link
+                to={"/login"}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                className="login"
+              >
+                Login-in
+              </Link>):(<><h1>{userInfo && userInfo.name}</h1>
+              <Link to="#"  onClick={onClickHandler}>로그아웃</Link></>)}            </li>
+          </ul>
+        </nav>
+        <div></div>
       </div>
-      <div className="LoginJoin">
-      {inlogin ? (
-          <>
-            <Link to="/login" style={{ textDecoration: "none" }}>
-          Login-in
-        </Link>
-            
-         
-          </>
-        ) : (
-          <> 
-
-                <h1>{userInfo && userInfo.name}</h1>
-              <Link to="#"  onClick={onClickHandler}>로그아웃</Link>
-          </>
-        )}
-      
-      </div>
-    </div>
+    </header>
   );
 }
 

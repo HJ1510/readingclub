@@ -17,35 +17,28 @@ function MeetingList() {
   }, []);
 
   return (
-    <Container>
-      <Row>
-        <Col>
-          <Dropdown className="sort">
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-              최신순
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">최신순</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">마감임박순</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </Col>
-      </Row>
-      <div>
+    <div>
+      
+      <div className="meetingList">
         {mockList
           ? mockList.map((item, idx) => {
               return (
-                <div key={idx}>
-                  <Link to={`/meeting/${item.no}`}>
-                    <Row className="meetingList">
+                <Container key={idx}>
+                  <Link to={`/meeting/info/${item.no}`} className="meetings">
+                    <Row>
+                      <Col md={1}></Col>
                       <Col md={2}>
                         <img src={meetingImgSample} alt="sample" />
                       </Col>
-                      <Col>
-                        <p>이름:{item.title}</p>
-                        <p>모임날짜: {item.firstDate}</p>
-                        <p>정원: {item.maxNum}</p>
-                        <p>모임지역: {item.location}</p>
+                      <Col md={1}></Col>
+                      <Col className="meetingItem">
+                        <h5 className="meetingTitle">{item.title}</h5>
+
+                        <p className="meetingDetail">
+                          모임날짜: {item.firstDate} / 정원: {item.maxNum} /
+                          모임지역: {item.location} / 개설일: {item.createdAt}
+                        </p>
+
                         {/* <Link to={""}> */}
                         {item.hashTags.map((hashTag, idx) => {
                           return (
@@ -58,12 +51,12 @@ function MeetingList() {
                       </Col>
                     </Row>
                   </Link>
-                </div>
+                </Container>
               );
             })
           : ""}
       </div>
-    </Container>
+    </div>
   );
 }
 export default MeetingList;
