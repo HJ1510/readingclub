@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "assets/css/component/meeting/Meeting.css";
 import axios from "axios";
+import FileInput from "./FileInput";
 
 function MeetingCreate() {
   const [values, setValues] = useState({
@@ -17,11 +18,10 @@ function MeetingCreate() {
     ageOpened: "",
     introduce: "",
     firstDate: "",
+    imgFile: null,
   });
 
-  const handleChange = (e) => {
-    const { name, value, id } = e.target;
-
+  const handleChange = (name, value, id) => {
     if (id === "types") {
       setValues((prevValues) => ({
         ...prevValues,
@@ -52,6 +52,11 @@ function MeetingCreate() {
     } else {
       setValues((prevValues) => ({ ...prevValues, [name]: value }));
     }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value, id } = e.target;
+    handleChange(name, value, id);
   };
 
   const handleSubmit = (e) => {
@@ -121,7 +126,7 @@ function MeetingCreate() {
             type="text"
             placeholder="모임명"
             value={values.title}
-            onChange={handleChange}
+            onChange={handleInputChange}
           />
           <Form.Text className="text-muted">모임명을 적어주세요</Form.Text>
         </Form.Group>
@@ -134,7 +139,7 @@ function MeetingCreate() {
             max="10"
             placeholder="2~10"
             value={values.maxNum}
-            onChange={handleChange}
+            onChange={handleInputChange}
           />
           <Form.Text className="text-muted">
             정원은 숫자로만 입력 가능하며, 2명~10명 사이입니다
@@ -152,7 +157,7 @@ function MeetingCreate() {
               id="types"
               value={values.types.writing}
               checked={values.types.writing}
-              onChange={handleChange}
+              onChange={handleInputChange}
             />
             <Form.Check
               inline
@@ -162,7 +167,7 @@ function MeetingCreate() {
               id="types"
               value={values.types.discussion}
               checked={values.types.discussion}
-              onChange={handleChange}
+              onChange={handleInputChange}
             />
           </div>
         </Form.Group>
@@ -177,7 +182,7 @@ function MeetingCreate() {
               type="checkbox"
               id="category"
               checked={values.category.novel}
-              onChange={handleChange}
+              onChange={handleInputChange}
             />
             <Form.Check
               inline
@@ -186,7 +191,7 @@ function MeetingCreate() {
               type="checkbox"
               id="category"
               checked={values.category.poem}
-              onChange={handleChange}
+              onChange={handleInputChange}
             />
             <Form.Check
               inline
@@ -195,7 +200,7 @@ function MeetingCreate() {
               type="checkbox"
               id="category"
               checked={values.category.science}
-              onChange={handleChange}
+              onChange={handleInputChange}
             />
           </div>
         </Form.Group>
@@ -207,7 +212,7 @@ function MeetingCreate() {
             type="text"
             value={values.hashtags}
             placeholder="#"
-            onChange={handleChange}
+            onChange={handleInputChange}
           />
           <Form.Text className="text-muted">
             해시태그는 ,(쉼표)로 구분합니다
@@ -221,7 +226,7 @@ function MeetingCreate() {
             type="text"
             placeholder="지역"
             value={values.location}
-            onChange={handleChange}
+            onChange={handleInputChange}
           />
           <Form.Text className="text-muted">
             모임이 열릴 지역을 적어주세요
@@ -239,7 +244,7 @@ function MeetingCreate() {
               id="genderOpened"
               value="true"
               checked={values.genderOpened === "true"}
-              onChange={handleChange}
+              onChange={handleInputChange}
             />
             <Form.Check
               inline
@@ -249,7 +254,7 @@ function MeetingCreate() {
               id="genderOpened"
               value="false"
               checked={values.genderOpened === "false"}
-              onChange={handleChange}
+              onChange={handleInputChange}
             />
           </div>
         </Form.Group>
@@ -265,7 +270,7 @@ function MeetingCreate() {
               id="ageOpened"
               value="true"
               checked={values.ageOpened === "true"}
-              onChange={handleChange}
+              onChange={handleInputChange}
             />
             <Form.Check
               inline
@@ -275,7 +280,7 @@ function MeetingCreate() {
               id="ageOpened"
               value="false"
               checked={values.ageOpened === "false"}
-              onChange={handleChange}
+              onChange={handleInputChange}
             />
           </div>
         </Form.Group>
@@ -288,7 +293,7 @@ function MeetingCreate() {
             type="text"
             placeholder="모임 소개"
             value={values.introduce}
-            onChange={handleChange}
+            onChange={handleInputChange}
           />
           <Form.Text className="text-muted">
             모임 소개글을 상세히 적어주세요
@@ -297,8 +302,19 @@ function MeetingCreate() {
 
         <Form.Group>
           <Form.Label>첫 모임 예정일</Form.Label>
-          <Form.Control type="date" name="firstDate" onChange={handleChange} />
+          <Form.Control
+            type="date"
+            name="firstDate"
+            onChange={handleInputChange}
+          />
         </Form.Group>
+
+        <FileInput
+          name="imgFile"
+          value={values.imgFile}
+          onChange={handleInputChange}
+        />
+
         <Button variant="outline-secondary" type="submit">
           제출
         </Button>

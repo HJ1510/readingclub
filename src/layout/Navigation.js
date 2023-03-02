@@ -7,6 +7,12 @@ import { auth } from "actions/user_action";
 import axios from "axios";
 
 function Navigation() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [inlogin, setinlogin] = useState(false);
+  const { userInfo } = useSelector((state) => state.user);
+  const [activeMenu, setActiveMenu] = useState("");
+
   const handleMouseEnter = (e) => {
     e.target.querySelector("::before");
   };
@@ -14,11 +20,6 @@ function Navigation() {
   const handleMouseLeave = (e) => {
     e.target.querySelector("::before");
   };
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [inlogin, setinlogin] = useState(false);
-  const { userInfo } = useSelector((state) => state.user);
 
   const onClickHandler = () => {
     axios.get(`/api/users/logout`).then((response) => {
@@ -49,10 +50,12 @@ function Navigation() {
             <li>
               <a
                 href="/"
+                className={activeMenu === "home" ? "active" : ""}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
+                onClick={() => setActiveMenu("home")}
               >
-                Home&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Meetings
               </a>
             </li>
             <li>
@@ -61,16 +64,35 @@ function Navigation() {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                Meeting
+                My Meeting
               </Link>
             </li>
+            <li>
+              <Link
+                to={"/meeting"}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                Notes
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/meeting"}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                My Note
+              </Link>
+            </li>
+
             <li>
               <Link
                 to={"/booknote"}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                booknote
+                Boomarked
               </Link>
             </li>
             <li>
@@ -94,9 +116,8 @@ function Navigation() {
                 </Link>
               ) : (
                 <>
-                  <h1>{userInfo && userInfo.name}</h1>
-                  <Link to="#" onClick={onClickHandler}>
-                    로그아웃
+                  <Link to="#" onClick={onClickHandler} className="login">
+                    로그아웃 / {userInfo && userInfo.name + "님"}
                   </Link>
                 </>
               )}{" "}

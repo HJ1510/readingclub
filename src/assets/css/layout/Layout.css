@@ -27,17 +27,20 @@
   margin-right: auto;
   margin-left: auto;
   text-align: center;
-  font-family: "Dongle", sans-serif;
-
   font-size: larger;
+  background-color: #171717;
 }
 
 .footersection {
   height: 300px;
-  background: #171717;
-  color: #ffffff;
   font-size: 20px;
   padding-top: 80px;
+  background-color: #171717;
+}
+
+.footersection p {
+  color: #fefbf3;
+  background-color: #171717;
 }
 
 .site-header {
@@ -50,6 +53,7 @@
 }
 
 .site-header .container {
+  font-size: 0.8rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -64,11 +68,68 @@
 }
 
 .site-header .nav-menu li {
-  width: 12rem;
+  width: 8rem;
   margin-left: 20px;
 }
 
 .site-header .nav-menu li a {
+  width: 7rem;
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #171717;
+  padding-bottom: 5px;
+}
+
+.site-header .nav-menu li a:hover {
+  color: #ccc;
+  width: 9em;
+}
+
+.site-header .nav-menu li a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  height: 1px;
+  width: 9em;
+  background-color: #171717;
+  transition: bottom 0.2s ease-in-out;
+}
+
+.site-header .nav-menu li a:hover::before {
+  bottom: -15px;
+}
+
+.login {
+  margin-left: 7rem;
+}
+
+.meeting-header {
+  color: black;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+}
+
+.meeting-header .container {
+  border: none;
+}
+
+.meeting-header .meeting-nav-menu {
+  display: flex;
+  list-style: none;
+  margin-bottom: 3rem;
+  padding: 0;
+}
+
+.meeting-header .meeting-nav-menu li {
+  width: 12rem;
+  margin-left: 20px;
+}
+
+.meeting-header .meeting-nav-menu li a {
   width: 10rem;
   position: relative;
   display: inline-block;
@@ -78,16 +139,13 @@
   padding-bottom: 5px;
 }
 
-.login {
-  margin-left: 15rem;
-}
-
-.site-header .nav-menu li a:hover {
+/* 
+.meeting-header .meeting-nav-menu li a:hover {
   color: #ccc;
   width: 10em;
 }
 
-.site-header .nav-menu li a::before {
+.meeting-header .meeting-nav-menu li a::before {
   content: "";
   position: absolute;
   left: 0;
@@ -98,6 +156,6 @@
   transition: bottom 0.2s ease-in-out;
 }
 
-.site-header .nav-menu li a:hover::before {
+.meeting-header .meeting-nav-menu li a:hover::before {
   bottom: -15px;
-}
+} */

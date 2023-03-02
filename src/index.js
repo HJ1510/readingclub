@@ -9,6 +9,7 @@ import ReduxThunk from "redux-thunk";
 import Reducer from "./reducers";
 import "bootstrap/dist/css/bootstrap.css";
 import ScrollToTop from "ScrollToTop";
+import "assets/css/index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

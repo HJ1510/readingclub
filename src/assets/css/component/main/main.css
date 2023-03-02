@@ -3,13 +3,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 3rem;
 }
 
 .image-wrapper img {
   height: 600px;
   display: block;
   opacity: 1;
-  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  transition: transform 1.5s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .image-wrapper img.next {
@@ -20,14 +21,4 @@
 .image-wrapper img.prev {
   transform: translateX(-100%);
   opacity: 0;
-}
-
-.image-wrapper h2 {
-  position: absolute;
-  transform: translateX(50%);
-  bottom: 200px;
-  left: 20px;
-  font-size: 24px;
-  font-weight: bold;
-  z-index: 1;
 }

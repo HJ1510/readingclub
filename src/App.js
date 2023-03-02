@@ -4,7 +4,6 @@ import Main from "./component/main/index";
 import Community from "./component/community";
 import Meeting from "./component/meeting";
 
-
 import MeetingInfo from "component/meeting/MeetinfInfo";
 import ArticleView from "component/meeting/board/ArticleView";
 import ArticleWrite from "component/meeting/board/ArticleWrite";
@@ -21,7 +20,7 @@ import Booknoteupdate from "component/booknote/Booknoteupdate";
 
 const App = () => {
   return (
-    <Routes >
+    <Routes>
       <Route path="/" element={<Main />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/join" element={<Join />} />
@@ -37,11 +36,11 @@ const App = () => {
       </Route>
       <Route path="community" element={<Community />} />
       <Route path="booknote">
-          <Route index element={<Booknote />} />
-          <Route path="writebook" element={<Writebook />} />
-          <Route path=":no" element={<Booknoteno></Booknoteno>} />
-          <Route path=":no/edit" element={<Booknoteupdate/>} />
-        </Route>
+        <Route index element={<Booknote />} />
+        <Route path="writebook" element={<Writebook />} />
+        <Route path=":no" element={<Booknoteno></Booknoteno>} />
+        <Route path=":no/edit" element={<Booknoteupdate />} />
+      </Route>
     </Routes>
   );
 };
