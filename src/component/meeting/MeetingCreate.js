@@ -58,6 +58,7 @@ function MeetingCreate() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(values.imgFile);
     // if (name === "") {
     //   alert("모임명을 작성해주세요");
     //   return;

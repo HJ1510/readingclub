@@ -43,7 +43,7 @@ function FileInput({ name, value, onChange, onSubmit }) {
         />
       </Form.Group>
       {value && (
-        <Button Button variant="light" size="sm" onClick={handleClearClick}>
+        <Button variant="light" size="sm" onClick={handleClearClick}>
           X
         </Button>
       )}
