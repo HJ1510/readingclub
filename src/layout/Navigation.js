@@ -11,7 +11,6 @@ function Navigation() {
   const navigate = useNavigate();
   const [inlogin, setinlogin] = useState(false);
   const { userInfo } = useSelector((state) => state.user);
-  const [activeMenu, setActiveMenu] = useState("");
 
   const handleMouseEnter = (e) => {
     e.target.querySelector("::before");
@@ -48,19 +47,17 @@ function Navigation() {
         <nav>
           <ul className="nav-menu">
             <li>
-              <a
-                href="/"
-                className={activeMenu === "home" ? "active" : ""}
+              <Link
+                to={"/meeting"}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
-                onClick={() => setActiveMenu("home")}
               >
                 Meetings
-              </a>
+              </Link>
             </li>
             <li>
               <Link
-                to={"/meeting"}
+                to={"/meeting/mymeeting"}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
@@ -69,7 +66,7 @@ function Navigation() {
             </li>
             <li>
               <Link
-                to={"/meeting"}
+                to={"/booknote/notelist"}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
@@ -78,17 +75,16 @@ function Navigation() {
             </li>
             <li>
               <Link
-                to={"/meeting"}
+                to={"/booknote"}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
                 My Note
               </Link>
             </li>
-
             <li>
               <Link
-                to={"/booknote"}
+                to={"/note/notebookmark"}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
@@ -104,8 +100,8 @@ function Navigation() {
                 Community
               </Link>
             </li>
-            <li>
-              {inlogin ? (
+            {inlogin ? (
+              <li>
                 <Link
                   to={"/login"}
                   onMouseEnter={handleMouseEnter}
@@ -114,14 +110,21 @@ function Navigation() {
                 >
                   Login-in
                 </Link>
-              ) : (
-                <>
+              </li>
+            ) : (
+              <>
+                <li>
                   <Link to="#" onClick={onClickHandler} className="login">
                     로그아웃 / {userInfo && userInfo.name + "님"}
                   </Link>
-                </>
-              )}{" "}
-            </li>
+                </li>
+                <li>
+                  <Link to="#" onClick={onClickHandler} className="login">
+                    회원정보
+                  </Link>
+                </li>
+              </>
+            )}{" "}
           </ul>
         </nav>
         <div></div>

@@ -4,7 +4,7 @@ import "../../assets/css/component/meeting/Meeting.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-function MeetingCalender() {
+function MeetingCalender(className) {
   // const [events, setEvents] = useState([]);
   // useEffect(() => {
   //   // 서버에서 이벤트를 가져와서 events state를 업데이트합니다.
@@ -25,7 +25,7 @@ function MeetingCalender() {
   // }
 
   return (
-    <div className="Calender">
+    <div className={className.className}>
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"

@@ -57,6 +57,9 @@ function MeetingCreate() {
   const handleInputChange = (e) => {
     const { name, value, id } = e.target;
     handleChange(name, value, id);
+
+    console.log(name);
+    console.log(values.imgFile);
   };
 
   const handleSubmit = (e) => {

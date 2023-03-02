@@ -7,8 +7,6 @@ import meetingImgSample from "assets/images/meetingsample.jpg";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import Dropdown from "react-bootstrap/Dropdown";
-
 function MeetingList() {
   const [mockList, setMockList] = useState([]);
 
@@ -18,7 +16,6 @@ function MeetingList() {
 
   return (
     <div>
-      
       <div className="meetingList">
         {mockList
           ? mockList.map((item, idx) => {

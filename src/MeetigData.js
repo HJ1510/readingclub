@@ -7,6 +7,8 @@ const meetingList = [
     location: "서울",
     hashTags: ["#1", "#2", "#3"],
     createdAt: "2023-02-01",
+    meetingStatus: "모집중",
+    roll: "host",
   },
   {
     no: 2,
@@ -16,6 +18,7 @@ const meetingList = [
     location: "서울",
     hashTags: ["#1", "#2", "#3"],
     createdAt: "2023-02-02",
+    meetingStatus: "진행중",
   },
   {
     no: 3,
@@ -25,6 +28,8 @@ const meetingList = [
     location: "서울",
     hashTags: ["#1", "#2", "#3"],
     createdAt: "2023-02-03",
+    meetingStatus: "진행완료",
+    roll: "host",
   },
   {
     no: 4,
@@ -34,6 +39,7 @@ const meetingList = [
     location: "서울",
     hashTags: ["#1", "#2", "#3"],
     createdAt: "2023-01-31",
+    meetingStatus: "모집중",
   },
   {
     no: 5,
@@ -43,6 +49,7 @@ const meetingList = [
     location: "서울",
     hashTags: ["#1", "#2"],
     createdAt: "2023-02-11",
+    meetingStatus: "진행완료",
   },
 ];
 

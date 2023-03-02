@@ -17,6 +17,7 @@ import MeetingCreate from "component/meeting/MeetingCreate";
 import MeetingGroup from "component/meeting/MeetingGroup";
 import MeetingAdmin from "component/meeting/MeetingAdmin";
 import Booknoteupdate from "component/booknote/Booknoteupdate";
+import MyMeeting from "component/meeting/MyMeeting";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
       <Route path="/join" element={<Join />} />
       <Route path="meeting">
         <Route index element={<Meeting />} />
+        <Route path="mymeeting" element={<MyMeeting />} />
         <Route path="info/:no" element={<MeetingInfo />} />
         <Route path="info/:no/:id" element={<ArticleView />} />
         <Route path="info/:no/modi/:id" element={<ArticleModiForm />} />
