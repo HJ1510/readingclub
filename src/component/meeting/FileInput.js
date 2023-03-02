@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 function FileInput({ name, value, onChange, onSubmit }) {
   const [preview, setPreview] = useState();
@@ -31,14 +33,20 @@ function FileInput({ name, value, onChange, onSubmit }) {
   return (
     <div>
       {value && <img src={preview} width="150" alt="미리보기" />}
-      <input
-        type="file"
-        accept="image/png, image/jpeg"
-        onChange={handleChange}
-        ref={inputRef}
-        onSubmit={onSubmit}
-      />
-      {value && <button onClick={handleClearClick}>X</button>}
+      <Form.Group>
+        <Form.Control
+          type="file"
+          accept="image/png, image/jpeg"
+          onChange={handleChange}
+          ref={inputRef}
+          onSubmit={onSubmit}
+        />
+      </Form.Group>
+      {value && (
+        <Button Button variant="light" size="sm" onClick={handleClearClick}>
+          X
+        </Button>
+      )}
     </div>
   );
 }
