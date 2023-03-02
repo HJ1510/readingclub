@@ -1,63 +1,46 @@
 import { useEffect, useRef, useState } from "react";
 
-function FileInput({ name, value, onChange }) {
+function FileInput({ name, value, onChange, onSubmit }) {
+  const [preview, setPreview] = useState();
+  const inputRef = useRef();
+
   const handleChange = (e) => {
     const nextValue = e.target.files[0];
     onChange({ target: { name, value: nextValue } });
   };
 
+  const handleClearClick = () => {
+    const inputNode = inputRef.current;
+    if (!inputNode) return;
+    inputNode.value = "";
+    onChange({ target: { name } }, null);
+  };
+
+  useEffect(() => {
+    if (!value) return;
+
+    const nextPreview = URL.createObjectURL(value);
+    setPreview(nextPreview);
+
+    return () => {
+      setPreview();
+      URL.revokeObjectURL(nextPreview);
+    };
+  }, [value]);
+
   return (
     <div>
-      {/* <img src={preview} width="100" alt="미리보기" /> */}
-      <input type="file" onChange={handleChange} />
+      {value && <img src={preview} width="150" alt="미리보기" />}
+      <input
+        type="file"
+        accept="image/png, image/jpeg"
+        onChange={handleChange}
+        ref={inputRef}
+        onSubmit={onSubmit}
+      />
+      {value && <button onClick={handleClearClick}>X</button>}
     </div>
   );
 }
 
 export default FileInput;
-
-// function FileInput({ name, value, onChange }) {
-//   const [preview, setPreview] = useState();
-
-//   const inputRef = useRef();
-
-//   const handleInputChange = (e) => {
-//     const nextValue = e.target.files[0];
-//     onChange(name, nextValue);
-//   };
-
-//   const handleClearClick = () => {
-//     const inputNode = inputRef.current;
-//     if (!inputNode) return;
-
-//     inputNode.value = "";
-//     onChange(name, null);
-//   };
-
-//   useEffect(() => {
-//     if (!value) return;
-
-//     // 사이드 이펙트 발생
-//     const nextPreview = URL.createObjectURL(value);
-//     setPreview(nextPreview);
-
-//     // 사이드 이펙트 정리
-//     return () => {
-//       setPreview();
-//       URL.revokeObjectURL(nextPreview); //createObjectURL 해제
-//     };
-//   }, [value]);
-
-//   return (
-//     <div>
-//       <img src={preview} width="100" alt="미리보기" />
-//       <input
-//         type="file"
-//         accept="image/png, image/jpeg"
-//         onChange={handleInputChange}
-//         ref={inputRef}
-//       />
-//       {value && <button onClick={handleClearClick}>X</button>}
-//     </div>
-//   );
-// }

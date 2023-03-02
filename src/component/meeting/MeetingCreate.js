@@ -46,9 +46,6 @@ function MeetingCreate() {
     } else if (name === "hashtags") {
       const hashtags = value.split(","); // 입력된 값을 쉼표로 분리하여 배열로 변환
       setValues((prevValues) => ({ ...prevValues, [name]: hashtags }));
-      // } else if (name === "firstDate") {
-      //   const date = new Date(value); // 입력된 값을 Date 객체로 변환
-      //   setValues((prevValues) => ({ ...prevValues, [name]: date }));
     } else {
       setValues((prevValues) => ({ ...prevValues, [name]: value }));
     }
@@ -57,9 +54,6 @@ function MeetingCreate() {
   const handleInputChange = (e) => {
     const { name, value, id } = e.target;
     handleChange(name, value, id);
-
-    console.log(name);
-    console.log(values.imgFile);
   };
 
   const handleSubmit = (e) => {
@@ -84,19 +78,11 @@ function MeetingCreate() {
     //   alert("모임 소개글을 작성해주세요");
     //   return;
     // }
-    console.log(values);
-
-    // const formData = new FormData();
-    // formData.append("meetingTitle", values.title);
-    // formData.append("maxNum", values.maxNum);
-    // formData.append("writing", values.types.writing);
-    // formData.append("discussion", values.types.discussion);
-    // formData.append("hashtags", values.hashtags.join(","));
-    // formData.append("genderOpened", values.genderOpened);
 
     const form = e.target; // 이벤트가 발생한 폼 요소
     console.log(form);
     const formData = new FormData(form); // 폼 데이터 추출
+    formData.append("imgFile", values.imgFile, values.imgFile.name);
 
     fetch("https://jsonplaceholder.typicode.com/posts", {
       // 서버의 API 엔드포인트 지정
@@ -106,7 +92,7 @@ function MeetingCreate() {
       .then((response) => response.json()) // 서버 응답 데이터를 JSON 형식으로 파싱
       .then((data) => {
         console.log("서버 응답 데이터:", data); // 응답 데이터 콘솔에 출력
-        form.reset(); // 폼 초기화
+        // form.reset(); // 폼 초기화
       })
       .catch((error) => console.error("에러 발생:", error)); // 네트워크 에러 처리
 
@@ -312,11 +298,16 @@ function MeetingCreate() {
           />
         </Form.Group>
 
+        <Form.Label>프로필</Form.Label>
         <FileInput
           name="imgFile"
           value={values.imgFile}
           onChange={handleInputChange}
+          onSubmit={handleSubmit}
         />
+        <Form.Text className="text-muted">
+          프로필 사진은 jpg, png만 지원합니다
+        </Form.Text>
 
         <Button variant="outline-secondary" type="submit">
           제출
