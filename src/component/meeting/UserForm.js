@@ -4,7 +4,7 @@ import "../../assets/css/component/meeting/Meeting.css";
 
 function UserForm() {
   return (
-    <div>
+    <div className="user-form">
       {/* <div>
         <p>
           <input type={"text"} placeholder="ID"></input>
@@ -18,10 +18,11 @@ function UserForm() {
         </p>
       </div> */}
       <div>
-        <p>유저id</p>
-        <p>현재모임</p>
+        <p>유저id 님</p>
         <p>
           <button>모임1</button>
+        </p>
+        <p>
           <button>모임2</button>
         </p>
         <p>

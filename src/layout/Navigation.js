@@ -112,7 +112,7 @@ function Navigation() {
                 </Link>
               </li>
             ) : (
-              <div>
+              <>
                 <li>
                   <Link to="#" onClick={onClickHandler} className="login">
                     로그아웃 / {userInfo && userInfo.name + "님"}
@@ -120,10 +120,10 @@ function Navigation() {
                 </li>
                 <li>
                   <Link to="#" onClick={onClickHandler} className="login">
-                    정보수정
+                    회원정보
                   </Link>
                 </li>
-              </div>
+              </>
             )}{" "}
           </ul>
         </nav>

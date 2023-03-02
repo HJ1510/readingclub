@@ -60,14 +60,14 @@
   border-color: rgb(0, 0, 0, 0);
 }
 
-.site-header .nav-menu  {
+.site-header .nav-menu {
   display: flex;
   list-style: none;
   margin-bottom: 3rem;
   padding: 0;
 }
 
-.site-header .nav-menu  li {
+.site-header .nav-menu li {
   width: 8rem;
   margin-left: 20px;
 }

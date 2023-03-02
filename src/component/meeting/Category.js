@@ -3,6 +3,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "../../assets/css/component/meeting/Meeting.css";
 import { Dropdown } from "react-bootstrap";
+import { searchimg } from "assets/images/search.png";
 
 function Category() {
   const categorys = ["건강/취미", "경제경영", "공무원수험서", "과학", "달력"];
@@ -14,25 +15,19 @@ function Category() {
           {["checkbox"].map((type) => (
             <div key={type} className="mb-3">
               {categorys.map(function (category) {
-                return (
-                  <Form.Check
-                    inline
-                    label={category}
-                    key={category}
-                  />
-                );
+                return <Form.Check inline label={category} key={category} />;
               })}
             </div>
           ))}
         </Form>
       </Col>
       <Col md={3} className="meetingSearch">
-        <input></input>
+        <input placeholder="제목, 해시태그 검색"></input>
         <button>검색</button>
       </Col>
       <Col md={1}>
         <Dropdown className="meetingSort">
-          <Dropdown.Toggle variant="success" id="dropdown-basic">
+          <Dropdown.Toggle variant="success" size="sm" id="dropdown-basic">
             최신순
           </Dropdown.Toggle>
           <Dropdown.Menu>

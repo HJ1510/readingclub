@@ -14,7 +14,7 @@ function Meeting() {
         <Row>
           <Col md={9}>{<MeetingCalender className="Calender" />}</Col>
           <Col md={2} className="UserForm">
-            {<UserForm />}
+            <UserForm inLogin="True" />
           </Col>
         </Row>
         <Row className="Catergory">
