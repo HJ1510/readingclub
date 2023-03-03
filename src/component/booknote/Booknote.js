@@ -27,7 +27,10 @@ function Booknote() {
   };
 
   const handleDelete = (no) => {
-    axios.delete(`/api/notelist/${no}`)
+    axios.delete(`/api/notelist/${no}`,{   headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    }})
+    
       .then(res => {
         if (res.data.success) {
           setNoteList(notelist.filter(notelist => notelist.id !== no));
