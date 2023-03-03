@@ -21,7 +21,12 @@ function Join(props) {
   const [gender, setGender] = useState("male");
   const [date, setDate] = useState("");
     const[nickname,setNickname]= useState("")
+    const [image, setImage] = useState(null);
 
+    // Call when input file type changes
+      const handleFileChange = (e) => {
+        setImage(e.target.files[0]);
+    };
 
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
@@ -78,25 +83,28 @@ function Join(props) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    let body = {
-      email: email,
-      password: password,
-      name: userName,
-      gender: gender,
-      date: date,
-      nickname: nickname
-    };
-    dispatch(registerUser(body)).then((reponse) => {
-      if (reponse.payload.success) {
-        navigate("/login");
-      } else {
-        alert("회원가입이 실패하엿습니다");
-      }
-    });
-    if (validation()) return;
-
-    // API Call
+    
+    let formData = new FormData();
+    console.log(formData)
+    formData.append("file",image);
+    formData.append("email",  email);
+    formData.append("password",  password);
+    formData.append("name",  userName);
+    formData.append("gender",  gender);
+    formData.append("date",  date);
+    formData.append("nickname",  nickname);
+  
+    dispatch(registerUser(formData, {headers: {'Content-Type': 'multipart/form-data'}})).then((reponse) => {
+        if (reponse.payload.success) {
+          navigate("/login");
+          console.log(formData)
+        } else {
+          alert("회원가입이 실패하엿습니다");
+        }
+      });
+      if (validation()) return;
+  
+ 
   };
 
   return (
@@ -126,6 +134,12 @@ function Join(props) {
           style={{ fontFamily: "Dongle, sans-serif",width:"500px" }}
         >
           <Form >
+          <>
+      <form >
+            <input type="file" name="file" onChange={handleFileChange} />
+            {image && <img src={image} alt="preview" />}
+        </form>
+    </>
             <Form.Group as={Row} className="mb-3">
               <Col sm>
                 <Form.Control
