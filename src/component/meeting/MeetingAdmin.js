@@ -37,7 +37,8 @@ function MeetingAdmin() {
                 now={now}
                 label={`${now}%`}
               />
-              <button>내보내기</button>
+              <button>승인</button>
+              <button>승인거부</button>
             </div>
             <div className="member">
               <img src={profile} />

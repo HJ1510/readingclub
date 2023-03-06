@@ -19,9 +19,9 @@ function UserForm() {
       </div> */}
       <div>
         <p>유저id 님</p>
-        <p>
+        <div className="bnt-user-meeting">
           <button>모임1</button>
-        </p>
+        </div>
         <p>
           <button>모임2</button>
         </p>

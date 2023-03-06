@@ -3,7 +3,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "../../assets/css/component/meeting/Meeting.css";
 import { Dropdown } from "react-bootstrap";
-import { searchimg } from "assets/images/search.png";
 
 function Category() {
   const categorys = ["건강/취미", "경제경영", "공무원수험서", "과학", "달력"];
@@ -21,9 +20,15 @@ function Category() {
           ))}
         </Form>
       </Col>
-      <Col md={3} className="meetingSearch">
-        <input placeholder="제목, 해시태그 검색"></input>
-        <button>검색</button>
+      <Col md={3}>
+        <Form>
+          <div className="meetingSearch">
+            <input placeholder="모임이름, 해시태그 :)"></input>
+          </div>
+          <div className="btn-search">
+            <button>검색</button>
+          </div>
+        </Form>
       </Col>
       <Col md={1}>
         <Dropdown className="meetingSort">

@@ -1,13 +1,23 @@
 import Board from "./board";
 import Layout from "layout/Layout";
-import { meetingList } from "MeetigData";
+import { getMeetingByNo } from "MeetigData";
 import { Col, Container, Row } from "react-bootstrap";
 import Chart from "react-apexcharts";
 import { Link, useParams } from "react-router-dom";
-import "../../assets/css/component/meeting/Meeting.css";
+import "assets/css/component/meeting/Meeting.css";
+import { useEffect, useState } from "react";
+import MeetingModal from "./MeetingModal";
 
 function MeetingInfo() {
   const { no } = useParams();
+  const [meetinginfo, setMeetinginfo] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
+  const meeting = getMeetingByNo(no);
+  if (meeting !== null) {
+    console.log(meeting.title); // "첫번째 모임입니다."
+  }
+
   const genderData = {
     series: [70, 30],
     options: {
@@ -94,17 +104,30 @@ function MeetingInfo() {
     );
   };
 
+  function handleClick() {
+    setShowModal(true);
+  }
+
+  function handleCloseModal() {
+    setShowModal(false);
+  }
+
+  useEffect(() => {
+    const meeting = getMeetingByNo(parseInt(no));
+    setMeetinginfo(meeting);
+  }, []);
+
   return (
     <Layout>
       <Container>
         <Row>
-          <Col md={4}>
-            <h2>모임명 #해시태그</h2>
-            <p>소개글</p>
-            <p>인원:n/정원</p>
-            <p>모임장</p>
-            <p>다음 모임 날짜</p>
-            <p>지역</p>
+          <Col md={3}>
+            <div>
+              <h2>{meetinginfo.title}</h2>
+            </div>
+            <div>
+              <h2>정원 : {meetinginfo.maxNum}</h2>
+            </div>
           </Col>
           <Col md={4} style={{ display: "flex" }}>
             <GenderPieChart />
@@ -119,6 +142,15 @@ function MeetingInfo() {
           <Link to={`/meeting/admin/${no}`}>
             <button>관리</button>
           </Link>
+          <div>
+            <button onClick={handleClick}>가입신청</button>
+          </div>
+          {showModal && (
+            <MeetingModal
+              message="가입 신청이 완료되었습니다."
+              onClose={handleCloseModal}
+            />
+          )}
         </Row>
         <Row>
           <Board title="FAQ" />
