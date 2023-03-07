@@ -24,3 +24,39 @@
 .Comment img {
   width: 100px;
 }
+
+.wrapper {
+  margin: 8px;
+  padding: 8px;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid grey;
+  border-radius: 16px;
+}
+
+.image {
+  width: 130px;
+  border-radius: 25px;
+}
+
+.contextContainer {
+  margin-left: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.nameText {
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.commentText {
+  color: black;
+  font-size: 16px;
+}
+
+.button {
+  float: left;
+}

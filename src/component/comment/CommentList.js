@@ -1,40 +1,6 @@
 import { useState } from "react";
-import "../../assets/css/component/comment/Comment.css";
+import "assets/css/component/comment/Comment.css";
 import CommentForm from "./CommentForm";
-
-const styles = {
-  wrapper: {
-    margin: 8,
-    padding: 8,
-    display: "flex",
-    flexDirection: "row",
-    border: "1px solid grey",
-    borderRadius: 16,
-  },
-  imageContainer: {},
-  image: {
-    width: 130,
-    borderRadius: 25,
-  },
-  contextContainer: {
-    marginLeft: 8,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-  },
-  nameText: {
-    color: "black",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  commentTest: {
-    color: "black",
-    fontSize: 16,
-  },
-  button: {
-    float: "left",
-  },
-};
 
 function formatDate(value) {
   const date = new Date(value);
@@ -46,11 +12,11 @@ function CommentListItem({ item, onDelete, onEdit }) {
   const editCommentClick = () => onEdit(item.id);
 
   return (
-    <div style={styles.wrapper}>
-      <div style={styles.imageContainer}>
-        <img src={item.imgUrl} style={styles.image} alt={item.title} />
+    <div className="wrapper">
+      <div className="imageContainer">
+        <img src={item.imgUrl} className="image" alt={item.title} />
       </div>
-      <div style={styles.contextContainer}>
+      <div className="contextContainer">
         <div>{/* <h4>{item.title}</h4> */}</div>
         <div>{item.content}</div>
         {/* <div>{item.rating}</div> */}

@@ -5,6 +5,7 @@ import Layout from "layout/Layout";
 import { getArticle, deleteArticle } from "api";
 import Comment from "component/comment";
 import { Container } from "react-bootstrap";
+import profile from "assets/images/profile.png";
 
 function ArticleView() {
   const [data, setData] = useState({});
@@ -43,67 +44,46 @@ function ArticleView() {
                   <h3>{data.title}</h3>
                 </div>
                 <div className="WriterInfo">
-                  <div>글쓴이 프로필</div>
-                  <div>글쓴이 id</div>
+                  <div className="Writer_profile_img">
+                    <img src={profile}></img>
+                  </div>
+                  <div className="article_writer">
+                    <div>글쓴이 id</div>
+                  </div>
                   <div className="article_info">
                     <div>작성일</div>
+                  </div>
+                  <div className="article_hit">
                     <div>조회수</div>
                   </div>
                 </div>
               </div>
               <div className="article_body">
-                <div>{data.content}</div>
+                <div>content {data.content}</div>
+                <div>hashTag {data.hashTag}</div>
+              </div>
+              <button
+                onClick={() => {
+                  onDelete();
+                  navigate(-1);
+                }}
+              >
+                삭제
+              </button>
+              <Link to={`../info/${no}/modi/${id}`}>
+                <button>수정</button>
+              </Link>
+              <Link to={`../info/${no}`}>
+                <button>목록으로</button>
+              </Link>
+              <div className="CommentBox">
+                <Comment />
               </div>
             </div>
           ) : (
             "글이 없음"
           )}
-          {data ? (
-            <>
-              <div className="post-view-row">
-                <label>게시글 번호</label>
-                <label>{data.id}</label>
-              </div>
-              <div className="post-view-row">
-                <label>제목</label>
-                <label>{data.title}</label>
-              </div>
-              <div className="post-view-row">
-                <label>작성일</label>
-                <label>{data.createDate}</label>
-              </div>
-              <div className="post-view-row">
-                <label>조회수</label>
-                <label>{data.readCount}</label>
-              </div>
-              <div className="post-view-row">
-                <label>내용</label>
-                <div>{data.content}</div>
-              </div>
-              <div className="post-view-row">
-                <label>hashTag</label>
-                <div>{data.hashTag}</div>
-              </div>
-            </>
-          ) : (
-            "해당 게시글을 찾을 수 없습니다."
-          )}
         </Container>
-        <button
-          onClick={() => {
-            onDelete();
-            navigate(-1);
-          }}
-        >
-          삭제
-        </button>
-        <Link to={`../info/${no}/modi/${id}`}>
-          <button>수정</button>
-        </Link>
-        <Link to={`../info/${no}`}>
-          <button>목록으로</button>
-        </Link>
-        <Comment />
       </Layout>
     </div>
   );

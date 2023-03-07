@@ -69,8 +69,27 @@
   text-align: center;
 }
 
+.article_header,
+.article_body {
+  border-bottom: 1px solid #d3d3d3;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+}
+
 .articlesTitle {
   text-align: left;
+}
+
+.WriterInfo {
+  display: flex;
+}
+
+.WriterInfo div {
+  margin-right: 2rem;
+}
+
+.Writer_profile_img img {
+  width: 3rem;
 }
 
 .ArticleContentBox {
