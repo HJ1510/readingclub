@@ -32,6 +32,7 @@ const App = () => {
         <Route path="info/:no/:id" element={<ArticleView />} />
         <Route path="info/:no/modi/:id" element={<ArticleModiForm />} />
         <Route path="group/:no" element={<MeetingGroup />} />
+        <Route path="group/:no/:id" element={<ArticleView />} />
         <Route path="admin/:no" element={<MeetingAdmin />} />
         <Route path="write" element={<ArticleWrite />} />
         <Route path="createmeeting" element={<MeetingCreate />} />

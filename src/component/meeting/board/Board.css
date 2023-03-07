@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap");
 
+.Board {
+  margin-bottom: 5rem;
+}
+
 .Write {
   padding: 20px;
   padding-left: 30px;
@@ -48,10 +52,6 @@
   background-color: white;
 }
 
-.inline {
-  display: inline;
-}
-
 .articleList a {
   text-decoration: none;
   color: black;
@@ -73,7 +73,9 @@
   text-align: left;
 }
 
-.Board {
-  font-family: "Noto Sans KR", sans-serif;
-  margin-bottom: 5rem;
+.ArticleContentBox {
+  margin: 20px auto;
+  padding: 29px 29px 0;
+  border: 1px solid grey;
+  border-radius: 6px;
 }

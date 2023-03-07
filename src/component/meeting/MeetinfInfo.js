@@ -105,6 +105,7 @@ function MeetingInfo() {
   };
 
   function handleClick() {
+    
     setShowModal(true);
   }
 
