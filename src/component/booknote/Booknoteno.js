@@ -4,14 +4,12 @@ import "../../assets/css/component/note/Booknoteno.css";
 import "../../assets/css/component/note/Post.css";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { getnotebook } from "./../../actions/borad_action";
-import { async } from "./../../api";
+
 import Comment from "component/comment";
 import Layout from "./../../layout/Layout";
 import { Row, Col } from "react-bootstrap";
 import parse from "html-react-parser";
 import { Link } from "react-router-dom";
-import App from "./../../App";
 
 function PostView(props) {
   let navigate = useNavigate();

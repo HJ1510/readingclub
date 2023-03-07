@@ -17,11 +17,6 @@
 //   const [showModal, setShowModal] = useState(false);
 //   const [messages, setMessages] = useState([]);
 
-//   useEffect(() => {
-//     socket.on("chat message", (message) => {
-//       setMessages((prevMessages) => [...prevMessages, message]);
-//     });
-//   }, []);
 
 //   const handleOpenModal = () => setShowModal(true);
 //   const handleCloseModal = () => setShowModal(false);

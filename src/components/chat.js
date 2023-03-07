@@ -7,18 +7,21 @@ import { useLocation } from 'react-router-dom';
 import Messages  from './Messages/Messages'
 import Input from './input'
 import TextContainer from './TextContainer'
-const ENDPOINT = 'http://localhost:3000'
+
+
+
 
 let socket
 
 const Chat = () => {
-  const location = useLocation();
   const [name, setName] = useState('')
   const [room, setRoom] = useState('')
   const [users, setUsers] = useState('')
   const [message, setMessage] = useState('')
   const [messages, setMessages] = useState([])
+  const location = useLocation();
 
+  const ENDPOINT = 'http://localhost:5000'
   useEffect(() => {
     const { name, room } = queryString.parse(location.search)
 
@@ -28,35 +31,44 @@ const Chat = () => {
     setName(name)
 
     socket.emit('join', { name, room }, (error) => {
-      if (error) {
-        alert(error)
-      }
+  
     })
+    return ()=>{
+      socket.disconnect();
+    }
   }, [ENDPOINT, location.search])
-
   useEffect(() => {
     socket.on('message', (message) => {
-      setMessages((messages) => [...messages, message])
-   
-    })
-
-    socket.on('roomData', ({ users }) => {
+      setMessages((messages) => [...messages, message]);
+    });
+    socket.on('users', (users) => {
       setUsers(users)
     })
-  }, [])
+  }, []); 
 
   const sendMessage = (event) => {
     event.preventDefault()
 
     if (message) {
-      socket.emit('sendMessage', message, () => setMessage(' '))
+      socket.emit('sendMessage', message, () => setMessage(''))
      
     }
   }
-console.log(message)
+  useEffect(() => {
+    socket.on('roomData', ({ users }) => {
+      setUsers(users);
+    });
+  }, []);
+ 
+
+  console.log(`Sent message: ${message}`);
+  console.log(message, messages);
+
+
   return (
     <div className='outerContainer'>
       <div className='container'>
+        
         <InfoBar room={room} />
         <Messages messages={messages} name={name} />
         <Input

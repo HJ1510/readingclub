@@ -28,13 +28,18 @@ const Booknoteupdate = () => {
 
   useEffect(() => {
     const fetchPostData = async () => {
-      try {
-        const res = await axios.get(`/api/notelist/${no}`);
-        setPostData(res.data);
-        setMovieContent({
-          title: res.data.title,
-          content: res.data.content,
-        });
+        try {
+            const res = await axios.get(`/api/notelist/${no}`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+              }
+            });
+            
+            setPostData(res.data);
+            setMovieContent({
+              title: res.data.title,
+              content: res.data.content,
+            });
         setSelectedBook({
           title: res.data.booktitle,
           thumbnail: res.data.thumbnail,
@@ -61,7 +66,9 @@ const Booknoteupdate = () => {
       content: movieContent.content,
     };
     axios
-      .put(`/api/notelist/${no}`, body)
+      .put(`/api/notelist/${no}`, body,{     headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }})
       .then((response) => {
         console.log(response.data);
         alert("수정완료 되었습니다");
