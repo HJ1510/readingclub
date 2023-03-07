@@ -23,8 +23,18 @@ return {
 }
 }
 
+export function putnoteList(no,dataToSubmit){
+    const request = axios.put(`/api/notelist/${no}`,dataToSubmit)
+    .then(response => response.data)
+
+return { 
+    type: NOTE_LIST,
+    payload: request 
+}
+}
+
 export function deleteNote(no){
-    const request = axios.delete(`/api/notelist/${1}`)
+    const request = axios.delete(`/api/notelist/${no}`)
     .then(response => response.data)
 
 return {

@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import Main from "./component/main/index";
 import Community from "./component/community";
 import Meeting from "./component/meeting";
-
 import MeetingInfo from "component/meeting/MeetinfInfo";
 import ArticleView from "component/meeting/board/ArticleView";
 import ArticleWrite from "component/meeting/board/ArticleWrite";
@@ -19,6 +18,12 @@ import MeetingAdmin from "component/meeting/MeetingAdmin";
 import Booknoteupdate from "component/booknote/Booknoteupdate";
 import MyMeeting from "component/meeting/MyMeeting";
 
+import axios from "axios";
+import Chat from "components/chat";
+import Jofrom from "components/jofrom";
+import { Member } from './component/user/Member';
+
+axios.defaults.withCredentials = true;
 const App = () => {
   return (
     <Routes>

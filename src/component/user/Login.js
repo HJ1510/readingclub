@@ -26,16 +26,19 @@ function LoginPage() {
       email: email,
       password: password,
     };
-
+  
+ 
+  
     dispatch(loginUser(body)).then((response) => {
       if (response.payload.loginSuccess) {
-        navigate("/Meeting");
+        localStorage.setItem("token", response.payload.usertoken);
+  
+        navigate("/");
       } else {
-        alert("Error˝");
+        alert("Error");
       }
     });
   };
-  
   return (
     <div className={styles.login}>
       <h1 className={styles.header} onClick={()=>{

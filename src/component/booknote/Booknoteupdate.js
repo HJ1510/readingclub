@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { noteList } from "../../actions/borad_action";
+
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "../../assets/css/component/note/WirteEdbook.css";
@@ -15,7 +15,6 @@ const Booknoteupdate = () => {
   const [imageList, setImageList] = useState([]);
   const navigate = useNavigate();
   const [postData, setPostData] = useState(null); // 추가: 수정할 데이터 상태
-  const [isEditMode, setIsEditMode] = useState(false); // 추가: 수정 모드 상태
   const [selectedBook, setSelectedBook] = useState(null);
   const { no } = useParams();
   const handleBookSelect = (book) => {
@@ -28,28 +27,57 @@ const Booknoteupdate = () => {
   });
 
   useEffect(() => {
-    axios.get(`/api/notelist/${no}`).then((res) => setPostData(res.data)); // 추가: 수정할 데이터 가져오기
+    const fetchPostData = async () => {
+        try {
+            const res = await axios.get(`/api/notelist/${no}`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+              }
+            });
+            
+            setPostData(res.data);
+            setMovieContent({
+              title: res.data.title,
+              content: res.data.content,
+            });
+        setSelectedBook({
+          title: res.data.booktitle,
+          thumbnail: res.data.thumbnail,
+          url: res.data.url,
+          contents: res.data.bookcontents,
+          publisher: res.data.publisher,
+          authors: res.data.authors,
+          datetime: res.data.bookdatetime,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    if (no) {
+      fetchPostData();
+    }
   }, [no]);
- 
+
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Form 요소의 기본 동작을 방지합니다.
+
     let body = {
       title: movieContent.title,
       content: movieContent.content,
-      thumbnail: selectedBook.thumbnail,
-      url: selectedBook.url,
-      bookcontents: selectedBook.contents,
-      booktitle: selectedBook.title,
-      publisher: selectedBook.publisher,
-      authors: selectedBook.authors,
-      bookdatetime: selectedBook.datetime,
     };
-    dispatch(noteList(body)).then((response) => {
-      if (response.payload.success) {
-        alert("등록완료");
-        navigate("/booknote");
-      }
-    });
+    axios
+      .put(`/api/notelist/${no}`, body,{     headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }})
+      .then((response) => {
+        console.log(response.data);
+        alert("수정완료 되었습니다");
+        navigate("/booknote")
+      })
+      .catch((error) => {
+        console.error(error);
+        // 리뷰 업데이트 실패 시 처리할 코드
+      });
   };
 
   const getValue = (e) => {
@@ -58,7 +86,15 @@ const Booknoteupdate = () => {
       ...movieContent,
       [name]: value,
     });
+    setPostData({
+      ...postData,
+      noteList: {
+        ...postData.noteList,
+        [name]: value,
+      },
+    });
   };
+
   const onChangeImageInput = (e) => {
     setImageList([...imageList, ...e.target.files]);
   };
