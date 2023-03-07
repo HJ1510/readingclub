@@ -21,7 +21,7 @@ import MyMeeting from "component/meeting/MyMeeting";
 import axios from "axios";
 import Chat from "components/chat";
 import Jofrom from "components/jofrom";
-import { Member } from './component/user/Member';
+import { Member } from "./component/user/Member";
 
 axios.defaults.withCredentials = true;
 const App = () => {
@@ -49,6 +49,7 @@ const App = () => {
         <Route path=":no" element={<Booknoteno></Booknoteno>} />
         <Route path=":no/edit" element={<Booknoteupdate />} />
       </Route>
+      <Route path="jo" element={<Jofrom />} />
     </Routes>
   );
 };
