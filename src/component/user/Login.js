@@ -4,15 +4,14 @@ import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "../../actions/user_action";
 import styles from "./Login.module.css";
 import Auth from "hoc/auth";
-
-
+import Layout from "layout/Layout";
 
 function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+
   const onEmailHandler = (e) => {
     setEmail(e.target.value);
   };
@@ -26,13 +25,11 @@ function LoginPage() {
       email: email,
       password: password,
     };
-  
- 
-  
+
     dispatch(loginUser(body)).then((response) => {
       if (response.payload.loginSuccess) {
         localStorage.setItem("token", response.payload.usertoken);
-  
+
         navigate("/");
       } else {
         alert("Error");
@@ -40,19 +37,18 @@ function LoginPage() {
     });
   };
   return (
-    <div className={styles.login}>
-      <h1 className={styles.header} onClick={()=>{
-          navigate("/")
-      }}>
-     
-      📚 Go book 
-    
-      </h1>
-      <div style={{height:"200px"}}></div>
-      <div id="container" >
+    <Layout className={styles.login}>
+      <div id="container">
         <div className="content">
           <div className={styles.Loginwrap}>
-            <h1 style={{ textAlign: "center" ,fontFamily:"Georgia, 'Times New Roman', Times, serif"}}>Log-in</h1>
+            <h1
+              style={{
+                textAlign: "center",
+                fontFamily: "Georgia, 'Times New Roman', Times, serif",
+              }}
+            >
+              Log-in
+            </h1>
 
             <ul className={styles.menuwrap} role="tablist"></ul>
             {/*아이디 비밀번호 input */}
@@ -68,7 +64,6 @@ function LoginPage() {
                         <div className="icon-cell"></div>
                         <input
                           type="email"
-                        
                           value={email}
                           onChange={onEmailHandler}
                           placeholder="이메일"
@@ -97,14 +92,14 @@ function LoginPage() {
           </div>
           <ul className={styles.find}>
             <li>
-              <Link to={"/join"}  className={styles.findtext}>
+              <Link to={"/join"} className={styles.findtext}>
                 회원가입
               </Link>
             </li>
           </ul>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }
 

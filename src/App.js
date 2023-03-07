@@ -1,4 +1,4 @@
-import "./assets/css/App.css";
+import "assets/css/App.css";
 import { Routes, Route } from "react-router-dom";
 import Main from "./component/main/index";
 import Community from "./component/community";
