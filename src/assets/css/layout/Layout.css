@@ -139,13 +139,11 @@
   padding-bottom: 5px;
 }
 
-.active {
+.site-header .nav-menu li .active {
   font-weight: 800;
+  color: #70423e;
 }
 
-.active > * {
-  font-weight: inherit;
-}
 /* 
 .meeting-header .meeting-nav-menu li a:hover {
   color: #ccc;

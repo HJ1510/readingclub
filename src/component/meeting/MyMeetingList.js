@@ -1,5 +1,6 @@
 import { meetingList } from "MeetigData";
 import { useState } from "react";
+import "assets/css/component/meeting/Meeting.css";
 
 function MyMeetingList() {
   const [currentPage, setCurrentPage] = useState(1);
