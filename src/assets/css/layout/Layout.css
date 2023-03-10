@@ -139,6 +139,13 @@
   padding-bottom: 5px;
 }
 
+.active {
+  font-weight: 800;
+}
+
+.active > * {
+  font-weight: inherit;
+}
 /* 
 .meeting-header .meeting-nav-menu li a:hover {
   color: #ccc;

@@ -1,5 +1,5 @@
 import "assets/css/layout/Layout.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
@@ -46,8 +46,7 @@ function Navigation() {
       <div className="container">
         <nav>
           <ul className="nav-menu">
-            <li>
-              <Link
+            {/*               <Link
                 to={"/meeting"}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
@@ -107,7 +106,40 @@ function Navigation() {
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                   className="login"
-                >
+                > */}
+            <li>
+              <NavLink to={"/meeting"} activeClassName="active" exact>
+                Meetings
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to={"/mymeeting"} activeClassName="active">
+                My Meeting
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to={"/booknote/notelist"} activeClassName="active">
+                Notes
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to={"/booknote"} activeClassName="active">
+                My Note
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to={"/note/notebookmark"} activeClassName="active">
+                Boomarked
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to={"/community"} activeClassName="active">
+                Community
+              </NavLink>
+            </li>
+            {inlogin ? (
+              <li>
+                <Link to={"/login"} className="login">
                   Login-in
                 </Link>
               </li>
