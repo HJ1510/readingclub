@@ -24,7 +24,7 @@ function Meeting() {
         </Row>
         <Row>
           <Col className="MeetingList">
-            <MeetingList />
+            <MeetingList title="wholeMeeting"/>
           </Col>
         </Row>
       </Layout>

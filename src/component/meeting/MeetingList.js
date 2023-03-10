@@ -3,11 +3,11 @@ import { meetingList } from "MeetigData";
 import { useEffect, useState } from "react";
 import "assets/css/component/meeting/Meeting.css";
 import meetingImgSample from "assets/images/meetingsample.jpg";
-
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-function MeetingList() {
+
+function MeetingList({ title }) {
   const [mockList, setMockList] = useState([]);
 
   useEffect(() => {
@@ -17,6 +17,7 @@ function MeetingList() {
   return (
     <div>
       <div className="meetingList">
+        <p>{title}</p>
         {mockList
           ? mockList.map((item, idx) => {
               return (

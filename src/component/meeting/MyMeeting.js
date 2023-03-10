@@ -3,6 +3,7 @@ import { Col, Row } from "react-bootstrap";
 import MeetingCalender from "./MeetingCalender";
 import { useEffect, useState } from "react";
 import { meetingList } from "MeetigData";
+import MeetingList from "./MeetingList";
 
 function MyMeeting() {
   const [mockList, setMockList] = useState([]);
@@ -18,10 +19,11 @@ function MyMeeting() {
           <MeetingCalender className="Calender" />
         </Row>
         <Row className="mymeetinglist">
+          <MeetingList title="userMeeting" />
           {mockList
             ? mockList.map((item, idx) => {
                 return (
-                  <div className="meetingItem">
+                  <div key={idx} className="meetingItem">
                     {item.meetingStatus === "모집중" ? (
                       <h3>모집중</h3>
                     ) : item.meetingStatus === "진행중" ? (
