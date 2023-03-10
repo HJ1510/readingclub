@@ -1,5 +1,5 @@
 import { meetingList } from "MeetigData";
-import React, { useState } from "react";
+import { useState } from "react";
 
 function MyMeetingList() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,31 +20,6 @@ function MyMeetingList() {
 
   return (
     <div>
-      {/* 현재 페이지에 해당하는 모임들 보여주기 */}
-      {currentMeetings.map((item) => {
-        return (
-          <div key={item.no}>
-            {item.title}
-
-            {item.meetingStatus === "모집중" ? (
-              <h3>모집중</h3>
-            ) : item.meetingStatus === "진행중" ? (
-              <h3>진행중</h3>
-            ) : (
-              <h3>진행완료</h3>
-            )}
-
-            {item.roll === "host" ? (
-              <div>
-                <h3>host</h3> <button>setting</button>
-              </div>
-            ) : (
-              <button>탈퇴하기</button>
-            )}
-          </div>
-        );
-      })}
-
       {/* 페이징 버튼 만들기 */}
       <button
         disabled={currentPage === 1} // 처음 페이지에선 비활성화
@@ -58,6 +33,30 @@ function MyMeetingList() {
       >
         {">"}
       </button>
+      {/* 현재 페이지에 해당하는 모임들 보여주기 */}
+      {currentMeetings.map((item) => {
+        return (
+          <div key={item.no}>
+            <h5>{item.title}</h5>
+
+            {item.meetingStatus === "모집중" ? (
+              <p>모집중</p>
+            ) : item.meetingStatus === "진행중" ? (
+              <p>진행중</p>
+            ) : (
+              <p>진행완료</p>
+            )}
+
+            {item.roll === "host" ? (
+              <div>
+                <p>host</p> <button>setting</button>
+              </div>
+            ) : (
+              <button>탈퇴하기</button>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }

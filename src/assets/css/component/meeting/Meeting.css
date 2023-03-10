@@ -179,3 +179,17 @@
 .meetingItem div {
   display: flex;
 }
+
+.chart-container {
+  border-left: 1px solid grey;
+  display: flex;
+  padding-top: 2rem;
+}
+
+.MeetingInfoButtons {
+  display: flex;
+}
+
+.MeetingInfoButtons p {
+  margin-right: 2rem;
+}
