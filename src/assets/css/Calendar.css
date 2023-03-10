@@ -5,7 +5,8 @@
 }
 
 .MyMeeting .Calender {
-  width: 60%;
+  float: right;
+  width: 100%;
   height: 30%;
   margin: auto;
 }
