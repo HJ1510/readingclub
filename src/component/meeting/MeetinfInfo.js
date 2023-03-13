@@ -6,7 +6,7 @@ import Chart from "react-apexcharts";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import MeetingModal from "./MeetingModal";
-import "assets/css/component/meeting/Meeting.css";
+import styles from "assets/css/component/meeting/Meeting.module.css";
 
 function MeetingInfo() {
   const { no } = useParams();
@@ -115,13 +115,13 @@ function MeetingInfo() {
               <h2>정원 : {meetinginfo.maxNum}</h2>
             </div>
           </Col>
-          <Col md={6} className="chart-container">
+          <Col md={6} className={styles.chartContainer}>
             <PieChart options={genderData.options} series={genderData.series} />
             <PieChart options={agesData.options} series={agesData.series} />
           </Col>
         </Row>
         <Row>
-          <Col className="MeetingInfoButtons">
+          <Col className={styles.MeetingInfoButtons}>
             <Link to={`/meeting/group/${no}`}>
               <p>모임 게시판</p>
             </Link>

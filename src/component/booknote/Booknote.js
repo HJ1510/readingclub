@@ -1,5 +1,6 @@
 import Layout from "layout/Layout";
-import "../../assets/css/component/note/Booknote.css";
+// import "../../assets/css/component/note/Booknote.css";
+import "../../assets/css/component/note/Booknote.module.css";
 import Chartdata from "./Chartdata";
 import { useState, useEffect } from "react";
 import Chart from "./Chart";
@@ -7,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 
@@ -27,17 +28,20 @@ function Booknote() {
   };
 
   const handleDelete = (no) => {
-    axios.delete(`/api/notelist/${no}`,{   headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-    }})
-    
-      .then(res => {
+    axios
+      .delete(`/api/notelist/${no}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+
+      .then((res) => {
         if (res.data.success) {
-          setNoteList(notelist.filter(notelist => notelist.id !== no));
+          setNoteList(notelist.filter((notelist) => notelist.id !== no));
         }
       })
-      .catch(err => console.error(err));
-  }
+      .catch((err) => console.error(err));
+  };
   useEffect(() => {
     axios.get("/api/notelist").then((response) => {
       setNoteList(response.data);
@@ -50,8 +54,7 @@ function Booknote() {
   }, []);
   return (
     <Layout>
-    <div className="main">
-
+      <div className="main">
         <div className="noteNav" style={{ display: "" }}>
           <Link to={"/booknote"}>
             <Button className="Header-button" variant="secondary">
@@ -103,7 +106,7 @@ function Booknote() {
                 <Link
                   style={{
                     color: "var(--color-fg-muted) !important",
-                    textDecorationLine: "none"
+                    textDecorationLine: "none",
                   }}
                   to="https://github.com/YuumiNam?tab=following"
                 >
@@ -170,7 +173,7 @@ function Booknote() {
             </div>
           </div>
           <hr></hr>
-          <div className="booknote-under" >
+          <div className="booknote-under">
             <div className="booknote-select">
               <select
                 className="form-select"
@@ -225,13 +228,11 @@ function Booknote() {
                             paddingTop: "30px",
                             paddingBottom: "20px",
                             display: "flex",
-                            borderBottom:'1px solid  #e6e0e0'
+                            borderBottom: "1px solid  #e6e0e0",
                           }}
                         >
                           <Col md={2} className="tumb">
-                            <img
-                             src={booknotlist.thumbnail}
-                            ></img>
+                            <img src={booknotlist.thumbnail}></img>
                           </Col>
                           <Col
                             className="booknotelisttitle1"
@@ -313,7 +314,7 @@ function Booknote() {
             </ul>
           </nav>
         </div>
-    </div>
+      </div>
     </Layout>
   );
 }

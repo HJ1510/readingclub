@@ -1,16 +1,34 @@
-.Meeting .Catergory {
-  margin: 5% 0 0 15%;
+.container {
+  border: none;
 }
 
-.form-check-inline .form-check-input {
-  margin-top: 1.5em;
+.Meeting .Category {
+  margin-top: 3rem;
+  margin-left: 12%;
+  margin-bottom: 3rem;
 }
 
-.meetingSearch.col-md-3 {
-  margin-top: 1rem;
+.Meeting .cateItem input {
+  margin-top: 1.5rem;
 }
 
-.Meeting .UserForm {
+.meetingSearch {
+  margin-top: 0.8rem;
+  display: flex;
+}
+
+.meetingSearch button {
+  font-size: 0px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.meetingSort {
+  position: relative;
+  bottom: -0.7rem;
+}
+
+.UserForm {
   height: 30%;
   text-align: center;
   margin-left: -9%;
@@ -23,7 +41,7 @@
   margin: auto;
 }
 
-.Meeting .meetingList .container {
+.meetingList {
   border-color: rgba(0, 0, 0, 0);
   border-bottom: 0.5px solid black;
   border-radius: 0;
@@ -31,7 +49,7 @@
 
 .meetings {
   margin-right: 30px;
-  margin-top: -11px;
+  margin-top: 100px;
   margin-bottom: 10px;
   color: black;
   text-decoration: none;
@@ -42,14 +60,14 @@
   color: black;
 }
 
-.meetings img {
+img {
   position: relative;
   top: 1rem;
   width: 200px;
   margin: 10px;
 }
 
-.meetings .hashTag {
+.hashTag {
   display: inline-block;
 }
 
@@ -57,7 +75,7 @@
   margin: 0.8em;
 }
 
-.Meeting .row .meetingItem {
+.meetingItem {
   margin-top: 4rem;
 }
 
@@ -109,20 +127,6 @@
 
 .meetingCreateForm {
   margin: auto;
-}
-
-.meetingSearch {
-  margin-top: 1.2rem;
-}
-
-.btn-search button {
-  font-size: 0px;
-  border: none;
-}
-
-.meetingSort {
-  position: relative;
-  bottom: -1rem;
 }
 
 .meeting_modal {
@@ -180,7 +184,7 @@
   display: flex;
 }
 
-.chart-container {
+.chartContainer {
   border-left: 1px solid grey;
   display: flex;
   padding-top: 2rem;
@@ -190,6 +194,12 @@
   display: flex;
 }
 
+.MeetingInfoButtons a {
+  text-decoration: none;
+}
+
 .MeetingInfoButtons p {
   margin-right: 2rem;
+  color: black;
+  cursor: pointer;
 }

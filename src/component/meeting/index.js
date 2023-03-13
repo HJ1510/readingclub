@@ -5,26 +5,26 @@ import UserForm from "./UserForm";
 import MeetingList from "./MeetingList";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import "../../assets/css/component/meeting/Meeting.css";
+import styles from "assets/css/component/meeting/Meeting.module.css";
 
 function Meeting() {
   return (
-    <div className="Meeting">
+    <div className={styles.Meeting}>
       <Layout>
         <Row>
           <Col md={9}>{<MeetingCalender className="Calender" />}</Col>
-          <Col md={2} className="UserForm">
+          <Col md={2} className={styles.UserForm}>
             <UserForm inLogin="True" />
           </Col>
         </Row>
-        <Row className="Catergory">
+        <Row className={styles.Category}>
           <Col>
             <Category />
           </Col>
         </Row>
         <Row>
-          <Col className="MeetingList">
-            <MeetingList title="wholeMeeting"/>
+          <Col className={styles.MeetingList}>
+            <MeetingList title="wholeMeeting" />
           </Col>
         </Row>
       </Layout>
