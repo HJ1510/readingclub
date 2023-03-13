@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Layout from "layout/Layout";
+import DOMPurify from "dompurify";
 import { getArticle, deleteArticle } from "api";
 import Comment from "component/comment";
 import { Container } from "react-bootstrap";
@@ -8,6 +9,8 @@ import profile from "assets/images/profile.png";
 import styles from "assets/css/component/meeting/Board.module.css";
 
 function ArticleView() {
+  const sanitizer = DOMPurify.sanitize;
+
   const [data, setData] = useState({});
   const { id, no } = useParams();
 
@@ -59,7 +62,11 @@ function ArticleView() {
                 </div>
               </div>
               <div className={styles.article_body}>
-                <div>content {data.content}</div>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(data.content),
+                  }}
+                ></div>
                 <div>hashTag {data.hashTag}</div>
               </div>
               <button

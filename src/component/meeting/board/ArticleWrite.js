@@ -55,10 +55,14 @@ function ArticleWrite() {
               id={styles.title_txt}
             ></input>
           </div>
-          <Editor />
+          <Editor
+            handleSubmit={handleSubmit}
+            content={values.content}
+            setContent={(content) =>
+              setValues((prevValues) => ({ ...prevValues, content }))
+            }
+          />
         </div>
-
-        <button>작성</button>
       </Layout>
     </div>
   );

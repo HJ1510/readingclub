@@ -9,17 +9,17 @@ export async function getArticle(search = "") {
   return body;
 }
 
-// export async function createArticle(formData) {
-//   const response = await fetch("https://learn.codeit.kr/1636/foods", {
-//     method: "POST",
-//     body: formData,
-//   });
-//   if (!response.ok) {
-//     throw new Error("생성하는데 실패하였습니다");
-//   }
-//   const body = await response.json();
-//   return body;
-// }
+export async function createArticle(formData) {
+  const response = await fetch("https://learn.codeit.kr/1636/foods", {
+    method: "POST",
+    body: formData,
+  });
+  if (!response.ok) {
+    throw new Error("생성하는데 실패하였습니다");
+  }
+  const body = await response.json();
+  return body;
+}
 
 // export async function getArticle(search = "") {
 //   const response = await fetch("/articles");
@@ -30,17 +30,17 @@ export async function getArticle(search = "") {
 //   return body;
 // }
 
-export async function createArticle(formData) {
-  const response = await fetch("/api/articles", {
-    method: "POST",
-    body: formData,
-  });
-  if (!response.ok) {
-    throw new Error("생성하는데 실패하였습니다");
-  }
-  const body = await response.json();
-  return body;
-}
+// export async function createArticle(formData) {
+//   const response = await fetch("/api/articles", {
+//     method: "POST",
+//     body: formData,
+//   });
+//   if (!response.ok) {
+//     throw new Error("생성하는데 실패하였습니다");
+//   }
+//   const body = await response.json();
+//   return body;
+// }
 
 export async function updateArticle(id, formData) {
   const response = await fetch(`https://learn.codeit.kr/1636/foods/${id}`, {
