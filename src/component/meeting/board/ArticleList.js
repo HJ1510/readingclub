@@ -1,13 +1,10 @@
-// import Tables from "./Tables";
-// import TableRow from "./TableRow";
-// import TableColumn from "./TableColumn";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
 import { getArticle } from "api";
 import { useEffect, useState } from "react";
-import "./Board.css";
+import styles from "assets/css/component/meeting/Board.module.css";
 import { HiPencilSquare } from "react-icons/hi2";
 import mockItems from "mock.json";
 
@@ -84,12 +81,12 @@ function ArticleList({ title }) {
   }, []);
 
   return title ? (
-    <div className="articleList">
+    <div className={styles.articleList}>
       <Container>
         <Row>
           <Col></Col>
           <Col>
-            <Link to="/meeting/write">
+            <Link to="/meeting/write" className={styles.articleWriteButton}>
               <HiPencilSquare size="24" />
             </Link>
           </Col>
@@ -100,7 +97,7 @@ function ArticleList({ title }) {
           </form>
         </Col> */}
         </Row>
-        <Row className="boardHeader">
+        <Row className={styles.boardHeader}>
           <Col md={1}></Col>
           <Col md={1}>No.</Col>
           <Col md={5}>제목</Col>
@@ -112,10 +109,10 @@ function ArticleList({ title }) {
           ? items.map((item, idx) => {
               return (
                 <div key={idx}>
-                  <Row className="articles">
+                  <Row className={styles.articles}>
                     <Col md={1}></Col>
                     <Col md={1}>{item.id}</Col>
-                    <Col md={5} className="articlesTitle">
+                    <Col md={5} className={styles.articlesTitle}>
                       <Link to={`${item.id}`}>{item.title}</Link>
                     </Col>
                     <Col md={1}>{item.createdBy}</Col>

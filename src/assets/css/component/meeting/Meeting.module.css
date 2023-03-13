@@ -181,10 +181,6 @@ img {
   height: auto;
 }
 
-.meetingItem div {
-  display: flex;
-}
-
 .chartContainer {
   border-left: 1px solid grey;
   display: flex;

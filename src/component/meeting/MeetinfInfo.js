@@ -104,7 +104,7 @@ function MeetingInfo() {
   }, []);
 
   return (
-    <Layout>
+    <Layout className={styles.Meetinginfo}>
       <Container>
         <Row>
           <Col>
