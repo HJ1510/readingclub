@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { getArticle } from "api";
 import { useEffect, useState } from "react";
 import "./Board.css";
+import { HiPencilSquare } from "react-icons/hi2";
 import mockItems from "mock.json";
 
 function formatDate(value) {
@@ -89,7 +90,7 @@ function ArticleList({ title }) {
           <Col></Col>
           <Col>
             <Link to="/meeting/write">
-              <button>글쓰기</button>
+              <HiPencilSquare size="24" />
             </Link>
           </Col>
           {/* <Col md={2}>
