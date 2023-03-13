@@ -1,4 +1,3 @@
-import "./Board.css";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Layout from "layout/Layout";
@@ -6,6 +5,7 @@ import { getArticle, deleteArticle } from "api";
 import Comment from "component/comment";
 import { Container } from "react-bootstrap";
 import profile from "assets/images/profile.png";
+import styles from "assets/css/component/meeting/Board.module.css";
 
 function ArticleView() {
   const [data, setData] = useState({});
@@ -37,28 +37,28 @@ function ArticleView() {
         <Container>
           <h4>글 상세 페이지</h4>
           {data ? (
-            <div className="ArticleContentBox">
-              <div className="article_header">
-                <div className="ArticleTitle">
+            <div className={styles.ArticleContentBox}>
+              <div className={styles.article_header}>
+                <div className={styles.ArticleTitle}>
                   <div>{data.id}</div>
                   <h3>{data.title}</h3>
                 </div>
-                <div className="WriterInfo">
-                  <div className="Writer_profile_img">
+                <div className={styles.WriterInfo}>
+                  <div className={styles.Writer_profile_img}>
                     <img src={profile}></img>
                   </div>
-                  <div className="article_writer">
+                  <div className={styles.article_writer}>
                     <div>글쓴이 id</div>
                   </div>
-                  <div className="article_info">
+                  <div className={styles.article_info}>
                     <div>작성일</div>
                   </div>
-                  <div className="article_hit">
+                  <div className={styles.article_hit}>
                     <div>조회수</div>
                   </div>
                 </div>
               </div>
-              <div className="article_body">
+              <div className={styles.article_body}>
                 <div>content {data.content}</div>
                 <div>hashTag {data.hashTag}</div>
               </div>
@@ -76,7 +76,7 @@ function ArticleView() {
               <Link to={`../info/${no}`}>
                 <button>목록으로</button>
               </Link>
-              <div className="CommentBox">
+              <div className={styles.CommentBox}>
                 <Comment />
               </div>
             </div>

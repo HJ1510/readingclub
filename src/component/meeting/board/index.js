@@ -1,9 +1,9 @@
 import ArticleList from "./ArticleList";
-import "./Board.css";
+import styles from "assets/css/component/meeting/Board.module.css";
 
 function Board({ title }) {
   return (
-    <div className="Board">
+    <div className={styles.Board}>
       <h2>{title}</h2>
       <ArticleList title={title} />
     </div>

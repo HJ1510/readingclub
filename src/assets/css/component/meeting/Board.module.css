@@ -10,19 +10,14 @@
 }
 
 .Write {
-  padding: 20px;
-  padding-left: 30px;
-}
-
-.Write div {
-  margin-top: 30px;
-  margin-left: 50px;
+  width: 70%;
+  margin: auto;
 }
 
 #title_txt {
-  width: 91%;
+  width: 100%;
   padding-bottom: 30px;
-  border: none;
+  border: 2px solid red;
   font-size: 22px;
   border-bottom: solid 1px #ababab;
   font-weight: bold;
