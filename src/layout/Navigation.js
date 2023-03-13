@@ -108,32 +108,32 @@ function Navigation() {
                   className="login"
                 > */}
             <li>
-              <NavLink to={"/meeting"} activeClassName="active" exact>
+              <NavLink to={"/meeting"} activeclassname="active">
                 Meetings
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/mymeeting"} activeClassName="active">
+              <NavLink to={"/mymeeting"} activeclassname="active">
                 My Meeting
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/booknote/notelist"} activeClassName="active">
+              <NavLink to={"/booknote/notelist"} activeclassname="active">
                 Notes
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/booknote"} activeClassName="active">
+              <NavLink to={"/booknote"} activeclassname="active">
                 My Note
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/note/notebookmark"} activeClassName="active">
+              <NavLink to={"/note/notebookmark"} activeclassname="active">
                 Boomarked
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/community"} activeClassName="active">
+              <NavLink to={"/community"} activeclassname="active">
                 Community
               </NavLink>
             </li>
