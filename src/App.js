@@ -17,11 +17,12 @@ import MeetingGroup from "component/meeting/MeetingGroup";
 import MeetingAdmin from "component/meeting/MeetingAdmin";
 import Booknoteupdate from "component/booknote/Booknoteupdate";
 import MyMeeting from "component/meeting/MyMeeting";
-
+import Progress from "component/booknote/Progress";
 import axios from "axios";
 import Chat from "components/chat";
 import Jofrom from "components/jofrom";
 import { Member } from './component/user/Member';
+import Rangking from "component/booknote/booknoteRangking/Rangking";
 
 axios.defaults.withCredentials = true;
 const App = () => {
@@ -30,7 +31,9 @@ const App = () => {
       <Route path="/" element={<Main />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/join" element={<Join />} />
+      <Route path="/member" element={<Member/>} />
       <Route path="meeting">
+      
         <Route index element={<Meeting />} />
         <Route path="mymeeting" element={<MyMeeting />} />
         <Route path="info/:no" element={<MeetingInfo />} />
@@ -42,12 +45,17 @@ const App = () => {
         <Route path="write" element={<ArticleWrite />} />
         <Route path="createmeeting" element={<MeetingCreate />} />
       </Route>
+      <Route path="jo"element={<Jofrom></Jofrom>}/>
+      <Route path="chat" element={<Chat></Chat>}/>
       <Route path="community" element={<Community />} />
       <Route path="booknote">
         <Route index element={<Booknote />} />
+        <Route path="notelist" element={<Rangking/>}/>
         <Route path="writebook" element={<Writebook />} />
-        <Route path=":no" element={<Booknoteno></Booknoteno>} />
-        <Route path=":no/edit" element={<Booknoteupdate />} />
+        <Route path=":id" element={<Booknoteno></Booknoteno>} />
+        <Route path=":id/edit" element={<Booknoteupdate />} />
+        <Route path="progress"element={<Progress></Progress>}/>
+       
       </Route>
     </Routes>
   );

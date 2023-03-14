@@ -4,54 +4,70 @@ import Chartdata from "./Chartdata";
 import { useState, useEffect } from "react";
 import Chart from "./Chart";
 import { Link, useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
-
-import parse from 'html-react-parser';
+import SearchBar from "./Search";
+import Progress from "./Progress";
+import { Modal } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
+import { CircularProgressbar } from "react-circular-progressbar";
+import styled, { keyframes } from "styled-components";
+import "react-circular-progressbar/dist/styles.css";
+import Heatmap from "./Heatmap";
+
+const progressBarAnimation = keyframes`
+0% {
+  stroke-dashoffset: 0;
+}
+100% {
+  stroke-dashoffset: 260;
+}
+`;
+
+const StyledCircularProgressbar = styled(CircularProgressbar)`
+  width: 120px;
+  height: 120px;
+
+  .CircularProgressbar-path {
+    stroke: #3e98c7;
+    stroke-linecap: round;
+    animation: ${progressBarAnimation} 1s linear forwards;
+  }
+`;
 
 function Booknote() {
   let [countspan, setcountspan] = useState(5);
   let [name, setName] = useState("");
-  const [categoryname, setcategoryname] = useState([]);
+  const percentage = 55;
+
   const [notelist, setNoteList] = useState([]);
+  const navigate= useNavigate();
+  const [showModal, setShowModal] = useState(false);
 
-  const [modalOpen, setModalOpen] = useState(false);
+  const handleModalOpen = () => setShowModal(true);
+  const handleModalClose = () => setShowModal(false);
 
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleDelete = (no) => {
-    axios.delete(`/api/notelist/${no}`,{   headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-    }})
-    
-      .then(res => {
+    axios
+      .delete(`/api/notelist/${no}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+
+      .then((res) => {
         if (res.data.success) {
-          setNoteList(notelist.filter(notelist => notelist.id !== no));
+          setNoteList(notelist.filter((notelist) => notelist.id !== no));
         }
       })
-      .catch(err => console.error(err));
-  }
-  useEffect(() => {
-    axios.get("/api/notelist").then((response) => {
-      setNoteList(response.data);
-    });
-  }, []);
-  useEffect(() => {
-    axios.get("/api/category").then((response) => {
-      setcategoryname(response.data);
-    });
-  }, []);
+      .catch((err) => console.error(err));
+  };
+
+
   return (
     <Layout>
-    <div className="main">
-
+      <div className="main">
         <div className="noteNav" style={{ display: "" }}>
           <Link to={"/booknote"}>
             <Button className="Header-button" variant="secondary">
@@ -103,7 +119,7 @@ function Booknote() {
                 <Link
                   style={{
                     color: "var(--color-fg-muted) !important",
-                    textDecorationLine: "none"
+                    textDecorationLine: "none",
                   }}
                   to="https://github.com/YuumiNam?tab=following"
                 >
@@ -123,13 +139,29 @@ function Booknote() {
                 >
                   노트 작성하기 📗
                 </Link>
+                <Link to="#" onClick={handleModalOpen}>
+                  목표도서 설정하기
+                </Link>
+                <Modal show={showModal} onHide={handleModalClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>목표도서 설정하기</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <Progress></Progress>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={handleModalClose}>
+                      닫기
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
               </div>
             </div>
 
             <div className="booknote-mian" style={{ height: "500px" }}>
               <div
-                className="container"
-                style={{ display: "flex", gap: "15px", marginTop: "20px" }}
+                className="bookcontainer"
+                style={{ display: "flex", gap: "15px", }}
               >
                 <div
                   style={{
@@ -143,7 +175,7 @@ function Booknote() {
                 </div>
                 <label
                   className="box-body"
-                  style={{ width: "350px", height: "100%", display: "block" }}
+                  style={{ width: "400px", height: "100%", display: "block" }}
                 >
                   <h2
                     style={{
@@ -152,130 +184,37 @@ function Booknote() {
                       margin: "10px",
                     }}
                   >
-                    {" "}
-                    목표 도서수 {100}
+                    목표 도서수 {100} books
                   </h2>
-                  <Chartdata />
+                  <div style={{ width: "100%" }}>
+                    <div className="d-flex justify-content-center align-items-center">
+                      <StyledCircularProgressbar
+                        value={percentage}
+                        text={`${percentage}%`}
+                      />
+                      <div style={{width:"400px"}}>
+                      <span style={{ marginLeft: "10px" }}>
+                        {`현재 권수: ${11} books`}{" "}
+                        <br/>
+                        <span style={{ marginLeft: "10px" }}>
+                          {`남은 권수: ${81} books`}
+                        </span>
+                      </span>
+                      </div>
+                    </div>
+                  </div>
                 </label>
               </div>
 
               <div className="glassbox">
-                <div style={{ margin: "5px" }}>
-                  <img
-                    style={{ width: "100%" }}
-                    src="https://ghchart.rshah.org/yuumiNam"
-                  ></img>
-                </div>
+                <Heatmap></Heatmap>
               </div>
             </div>
           </div>
           <hr></hr>
-          <div className="booknote-under" >
+          <div className="booknote-under">
             <div className="booknote-select">
-              <select
-                className="form-select"
-                style={{ width: "300px", fontSize: "1.4em" }}
-              >
-                {categoryname.map((category) => {
-                  return (
-                    <option key={category.name} value={category}>
-                      {category.name}
-                    </option>
-                  );
-                })}
-              </select>
-
-              <form
-                className="d-flex"
-                role="search"
-                style={{ width: "400px", float: "right" }}
-              >
-                <input
-                  className="form-control me-2"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                  style={{ fontSize: "1.5em" }}
-                />
-                <button className="btn btn-outline-success" type="submit">
-                  Search
-                </button>
-              </form>
-            </div>
-            <div className="booknote-undermain">
-              <div>
-                <div
-                  className="booknote-underlist"
-                  style={{ fontSize: "2.0em" }}
-                >
-                  <div
-                    className="booknotelist"
-                    style={{
-                      paddingTop: "30px",
-                      paddingBottom: "20px",
-                      display: "block",
-                    }}
-                  >
-                    {notelist.map((booknotlist) => {
-                      return (
-                        <div
-                          key={booknotlist.id}
-                          className="booklist"
-                          style={{
-                            paddingTop: "30px",
-                            paddingBottom: "20px",
-                            display: "flex",
-                            borderBottom:'1px solid  #e6e0e0'
-                          }}
-                        >
-                          <Col md={2} className="tumb">
-                            <img
-                             src={booknotlist.thumbnail}
-                            ></img>
-                          </Col>
-                          <Col
-                            className="booknotelisttitle1"
-                            style={{
-                              width: "900px",
-                            }}
-                          >
-                            <h3 style={{ margin: "15px" }}> #카테고리</h3>
-                            <h3 style={{ margin: "15px" }}>
-                              <Link to={`/booknote/${booknotlist.no}`}>
-                                제목: {booknotlist.title}
-                              </Link>
-                            </h3>
-
-                            <h5 style={{ margin: "10px" }}>
-                              내용: {parse(booknotlist.content)}
-                            </h5>
-                          </Col>
-                          <div
-                            className="booknotelisticon"
-                            style={{ display: "block" }}
-                          >
-                            <span
-                              style={{ height: "100px" }}
-                              onClick={() => {
-                                setcountspan(countspan + 1);
-                              }}
-                            >
-                              👍{countspan}
-                            </span>
-                            <br />
-                            <span
-                              onClick={handleDelete}
-                              style={{ height: "50px", width: "80px" }}
-                            >
-                              🗑
-                            </span>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
+              <SearchBar />
             </div>
           </div>
         </div>
@@ -313,7 +252,7 @@ function Booknote() {
             </ul>
           </nav>
         </div>
-    </div>
+      </div>
     </Layout>
   );
 }

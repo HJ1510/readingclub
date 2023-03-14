@@ -6,11 +6,11 @@
     background-color: #1A1A1D;
   }
   
-  .container {
+  .chatcontainer {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
+    background: #FFFFFF;
     border-radius: 8px;
     height: 60%;
     width: 35%;

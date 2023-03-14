@@ -11,34 +11,34 @@ import { Row, Col } from "react-bootstrap";
 import parse from "html-react-parser";
 import { Link } from "react-router-dom";
 
-function PostView(props) {
+function Booknoteno(props) {
   let navigate = useNavigate();
   const [notelist, setNoteList] = useState([]);
-  const { no } = useParams();
+  const { id } = useParams();
  
 
   useEffect(() => {
     axios.get("/api/notelist").then((res) => setNoteList(res.data));
   }, []);
 
-  const array = notelist.filter((x) => x.no === parseInt(no));
+  const array = notelist.filter((x) => x._id === id);
 
   const handleDeleteClick = async () => {
     const confirm = window.confirm("정말로 삭제하시겠습니까?");
     if (confirm) {
       try {
-        await axios.delete(`/api/notelist/${no}`);
+        await axios.delete(`/api/notelist/${id}`);
         navigate("/booknote");
       } catch (error) {
         console.error(error);
       }
     }
   };
-
-
+  
   const handleEditClick = () => {
-    navigate(`/booknote/${no}/edit`);
+    navigate(`/booknote/${id}/edit`);
   };
+   
  
  
   return (
@@ -62,7 +62,7 @@ function PostView(props) {
                   ></img>
                 </Link>
               </Col>
-              <Col className="bookviewnotelisttitle1" style={{}}>
+              <Col className="bookviewnotelisttitle1" >
                 <h1 style={{ margin: "15px" }}>제목: {data1.booktitle}</h1>
                 <span className="bookspan">
                   <span>{data1.authors} 역 </span>
@@ -74,12 +74,16 @@ function PostView(props) {
 
                 <h3 style={{ margin: "15px" }}>내용: {data1.bookcontents}</h3>
               </Col>
-              <h3 style={{ marginTop: "50px" }}>제목: {data1.title}</h3>
+              <h3 className="bookviewtitle"style={{ marginTop: "50px" }}>제목: {data1.title}</h3>
 
               <div className="bookviewcontent">
                 <h5 style={{ margin: "20px" }}>내용: {parse(data1.content)}</h5>
               </div>
+              <div>
+                조회수 {data1.hit}
+              </div>
             </Row>
+         
           );
         })}
         <div style={{display:"flex" ,float:"right"}}>
@@ -109,4 +113,4 @@ function PostView(props) {
   );
 }
 
-export default PostView;
+export default Booknoteno;

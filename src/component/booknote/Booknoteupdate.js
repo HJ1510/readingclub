@@ -16,7 +16,7 @@ const Booknoteupdate = () => {
   const navigate = useNavigate();
   const [postData, setPostData] = useState(null); // 추가: 수정할 데이터 상태
   const [selectedBook, setSelectedBook] = useState(null);
-  const { no } = useParams();
+  const { id } = useParams();
   const handleBookSelect = (book) => {
     setSelectedBook(book);
   };
@@ -25,16 +25,19 @@ const Booknoteupdate = () => {
     title: "",
     content: "",
   });
+  const cancle = (e) => {
+    e.preventDefault();
+  
+    navigate(`/booknote/${id}`);
+  };
 
   useEffect(() => {
     const fetchPostData = async () => {
         try {
-            const res = await axios.get(`/api/notelist/${no}`, {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-              }
+            const res = await axios.get(`/api/notelist/${id}`, {
+        
             });
-            
+        
             setPostData(res.data);
             setMovieContent({
               title: res.data.title,
@@ -49,15 +52,17 @@ const Booknoteupdate = () => {
           authors: res.data.authors,
           datetime: res.data.bookdatetime,
         });
+    
       } catch (error) {
         console.error(error);
       }
     };
-    if (no) {
+    if (id) {
       fetchPostData();
     }
-  }, [no]);
-
+       
+  }, [id]);
+ 
   const handleSubmit = (e) => {
     e.preventDefault(); // Form 요소의 기본 동작을 방지합니다.
 
@@ -66,11 +71,9 @@ const Booknoteupdate = () => {
       content: movieContent.content,
     };
     axios
-      .put(`/api/notelist/${no}`, body,{     headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-      }})
+      .put(`/api/notelist/${id}`, body)
       .then((response) => {
-        console.log(response.data);
+   
         alert("수정완료 되었습니다");
         navigate("/booknote")
       })
@@ -88,8 +91,8 @@ const Booknoteupdate = () => {
     });
     setPostData({
       ...postData,
-      noteList: {
-        ...postData.noteList,
+      note: {
+        ...postData.note,
         [name]: value,
       },
     });
@@ -113,7 +116,7 @@ const Booknoteupdate = () => {
               onChange={getValue}
               name="title"
               style={{ width: "500px" }}
-              value={postData?.noteList.title || ""}
+              value={postData?.note.title || ""}
             />
 
             <input
@@ -124,7 +127,7 @@ const Booknoteupdate = () => {
             />
             <CKEditor
               editor={ClassicEditor}
-              data={postData?.noteList.content || ""}
+              data={postData?.note.content || ""}
               onReady={(editor) => {
                 // You can store the "editor" and use when it is needed.
                 console.log("Editor is ready to use!", editor);
@@ -150,8 +153,9 @@ const Booknoteupdate = () => {
             수정완료
           </Button>
 
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" onClick={cancle} >
             수정 취소
+
           </Button>
         </div>
         </Container>
