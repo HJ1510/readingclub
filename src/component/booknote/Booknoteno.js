@@ -4,7 +4,8 @@ import "../../assets/css/component/note/Booknoteno.css";
 import "../../assets/css/component/note/Post.css";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import { FcLike } from "react-icons/fc";
+import {AiFillHeart} from "react-icons/ai";
 import Comment from "component/comment";
 import Layout from "./../../layout/Layout";
 import { Row, Col } from "react-bootstrap";
@@ -15,8 +16,9 @@ function Booknoteno(props) {
   let navigate = useNavigate();
   const [notelist, setNoteList] = useState([]);
   const { id } = useParams();
- 
-
+  
+  const[likes,setLikes] =useState([])
+  const[isLiked,setIsLiked] =useState(false)
   useEffect(() => {
     axios.get("/api/notelist").then((res) => setNoteList(res.data));
   }, []);
@@ -38,8 +40,57 @@ function Booknoteno(props) {
   const handleEditClick = () => {
     navigate(`/booknote/${id}/edit`);
   };
-   
- 
+const handleLikeClick = async () => {
+  try {
+    const authResponse = await axios.get("/api/users/auth");
+    const isAuth = authResponse.data.isAuth;
+    const userId = authResponse.data._id;
+
+    if (!isAuth) {
+      // If user is not authenticated, redirect to login page
+      navigate("/login");
+      return;
+    }
+
+    const response = await axios.get(`/api/notelist/${id}`);
+    const note = response.data.note;
+    const isLiked = note.likesBy.includes(userId);
+
+    if (isLiked) {
+      // Unlike the note
+      const response = await axios.delete(`/api/notelist/${id}/unlike`);
+      const updatedNote = response.data.note;
+      setLikes(updatedNote.likes);
+      setIsLiked(false);
+    } else {
+      // Like the note
+      const response = await axios.put(`/api/notelist/${id}/like`);
+      const updatedNote = response.data.note;
+      setLikes(updatedNote.likes);
+      setIsLiked(updatedNote.likesBy.includes(userId));
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+  
+  
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`/api/notelist/${id}`);
+      const note = response.data.note;
+      setLikes(note.likes);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  fetchData();
+}, [id]);
+  
+  
+  
  
   return (
     <Layout>
@@ -82,6 +133,11 @@ function Booknoteno(props) {
               <div>
                 조회수 {data1.hit}
               </div>
+              <div>
+  <span >좋아요 {likes}</span>
+ 
+  <AiFillHeart onClick={handleLikeClick} style={{ color: isLiked ? "gray" : "red" }}/>
+</div>
             </Row>
          
           );

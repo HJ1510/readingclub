@@ -41,9 +41,13 @@ export default function Ranking() {
   const dispatch = useDispatch();
 
   const [notes, setNotes] = useState([]);
-  const sortedNotes = notes.sort((a, b) => b.hit - a.hit);
+
   const [showTable, setShowTable] = useState(false);
+
+
+
   const navigate = useNavigate();
+
   const handleClick = async (bookid) => {
     try {
       await axios.put(`/api/notelist/${bookid}/hit`);
@@ -52,6 +56,9 @@ export default function Ranking() {
       console.error(err);
     }
   };
+
+
+
   useEffect(() => {
     dispatch(noteList()).then((response) => {
       setNotes(response.payload);
@@ -76,7 +83,9 @@ export default function Ranking() {
           <Typography variant="h5" gutterBottom>
             조회 수 👓
           </Typography>
-          {notes.map((note, index) => {
+          {notes
+        .sort((a, b) => b.hit - a.hit)
+          .map((note, index) => {
             let icon;
             if (index === 0) {
               icon = <FaMedal size="24" color="gold" />;
@@ -141,7 +150,9 @@ export default function Ranking() {
             좋아요 수 🧡
           </Typography>
           <div>
-            {notes.map((note, index) => {
+            {notes 
+            .sort((a, b) => b.likes - a.likes)
+            .map((note, index) => {
               let icon;
               if (index === 0) {
                 icon = <FaMedal size="24" color="gold" />;
@@ -189,6 +200,8 @@ export default function Ranking() {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
+                
+              <StyledTableCell align="right"></StyledTableCell>
                 <StyledTableCell align="right">no</StyledTableCell>
                 <StyledTableCell align="right">제목</StyledTableCell>
                 <StyledTableCell align="right">저자</StyledTableCell>
@@ -200,6 +213,9 @@ export default function Ranking() {
             <TableBody>
               {notes.map((book, index) => (
                 <StyledTableRow key={book._id} className="card-1" onClick={() => handleClick(book._id)}>
+                        <StyledTableCell align="right">
+                        🧡{book.likes}
+                  </StyledTableCell>
                   <StyledTableCell align="right">
                     <img src={book.thumbnail} alt="책 표지" />
                   </StyledTableCell>

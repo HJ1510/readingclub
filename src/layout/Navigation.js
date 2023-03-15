@@ -32,7 +32,7 @@ function Navigation() {
 
   useEffect(() => {
     dispatch(auth()).then((response) => {
-      
+
       // 로그인 하지 않은상태
       if (!response.payload.isAuth) {
         setinlogin(true);
