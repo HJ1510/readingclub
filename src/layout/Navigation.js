@@ -1,10 +1,10 @@
-import "assets/css/layout/Layout.css";
-import { Link, useNavigate, NavLink } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { auth } from "actions/user_action";
-import axios from "axios";
+import 'assets/css/layout/Layout.css';
+import { Link, useNavigate, NavLink } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+// import { auth } from "actions/user_action";
+import axios from 'axios';
 
 function Navigation() {
   const dispatch = useDispatch();
@@ -13,39 +13,39 @@ function Navigation() {
   const { userInfo } = useSelector((state) => state.user);
 
   const handleMouseEnter = (e) => {
-    e.target.querySelector("::before");
+    e.target.querySelector('::before');
   };
 
   const handleMouseLeave = (e) => {
-    e.target.querySelector("::before");
+    e.target.querySelector('::before');
   };
 
   const onClickHandler = () => {
     axios.get(`/api/users/logout`).then((response) => {
       if (response.data.success) {
-        navigate("/login");
+        navigate('/login');
       } else {
-        alert("로그아웃에 실패했습니다");
+        alert('로그아웃에 실패했습니다');
       }
     });
   };
 
-  useEffect(() => {
-    dispatch(auth()).then((response) => {
-      console.log(response);
-      // 로그인 하지 않은상태
-      if (!response.payload.isAuth) {
-        setinlogin(true);
-      } else {
-        setinlogin(false);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   dispatch(auth()).then((response) => {
+  //     console.log(response);
+  //     // 로그인 하지 않은상태
+  //     if (!response.payload.isAuth) {
+  //       setinlogin(true);
+  //     } else {
+  //       setinlogin(false);
+  //     }
+  //   });
+  // }, []);
   return (
-    <header className="site-header">
-      <div className="container">
+    <header className='site-header'>
+      <div className='container'>
         <nav>
-          <ul className="nav-menu">
+          <ul className='nav-menu'>
             {/*               <Link
                 to={"/meeting"}
                 onMouseEnter={handleMouseEnter}
@@ -108,55 +108,55 @@ function Navigation() {
                   className="login"
                 > */}
             <li>
-              <NavLink to={"/meeting"} activeclassname="active">
+              <NavLink to={'/meeting'} activeclassname='active'>
                 Meetings
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/mymeeting"} activeclassname="active">
+              <NavLink to={'/mymeeting'} activeclassname='active'>
                 My Meeting
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/booknote/notelist"} activeclassname="active">
+              <NavLink to={'/booknote/notelist'} activeclassname='active'>
                 Notes
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/booknote"} activeclassname="active">
+              <NavLink to={'/booknote'} activeclassname='active'>
                 My Note
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/note/notebookmark"} activeclassname="active">
+              <NavLink to={'/note/notebookmark'} activeclassname='active'>
                 Boomarked
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/community"} activeclassname="active">
+              <NavLink to={'/community'} activeclassname='active'>
                 Community
               </NavLink>
             </li>
             {inlogin ? (
               <li>
-                <Link to={"/login"} className="login">
+                <Link to={'/login'} className='login'>
                   Login-in
                 </Link>
               </li>
             ) : (
               <>
                 <li>
-                  <Link to="#" onClick={onClickHandler} className="login">
-                    로그아웃 / {userInfo && userInfo.name + "님"}
+                  <Link to='#' onClick={onClickHandler} className='login'>
+                    로그아웃 / {userInfo && userInfo.name + '님'}
                   </Link>
                 </li>
                 <li>
-                  <Link to="#" onClick={onClickHandler} className="login">
+                  <Link to='#' onClick={onClickHandler} className='login'>
                     회원정보
                   </Link>
                 </li>
               </>
-            )}{" "}
+            )}{' '}
           </ul>
         </nav>
         <div></div>
