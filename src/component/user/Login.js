@@ -29,7 +29,15 @@ function LoginPage() {
   
  
   
-
+    dispatch(loginUser(body)).then((response) => {
+      if (response.payload.loginSuccess) {
+        localStorage.setItem("token", response.payload.usertoken);
+  
+        navigate("/");
+      } else {
+        alert("Error");
+      }
+    });
   };
   return (
     <div className={styles.login}>
