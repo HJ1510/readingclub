@@ -44,7 +44,7 @@ export default function Ranking() {
 
   const [showTable, setShowTable] = useState(false);
 
-
+const[user,setuser]= useState([]);
 
   const navigate = useNavigate();
 
@@ -58,7 +58,11 @@ export default function Ranking() {
   };
 
 
-
+  useEffect(() => {
+    axios.get("/api/notelist/post").then((res) => {
+      setuser(res.data.users); // 수정된 부분: res.data.users로 설정
+    });
+  }, [setuser]);
   useEffect(() => {
     dispatch(noteList()).then((response) => {
       setNotes(response.payload);
@@ -117,7 +121,9 @@ export default function Ranking() {
             게시글 수 💻
           </Typography>
           <div>
-            {notes.map((note, index) => {
+            {user
+            .sort((a, b) => b.postCount - a.postCount)
+            .map((post, index) => {
               let icon;
               if (index === 0) {
                 icon = <FaMedal size="24" color="gold" />;
@@ -130,11 +136,11 @@ export default function Ranking() {
               }
               return (
                 <div
-                  key={note._id}
+                  key={post._id}
                   className="ranking"
                   style={{ animationDelay: `${0.2 * index}s` }}
                 >
-                  {icon} {` ${note.title}`}
+                  {icon} {` ${post.name}  ${post.postCount}개`}
                 </div>
               );
             })}

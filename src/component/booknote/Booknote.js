@@ -13,14 +13,16 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import styled, { keyframes } from "styled-components";
 import "react-circular-progressbar/dist/styles.css";
 import Heatmap from "./Heatmap";
+import { useDispatch } from 'react-redux';
+import { auth } from 'actions/user_action';
 
 const progressBarAnimation = keyframes`
-0% {
-  stroke-dashoffset: 0;
-}
-100% {
-  stroke-dashoffset: 260;
-}
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: ${props => (100 - props.value) / 100 * props.circumference};
+  }
 `;
 
 const StyledCircularProgressbar = styled(CircularProgressbar)`
@@ -30,23 +32,26 @@ const StyledCircularProgressbar = styled(CircularProgressbar)`
   .CircularProgressbar-path {
     stroke: #3e98c7;
     stroke-linecap: round;
+    stroke-dasharray: ${props => props.circumference};
     animation: ${progressBarAnimation} 1s linear forwards;
   }
 `;
 
 function Booknote() {
-  let [countspan, setcountspan] = useState(5);
-  let [name, setName] = useState("");
-  const percentage = 55;
+  const [target, setTarget] = useState('');
 
+
+  let [countspan, setcountspan] = useState(5);
+  const [percentage, setPercentage] = useState(0);
+
+  const dispatch = useDispatch();
+  const [id,setId]= useState();
   const [notelist, setNoteList] = useState([]);
-  const navigate= useNavigate();
   const [showModal, setShowModal] = useState(false);
 
   const handleModalOpen = () => setShowModal(true);
   const handleModalClose = () => setShowModal(false);
 
-  const [searchTerm, setSearchTerm] = useState("");
 
   const handleDelete = (no) => {
     axios
@@ -64,6 +69,21 @@ function Booknote() {
       .catch((err) => console.error(err));
   };
 
+
+
+  useEffect(() => {
+    dispatch(auth()).then((response) => {
+      const { _id } = response.payload;
+      axios.get(`/api/user/${_id}/bookgoal`)
+        .then((res) => {
+          setId(res.data)
+          setPercentage(Math.round((res.data.postCount / res.data.bookGoal) * 100));
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    });
+  }, [target]);
 
   return (
     <Layout>
@@ -147,7 +167,7 @@ function Booknote() {
                     <Modal.Title>목표도서 설정하기</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <Progress></Progress>
+                    <Progress target={target} setTarget={setTarget}></Progress>
                   </Modal.Body>
                   <Modal.Footer>
                     <Button variant="secondary" onClick={handleModalClose}>
@@ -173,6 +193,8 @@ function Booknote() {
                 >
                   <Chart></Chart>
                 </div>
+                {id && (
+                  
                 <label
                   className="box-body"
                   style={{ width: "400px", height: "100%", display: "block" }}
@@ -184,7 +206,8 @@ function Booknote() {
                       margin: "10px",
                     }}
                   >
-                    목표 도서수 {100} books
+                
+                    목표 도서수 {id.bookGoal} books
                   </h2>
                   <div style={{ width: "100%" }}>
                     <div className="d-flex justify-content-center align-items-center">
@@ -194,16 +217,17 @@ function Booknote() {
                       />
                       <div style={{width:"400px"}}>
                       <span style={{ marginLeft: "10px" }}>
-                        {`현재 권수: ${11} books`}{" "}
+                      {`현재 권수: ${id.postCount} books`}
                         <br/>
                         <span style={{ marginLeft: "10px" }}>
-                          {`남은 권수: ${81} books`}
+                        {`남은 권수: ${id.bookGoal - id.postCount} books`}
                         </span>
                       </span>
                       </div>
                     </div>
                   </div>
                 </label>
+                )}
               </div>
 
               <div className="glassbox">
