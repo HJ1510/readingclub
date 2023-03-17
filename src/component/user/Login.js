@@ -1,18 +1,16 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import { loginUser } from "../../actions/user_action";
-import styles from "./Login.module.css";
-import Auth from "hoc/auth";
-
-
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
+import { loginUser } from '../../actions/user_action';
+import styles from './Login.module.css';
+import Auth from 'hoc/auth';
 
 function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const onEmailHandler = (e) => {
     setEmail(e.target.value);
   };
@@ -26,67 +24,72 @@ function LoginPage() {
       email: email,
       password: password,
     };
-  
- 
-  
+
     dispatch(loginUser(body)).then((response) => {
       if (response.payload.loginSuccess) {
-        localStorage.setItem("token", response.payload.usertoken);
-  
-        navigate("/");
+        localStorage.setItem('token', response.payload.usertoken);
+
+        navigate('/');
       } else {
-        alert("Error");
+        alert('Error');
       }
     });
   };
   return (
     <div className={styles.login}>
-      <h1 className={styles.header} onClick={()=>{
-          navigate("/")
-      }}>
-     
-      📚 Go book 
-    
+      <h1
+        className={styles.header}
+        onClick={() => {
+          navigate('/');
+        }}
+      >
+        📚 Go book
       </h1>
-      <div style={{height:"200px"}}></div>
-      <div id="container" >
-        <div className="content">
+      <div style={{ height: '200px' }}></div>
+      <div id='container'>
+        <div className='content'>
           <div className={styles.Loginwrap}>
-            <h1 style={{ textAlign: "center" ,fontFamily:"Georgia, 'Times New Roman', Times, serif"}}>Log-in</h1>
+            <h1
+              style={{
+                textAlign: 'center',
+                fontFamily: "Georgia, 'Times New Roman', Times, serif",
+              }}
+            >
+              Log-in
+            </h1>
 
-            <ul className={styles.menuwrap} role="tablist"></ul>
+            <ul className={styles.menuwrap} role='tablist'></ul>
             {/*아이디 비밀번호 input */}
             <form
-              style={{ display: "flex", flexDirection: "column" }}
+              style={{ display: 'flex', flexDirection: 'column' }}
               onSubmit={onSubmitHandler}
             >
               <ul className={styles.panelwrap}>
                 <li className={styles.pitem}>
                   <div className={styles.pinner}>
-                    <div className="id-pw">
-                      <div className={styles.inputrow} id="id-line">
-                        <div className="icon-cell"></div>
+                    <div className='id-pw'>
+                      <div className={styles.inputrow} id='id-line'>
+                        <div className='icon-cell'></div>
                         <input
-                          type="email"
-                        
+                          type='email'
                           value={email}
                           onChange={onEmailHandler}
-                          placeholder="이메일"
+                          placeholder='이메일'
                         />
                       </div>
                       <div className={styles.inputrow}>
-                        <div className="icon-cell"></div>
+                        <div className='icon-cell'></div>
                         <input
-                          type="password"
+                          type='password'
                           value={password}
                           onChange={onPasswordHandler}
-                          placeholder="비밀번호"
+                          placeholder='비밀번호'
                         />
                       </div>
                     </div>
                     <div className={styles.loginuder}></div>
                     <div className={styles.btnlogin}>
-                      <button type="sumbit" className={styles.btn1}>
+                      <button type='sumbit' className={styles.btn1}>
                         <span className={styles.btntext}>로그인</span>
                       </button>
                     </div>
@@ -97,7 +100,7 @@ function LoginPage() {
           </div>
           <ul className={styles.find}>
             <li>
-              <Link to={"/join"}  className={styles.findtext}>
+              <Link to={'/join'} className={styles.findtext}>
                 회원가입
               </Link>
             </li>
