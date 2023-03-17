@@ -4,42 +4,93 @@ import "../../assets/css/component/note/Booknoteno.css";
 import "../../assets/css/component/note/Post.css";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import { FcLike } from "react-icons/fc";
+import {AiFillHeart} from "react-icons/ai";
 import Comment from "component/comment";
 import Layout from "./../../layout/Layout";
 import { Row, Col } from "react-bootstrap";
 import parse from "html-react-parser";
 import { Link } from "react-router-dom";
 
-function PostView(props) {
+function Booknoteno(props) {
   let navigate = useNavigate();
   const [notelist, setNoteList] = useState([]);
-  const { no } = useParams();
- 
-
+  const { id } = useParams();
+  
+  const[likes,setLikes] =useState([])
+  const[isLiked,setIsLiked] =useState(false)
   useEffect(() => {
     axios.get("/api/notelist").then((res) => setNoteList(res.data));
   }, []);
 
-  const array = notelist.filter((x) => x.no === parseInt(no));
+  const array = notelist.filter((x) => x._id === id);
 
   const handleDeleteClick = async () => {
     const confirm = window.confirm("정말로 삭제하시겠습니까?");
     if (confirm) {
       try {
-        await axios.delete(`/api/notelist/${no}`);
+        await axios.delete(`/api/notelist/${id}`);
         navigate("/booknote");
       } catch (error) {
         console.error(error);
       }
     }
   };
-
-
+  
   const handleEditClick = () => {
-    navigate(`/booknote/${no}/edit`);
+    navigate(`/booknote/${id}/edit`);
   };
- 
+const handleLikeClick = async () => {
+  try {
+    const authResponse = await axios.get("/api/users/auth");
+    const isAuth = authResponse.data.isAuth;
+    const userId = authResponse.data._id;
+
+    if (!isAuth) {
+      // If user is not authenticated, redirect to login page
+      navigate("/login");
+      return;
+    }
+
+    const response = await axios.get(`/api/notelist/${id}`);
+    const note = response.data.note;
+    const isLiked = note.likesBy.includes(userId);
+
+    if (isLiked) {
+      // Unlike the note
+      const response = await axios.delete(`/api/notelist/${id}/unlike`);
+      const updatedNote = response.data.note;
+      setLikes(updatedNote.likes);
+      setIsLiked(false);
+    } else {
+      // Like the note
+      const response = await axios.put(`/api/notelist/${id}/like`);
+      const updatedNote = response.data.note;
+      setLikes(updatedNote.likes);
+      setIsLiked(updatedNote.likesBy.includes(userId));
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+  
+  
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`/api/notelist/${id}`);
+      const note = response.data.note;
+      setLikes(note.likes);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  fetchData();
+}, [id]);
+  
+  
+  
  
   return (
     <Layout>
@@ -62,7 +113,7 @@ function PostView(props) {
                   ></img>
                 </Link>
               </Col>
-              <Col className="bookviewnotelisttitle1" style={{}}>
+              <Col className="bookviewnotelisttitle1" >
                 <h1 style={{ margin: "15px" }}>제목: {data1.booktitle}</h1>
                 <span className="bookspan">
                   <span>{data1.authors} 역 </span>
@@ -74,12 +125,21 @@ function PostView(props) {
 
                 <h3 style={{ margin: "15px" }}>내용: {data1.bookcontents}</h3>
               </Col>
-              <h3 style={{ marginTop: "50px" }}>제목: {data1.title}</h3>
+              <h3 className="bookviewtitle"style={{ marginTop: "50px" }}>제목: {data1.title}</h3>
 
               <div className="bookviewcontent">
                 <h5 style={{ margin: "20px" }}>내용: {parse(data1.content)}</h5>
               </div>
+              <div>
+                조회수 {data1.hit}
+              </div>
+              <div>
+  <span >좋아요 {likes}</span>
+ 
+  <AiFillHeart onClick={handleLikeClick} style={{ color: isLiked ? "gray" : "red" }}/>
+</div>
             </Row>
+         
           );
         })}
         <div style={{display:"flex" ,float:"right"}}>
@@ -109,4 +169,4 @@ function PostView(props) {
   );
 }
 
-export default PostView;
+export default Booknoteno;

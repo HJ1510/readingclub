@@ -9,7 +9,7 @@ import styles from "./Join.module.css";
 import { registerUser } from "../../actions/user_action";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Header from "layout/Header";
+
 
 function Join(props) {
   const navigate = useNavigate();
@@ -97,7 +97,7 @@ function Join(props) {
     dispatch(registerUser(formData, {headers: {'Content-Type': 'multipart/form-data'}})).then((reponse) => {
         if (reponse.payload.success) {
           navigate("/login");
-          console.log(formData)
+         alert("회원가입이 완료되었습니다.")
         } else {
           alert("회원가입이 실패하엿습니다");
         }

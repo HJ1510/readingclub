@@ -50,7 +50,7 @@ function CommentForm({
   };
 
   return (
-    <div>
+    <div  style={{maxWidth:"1200px",  margin: "0 auto"}}>
       <div>코멘트폼</div>
       <form className="ReviewForm" onSubmit={commentSubmit}>
         {/* <FileInput

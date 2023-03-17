@@ -32,7 +32,7 @@ function Navigation() {
 
   useEffect(() => {
     dispatch(auth()).then((response) => {
-      console.log(response);
+
       // 로그인 하지 않은상태
       if (!response.payload.isAuth) {
         setinlogin(true);
@@ -41,6 +41,8 @@ function Navigation() {
       }
     });
   }, []);
+
+
   return (
     <header className="site-header">
       <div className="container">
@@ -55,15 +57,17 @@ function Navigation() {
                 Meetings
               </Link>
             </li>
-            <li>
-              <Link
-                to={"/meeting/mymeeting"}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
-                My Meeting
-              </Link>
-            </li>
+            {!inlogin && (
+              <li>
+                <Link
+                  to={"/meeting/mymeeting"}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  My Meeting
+                </Link>
+              </li>
+            )}
             <li>
               <Link
                 to={"/booknote/notelist"}
@@ -73,15 +77,17 @@ function Navigation() {
                 Notes
               </Link>
             </li>
-            <li>
-              <Link
-                to={"/booknote"}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
-                My Note
-              </Link>
-            </li>
+            {!inlogin && (
+              <li>
+                <Link
+                  to={"/booknote"}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  My Note
+                </Link>
+              </li>
+            )}
             <li>
               <Link
                 to={"/note/notebookmark"}
@@ -119,7 +125,7 @@ function Navigation() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="#" onClick={onClickHandler} className="login">
+                  <Link to="/member" className="login">
                     회원정보
                   </Link>
                 </li>

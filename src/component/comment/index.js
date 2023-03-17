@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createComment, deleteComment, getComments, updateComment } from "api";
 import CommentList from "./CommentList";
 import CommentForm from "./CommentForm";
+import { Button } from "react-bootstrap";
 
 function Comment() {
   const [items, setItems] = useState([]);
@@ -54,10 +55,10 @@ function Comment() {
   }, []);
 
   return (
-    <div>
+    <div  style={{maxWidth:"1100px",  margin: "0 auto"}}>
       <div>
-        <button onClick={newestClick}>최신순</button>
-        <button onClick={bestClick}>베스트순</button>
+        <Button onClick={newestClick}>최신순</Button>
+        <Button onClick={bestClick}>베스트순</Button>
       </div>
       <CommentForm
         onSubmit={createComment}

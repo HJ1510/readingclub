@@ -15,7 +15,7 @@ const WriteEditor = () => {
   const dispatch = useDispatch();
   const [imageList, setImageList] = useState([]);
   const navigate = useNavigate();
-
+  const [category, setCategory] = useState("");
   const [selectedBook, setSelectedBook] = useState(null);
 
   const handleBookSelect = (book) => {
@@ -40,8 +40,9 @@ const WriteEditor = () => {
       publisher: selectedBook.publisher,
       authors: selectedBook.authors,
       bookdatetime: selectedBook.datetime,
+      category:category,
     };
-    dispatch(noteList(body)).then((response) => {
+    dispatch(insertBoard(body)).then((response) => {
       if (response.payload.success) {
         alert("등록완료");
         navigate("/booknote");
@@ -124,9 +125,16 @@ const WriteEditor = () => {
     <div >
       <Form onSubmit={submitReview}>
       <h1>독서 노트 만들기</h1>
+      
       <Libray onBookSelect={handleBookSelect} />
         <div className="App">
-        
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+  <option value="">카테고리 선택</option>
+  <option value="소설">소설</option>
+  <option value="비소설">비소설</option>
+  <option value="자기계발">자기계발</option>
+  <option value="역사">역사</option>
+</select>
 
           <div className="form-wrapper">
             <input
