@@ -3,7 +3,7 @@ import { Link, useNavigate, NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-// import { auth } from "actions/user_action";
+import { auth } from 'actions/user_action';
 import axios from 'axios';
 
 function Navigation() {
@@ -32,7 +32,6 @@ function Navigation() {
 
   useEffect(() => {
     dispatch(auth()).then((response) => {
-
       // 로그인 하지 않은상태
       if (!response.payload.isAuth) {
         setinlogin(true);
@@ -41,7 +40,6 @@ function Navigation() {
       }
     });
   }, []);
-
 
   return (
     <header className='site-header'>
@@ -157,7 +155,7 @@ function Navigation() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/member" className="login">
+                  <Link to='/member' className='login'>
                     회원정보
                   </Link>
                 </li>
