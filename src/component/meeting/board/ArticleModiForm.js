@@ -3,7 +3,7 @@ import Layout from "layout/Layout";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
-import "./Board.css";
+import styles from "assets/css/component/meeting/Board.module.css";
 
 const INITIAL_VALUES = {
   title: "",
@@ -43,7 +43,7 @@ function ArticleModiForm() {
     <div>
       <Layout>
         <div>글 수정</div>
-        <div className="Write">
+        <div className={styles.Write}>
           <form onSubmit={handleSubmit}>
             <input
               type="text"
@@ -51,7 +51,7 @@ function ArticleModiForm() {
               value={values.title}
               placeholder={values.title}
               onChange={handleInputChange}
-              id="title_txt"
+              id={styles.title_txt}
             ></input>
 
             <textarea
@@ -59,7 +59,7 @@ function ArticleModiForm() {
               value={values.content}
               placeholder="content"
               onChange={handleInputChange}
-              id="content_txt"
+              id={styles.content_txt}
             ></textarea>
 
             <div id="post_submit">

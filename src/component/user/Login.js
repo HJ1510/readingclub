@@ -25,6 +25,7 @@ function LoginPage() {
       password: password,
     };
 
+
     dispatch(loginUser(body)).then((response) => {
       if (response.payload.loginSuccess) {
         localStorage.setItem('token', response.payload.usertoken);
@@ -107,7 +108,7 @@ function LoginPage() {
           </ul>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }
 

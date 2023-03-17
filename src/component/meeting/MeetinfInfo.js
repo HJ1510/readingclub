@@ -1,38 +1,47 @@
-import Board from "./board";
-import Layout from "layout/Layout";
-import { getMeetingByNo } from "MeetigData";
-import { Col, Container, Row } from "react-bootstrap";
-import Chart from "react-apexcharts";
-import { Link, useParams } from "react-router-dom";
-import "assets/css/component/meeting/Meeting.css";
-import { useEffect, useState } from "react";
-import MeetingModal from "./MeetingModal";
+import Board from './board';
+import Layout from 'layout/Layout';
+// import { getMeetingByNo } from 'MeetigData';
+import { getMeetings } from 'api';
+import { Col, Container, Row } from 'react-bootstrap';
+import Chart from 'react-apexcharts';
+import { Link, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import MeetingModal from './MeetingModal';
+import styles from 'assets/css/component/meeting/Meeting.module.css';
 
 function MeetingInfo() {
   const { no } = useParams();
-  const [meetinginfo, setMeetinginfo] = useState("");
+  const [meetinginfo, setMeetinginfo] = useState('');
   const [showModal, setShowModal] = useState(false);
 
-  const meeting = getMeetingByNo(no);
-  if (meeting !== null) {
-    console.log(meeting.title); // "첫번째 모임입니다."
-  }
+  const getMeetingByNo = async (no) => {
+    const { meetings } = await getMeetings();
+
+    const array = meetings.filter((x) => x.autoIncrementField === no);
+    if (array.length === 1) {
+      // console.log(array[0]);
+      return array[0];
+    }
+    return null;
+  };
 
   const genderData = {
     series: [70, 30],
     options: {
       chart: {
-        type: "pie",
+        type: 'pie',
       },
-      labels: ["Female", "Male"],
-      colors: ["#F2CDA6", "#A6CAF0"],
+      labels: ['Female', 'Male'],
+      colors: ['#F2CDA6', '#A6CAF0'],
       title: {
-        text: "모임원 성비",
-        align: "left",
+        align: 'left',
         style: {
-          fontSize: "20px",
-          color: "#263238",
+          fontSize: '20px',
+          color: '#263238',
         },
+      },
+      legend: {
+        position: 'bottom',
       },
       responsive: [
         {
@@ -42,7 +51,7 @@ function MeetingInfo() {
               width: 200,
             },
             legend: {
-              position: "bottom",
+              position: 'bottom',
             },
           },
         },
@@ -54,17 +63,19 @@ function MeetingInfo() {
     series: [30, 40, 30],
     options: {
       chart: {
-        type: "pie",
+        type: 'pie',
       },
-      labels: ["20", "30", "40"],
-      colors: ["#F2CDA6", "#A6CAF0", "#80C080"],
+      labels: ['20', '30', '40'],
+      colors: ['#F2CDA6', '#A6CAF0', '#80C080'],
       title: {
-        text: "모임원 연령비",
-        align: "left",
+        align: 'left',
         style: {
-          fontSize: "20px",
-          color: "#263238",
+          fontSize: '20px',
+          color: '#263238',
         },
+      },
+      legend: {
+        position: 'bottom',
       },
       responsive: [
         {
@@ -74,7 +85,7 @@ function MeetingInfo() {
               width: 200,
             },
             legend: {
-              position: "bottom",
+              position: 'bottom',
             },
           },
         },
@@ -82,30 +93,11 @@ function MeetingInfo() {
     },
   };
 
-  const GenderPieChart = () => {
-    return (
-      <Chart
-        options={genderData.options}
-        series={genderData.series}
-        type="pie"
-        width="400"
-      />
-    );
-  };
-
-  const AgesPieChart = () => {
-    return (
-      <Chart
-        options={agesData.options}
-        series={agesData.series}
-        type="pie"
-        width="400"
-      />
-    );
+  const PieChart = ({ options, series }) => {
+    return <Chart options={options} series={series} type='pie' />;
   };
 
   function handleClick() {
-    
     setShowModal(true);
   }
 
@@ -114,15 +106,20 @@ function MeetingInfo() {
   }
 
   useEffect(() => {
-    const meeting = getMeetingByNo(parseInt(no));
-    setMeetinginfo(meeting);
+    getMeetingByNo(parseInt(no)).then((meeting) => {
+      console.log('meeting:', meeting);
+      setMeetinginfo(meeting);
+      // if (meeting !== null) {
+      //   console.log(meeting.title); // "첫번째 모임입니다."
+      // }
+    });
   }, []);
 
   return (
-    <Layout>
+    <Layout className={styles.Meetinginfo}>
       <Container>
         <Row>
-          <Col md={3}>
+          <Col>
             <div>
               <h2>{meetinginfo.title}</h2>
             </div>
@@ -130,32 +127,33 @@ function MeetingInfo() {
               <h2>정원 : {meetinginfo.maxNum}</h2>
             </div>
           </Col>
-          <Col md={4} style={{ display: "flex" }}>
-            <GenderPieChart />
-            <AgesPieChart />
+          <Col md={6} className={styles.chartContainer}>
+            <PieChart options={genderData.options} series={genderData.series} />
+            <PieChart options={agesData.options} series={agesData.series} />
           </Col>
         </Row>
         <Row>
-          <Link to={`/meeting/group/${no}`}>
-            <button>모임 게시판</button>
-          </Link>
-
-          <Link to={`/meeting/admin/${no}`}>
-            <button>관리</button>
-          </Link>
-          <div>
-            <button onClick={handleClick}>가입신청</button>
-          </div>
-          {showModal && (
-            <MeetingModal
-              message="가입 신청이 완료되었습니다."
-              onClose={handleCloseModal}
-            />
-          )}
+          <Col className={styles.MeetingInfoButtons}>
+            <Link to={`/meeting/group/${no}`}>
+              <p>모임 게시판</p>
+            </Link>
+            <Link to={`/meeting/admin/${no}`}>
+              <p>관리</p>
+            </Link>
+            <div>
+              <p onClick={handleClick}>가입신청</p>
+            </div>
+            {showModal && (
+              <MeetingModal
+                message='가입 신청이 완료되었습니다.'
+                onClose={handleCloseModal}
+              />
+            )}
+          </Col>
         </Row>
         <Row>
-          <Board title="FAQ" />
-          <Board title="모임후기" />
+          <Board title='FAQ' />
+          <Board title='모임후기' />
         </Row>
       </Container>
     </Layout>

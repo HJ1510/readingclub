@@ -1,45 +1,85 @@
-import { Link } from "react-router-dom";
-import { meetingList } from "MeetigData";
-import { useEffect, useState } from "react";
-import "assets/css/component/meeting/Meeting.css";
-import meetingImgSample from "assets/images/meetingsample.jpg";
+import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getMeetings } from 'api';
+import meetingImgSample from 'assets/images/meetingsample.jpg';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import styles from 'assets/css/component/meeting/Meeting.module.css';
 
-import Container from "react-bootstrap/Container";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-function MeetingList() {
-  const [mockList, setMockList] = useState([]);
+function MeetingList({ title }) {
+  const [meetingItems, setmeetingItems] = useState([]);
+  const [order, setOrder] = useState('autoIncrementField');
+
+  const handleAutoIncrementFieldClick = () => setOrder('autoIncrementField');
+  const handleFirstDateClick = () => setOrder('firstDate');
+
+  const sortedItems = meetingItems.sort((a, b) => {
+    if (order === 'autoIncrementField') {
+      return b.autoIncrementField - a.autoIncrementField;
+    } else if (order === 'firstDate') {
+      return new Date(a.firstDate) - new Date(b.firstDate);
+    }
+  });
+
+  // node api
+  const listLoad = async (search) => {
+    const { meetings } = await getMeetings();
+    const sortedMeetings = meetings.sort(
+      (a, b) => b.autoIncrementField - a.autoIncrementField
+    );
+    // console.log(sortedMeetings);
+    setmeetingItems(sortedMeetings);
+  };
+
+  //오늘날짜 이전은 제외
+  // const listLoad = async (search) => {
+  //   const { meetings } = await getMeetings();
+  //   const today = new Date();
+  //   const filteredMeetings = meetings.filter(
+  //     (meeting) => new Date(meeting.firstDate) >= today
+  //   );
+  //   const sortedMeetings = filteredMeetings.sort(
+  //     (a, b) => b.autoIncrementField - a.autoIncrementField
+  //   );
+  //   setmeetingItems(sortedMeetings);
+  // };
 
   useEffect(() => {
-    setMockList(meetingList);
+    listLoad();
   }, []);
 
   return (
     <div>
-      <div className="meetingList">
-        {mockList
-          ? mockList.map((item, idx) => {
+      <div>
+        <button onClick={handleAutoIncrementFieldClick}>최신순</button>
+        <button onClick={handleFirstDateClick}>최근날짜순</button>
+      </div>
+      <div>
+        {meetingItems
+          ? meetingItems.map((item, idx) => {
               return (
-                <Container key={idx}>
-                  <Link to={`/meeting/info/${item.no}`} className="meetings">
+                <Container className={styles.meetingList} key={idx}>
+                  <Link
+                    to={`/meeting/info/${item.autoIncrementField}`}
+                    className={styles.meetings}
+                  >
                     <Row>
                       <Col md={1}></Col>
                       <Col md={2}>
-                        <img src={meetingImgSample} alt="sample" />
+                        <img src={meetingImgSample} alt='sample' />
                       </Col>
                       <Col md={1}></Col>
-                      <Col className="meetingItem">
-                        <h5 className="meetingTitle">{item.title}</h5>
-
-                        <p className="meetingDetail">
+                      <Col className={styles.meetingItem}>
+                        <h5 className={styles.meetingTitle}>{item.title}</h5>
+                        <p className={styles.meetingDetail}>
                           모임날짜: {item.firstDate} / 정원: {item.maxNum} /
-                          모임지역: {item.location} / 개설일: {item.createdAt}
+                          모임지역: {item.location}
                         </p>
-
                         {/* <Link to={""}> */}
-                        {item.hashTags.map((hashTag, idx) => {
+                        {item.hashtags.map((hashTag, idx) => {
                           return (
-                            <p className="hashTag" key={idx}>
+                            <p className={styles.hashTag} key={idx}>
                               {hashTag}
                             </p>
                           );
@@ -51,7 +91,7 @@ function MeetingList() {
                 </Container>
               );
             })
-          : ""}
+          : ''}
       </div>
     </div>
   );

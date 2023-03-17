@@ -1,4 +1,4 @@
-import "./assets/css/App.css";
+import "assets/css/App.css";
 import { Routes, Route } from "react-router-dom";
 import Main from "./component/main/index";
 import Community from "./component/community";
@@ -35,7 +35,6 @@ const App = () => {
       <Route path="meeting">
       
         <Route index element={<Meeting />} />
-        <Route path="mymeeting" element={<MyMeeting />} />
         <Route path="info/:no" element={<MeetingInfo />} />
         <Route path="info/:no/:id" element={<ArticleView />} />
         <Route path="info/:no/modi/:id" element={<ArticleModiForm />} />
@@ -45,6 +44,7 @@ const App = () => {
         <Route path="write" element={<ArticleWrite />} />
         <Route path="createmeeting" element={<MeetingCreate />} />
       </Route>
+      <Route path="mymeeting" element={<MyMeeting />} />
       <Route path="jo"element={<Jofrom></Jofrom>}/>
       <Route path="chat" element={<Chat></Chat>}/>
       <Route path="community" element={<Community />} />

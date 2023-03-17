@@ -3,8 +3,8 @@ import Layout from "layout/Layout";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import TextEditor from "../TextEditor";
-import "./Board.css";
+import Editor from "./Editor";
+import styles from "assets/css/component/meeting/Board.module.css";
 
 const INITIAL_VALUES = {
   title: "",
@@ -43,44 +43,25 @@ function ArticleWrite() {
   return (
     <div>
       <Layout>
-        <div>글쓰기</div>
-        <div className="Write">
-          <form onSubmit={handleSubmit}>
+        <div className={styles.Write}>
+          <div>
             <input
               type="text"
+              autoComplete="off"
               name="title"
               value={values.title}
               placeholder="title"
               onChange={handleInputChange}
-              id="title_txt"
+              id={styles.title_txt}
             ></input>
-            <textarea
-              name="content"
-              value={values.content}
-              placeholder="content"
-              onChange={handleInputChange}
-              id="content_txt"
-            ></textarea>
-            <input
-              type="text"
-              name="hashTag"
-              value={values.hashTag}
-              placeholder="hashTag"
-              onChange={handleInputChange}
-              id="title_txt"
-            ></input>
-            <div id="post_submit">
-              <button
-                type="submit"
-                value="create"
-                onClick={() => {
-                  navigate(-1);
-                }}
-              >
-                작성
-              </button>
-            </div>
-          </form>
+          </div>
+          <Editor
+            handleSubmit={handleSubmit}
+            content={values.content}
+            setContent={(content) =>
+              setValues((prevValues) => ({ ...prevValues, content }))
+            }
+          />
         </div>
       </Layout>
     </div>

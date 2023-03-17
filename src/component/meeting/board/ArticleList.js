@@ -1,25 +1,23 @@
-// import Tables from "./Tables";
-// import TableRow from "./TableRow";
-// import TableColumn from "./TableColumn";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { Link } from "react-router-dom";
-import { getArticle } from "api";
-import { useEffect, useState } from "react";
-import "./Board.css";
-import mockItems from "mock.json";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { Link } from 'react-router-dom';
+import { getArticle } from 'api';
+import { useEffect, useState } from 'react';
+import styles from 'assets/css/component/meeting/Board.module.css';
+import { HiPencilSquare } from 'react-icons/hi2';
+import mockItems from 'mock.json';
 
 function formatDate(value) {
   const date = new Date(value);
   return `${date.getFullYear()}. ${(date.getMonth() + 1)
     .toString()
-    .padStart(2, "0")}. ${date.getDate().toString().padStart(2, "0")}`;
+    .padStart(2, '0')}. ${date.getDate().toString().padStart(2, '0')}`;
 }
 
 function ArticleList({ title }) {
   const [items, setItems] = useState([]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   // mockjson
   // const { _embedded } = mockItems;
@@ -60,36 +58,44 @@ function ArticleList({ title }) {
   // };
 
   const listLoad = async () => {
-    if (title === "FAQ") {
+    if (title === 'FAQ') {
       const { content } = await getArticle();
       console.log(content);
       setItems(content);
-    } else if (title === "모임후기") {
+    } else if (title === '모임후기') {
       const { _embedded } = mockItems;
       const { articles } = _embedded;
       setItems(articles);
-    } else if (title === "모임원 게시판") {
+    } else if (title === '모임원 게시판') {
       const { foods } = await getArticle();
       setItems(foods);
+      console.log(items);
     } else {
-      console.log("게시판이 생성되지 않았습니다");
+      console.log('게시판이 생성되지 않았습니다');
       console.log(title);
       return;
     }
   };
+
+  // 조회수 증가
+  function handleClick(id) {
+    fetch(`/articles/${id}/hit`, {
+      method: 'POST',
+    });
+  }
 
   useEffect(() => {
     listLoad();
   }, []);
 
   return title ? (
-    <div className="articleList">
+    <div className={styles.articleList}>
       <Container>
         <Row>
           <Col></Col>
           <Col>
-            <Link to="/meeting/write">
-              <button>글쓰기</button>
+            <Link to='/meeting/write' className={styles.articleWriteButton}>
+              <HiPencilSquare size='24' />
             </Link>
           </Col>
           {/* <Col md={2}>
@@ -99,7 +105,7 @@ function ArticleList({ title }) {
           </form>
         </Col> */}
         </Row>
-        <Row className="boardHeader">
+        <Row className={styles.boardHeader}>
           <Col md={1}></Col>
           <Col md={1}>No.</Col>
           <Col md={5}>제목</Col>
@@ -111,11 +117,16 @@ function ArticleList({ title }) {
           ? items.map((item, idx) => {
               return (
                 <div key={idx}>
-                  <Row className="articles">
+                  <Row className={styles.articles}>
                     <Col md={1}></Col>
                     <Col md={1}>{item.id}</Col>
-                    <Col md={5} className="articlesTitle">
-                      <Link to={`${item.id}`}>{item.title}</Link>
+                    <Col md={5} className={styles.articlesTitle}>
+                      <Link
+                        to={`${item.id}`}
+                        onClick={() => handleClick(item.id)}
+                      >
+                        {item.title}
+                      </Link>
                     </Col>
                     <Col md={1}>{item.createdBy}</Col>
                     <Col md={2}>{formatDate(item.createdAt)}</Col>
@@ -124,14 +135,14 @@ function ArticleList({ title }) {
                 </div>
               );
             })
-          : ""}
+          : ''}
         <Row>
           <Col>페이징</Col>
         </Row>
       </Container>
     </div>
   ) : (
-    ""
+    ''
   );
 }
 

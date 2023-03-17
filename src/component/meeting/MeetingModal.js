@@ -1,4 +1,4 @@
-import "assets/css/component/meeting/Meeting.css";
+// import "assets/css/component/meeting/Meeting.css";
 
 function MeetingModal(props) {
   return (
