@@ -9,6 +9,18 @@ import styles from 'assets/css/component/meeting/Meeting.module.css';
 
 function MeetingList({ title }) {
   const [meetingItems, setmeetingItems] = useState([]);
+  const [order, setOrder] = useState('autoIncrementField');
+
+  const handleAutoIncrementFieldClick = () => setOrder('autoIncrementField');
+  const handleFirstDateClick = () => setOrder('firstDate');
+
+  const sortedItems = meetingItems.sort((a, b) => {
+    if (order === 'autoIncrementField') {
+      return b.autoIncrementField - a.autoIncrementField;
+    } else if (order === 'firstDate') {
+      return new Date(a.firstDate) - new Date(b.firstDate);
+    }
+  });
 
   // node api
   const listLoad = async (search) => {
@@ -20,12 +32,29 @@ function MeetingList({ title }) {
     setmeetingItems(sortedMeetings);
   };
 
+  //오늘날짜 이전은 제외
+  // const listLoad = async (search) => {
+  //   const { meetings } = await getMeetings();
+  //   const today = new Date();
+  //   const filteredMeetings = meetings.filter(
+  //     (meeting) => new Date(meeting.firstDate) >= today
+  //   );
+  //   const sortedMeetings = filteredMeetings.sort(
+  //     (a, b) => b.autoIncrementField - a.autoIncrementField
+  //   );
+  //   setmeetingItems(sortedMeetings);
+  // };
+
   useEffect(() => {
     listLoad();
   }, []);
 
   return (
     <div>
+      <div>
+        <button onClick={handleAutoIncrementFieldClick}>최신순</button>
+        <button onClick={handleFirstDateClick}>최근날짜순</button>
+      </div>
       <div>
         {meetingItems
           ? meetingItems.map((item, idx) => {

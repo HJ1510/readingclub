@@ -1,5 +1,6 @@
 import Layout from 'layout/Layout';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
@@ -7,6 +8,8 @@ import axios from 'axios';
 import FileInput from './FileInput';
 
 function MeetingCreate() {
+  const navigate = useNavigate();
+
   const [values, setValues] = useState({
     title: '',
     maxNum: 0,
@@ -69,6 +72,7 @@ function MeetingCreate() {
       .post('/api/meeting/create', formData)
       .then((response) => {
         console.log(response.data);
+        navigate(-1);
       })
       .catch((error) => {
         console.error(error);
