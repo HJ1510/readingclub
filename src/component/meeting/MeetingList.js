@@ -9,11 +9,15 @@ import styles from 'assets/css/component/meeting/Meeting.module.css';
 
 function MeetingList({ title }) {
   const [meetingItems, setmeetingItems] = useState([]);
+
   // node api
   const listLoad = async (search) => {
     const { meetings } = await getMeetings();
-    console.log(meetings);
-    setmeetingItems(meetings);
+    const sortedMeetings = meetings.sort(
+      (a, b) => b.autoIncrementField - a.autoIncrementField
+    );
+    // console.log(sortedMeetings);
+    setmeetingItems(sortedMeetings);
   };
 
   useEffect(() => {
@@ -28,7 +32,7 @@ function MeetingList({ title }) {
               return (
                 <Container className={styles.meetingList} key={idx}>
                   <Link
-                    to={`/meeting/info/${item._id}`}
+                    to={`/meeting/info/${item.autoIncrementField}`}
                     className={styles.meetings}
                   >
                     <Row>
