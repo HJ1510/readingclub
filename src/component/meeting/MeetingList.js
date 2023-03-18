@@ -73,8 +73,8 @@ function MeetingList({ title }) {
                       <Col className={styles.meetingItem}>
                         <h5 className={styles.meetingTitle}>{item.title}</h5>
                         <p className={styles.meetingDetail}>
-                          모임날짜: {item.firstDate} / 정원: {item.maxNum} /
-                          모임지역: {item.location}
+                          첫모임날짜: {item.order[0].date}/ 정원: {item.maxNum}{' '}
+                          / 모임지역: {item.order[0].location}
                         </p>
                         {/* <Link to={""}> */}
                         {item.hashtags.map((hashTag, idx) => {

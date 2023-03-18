@@ -66,8 +66,6 @@ function MeetingCreate() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(values.title);
-    console.log(values.firstDate);
 
     const form = e.target; // 이벤트가 발생한 폼 요소
     console.log(form);
