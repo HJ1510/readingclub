@@ -39,7 +39,6 @@ function LoginPage() {
   return (
     <Layout>
       <div className={styles.login}>
-        <div style={{ height: '200px' }}></div>
         <div id='container'>
           <div className='content'>
             <div className={styles.Loginwrap}>
