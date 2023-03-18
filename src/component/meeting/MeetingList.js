@@ -18,7 +18,7 @@ function MeetingList({ title }) {
     if (order === 'autoIncrementField') {
       return b.autoIncrementField - a.autoIncrementField;
     } else if (order === 'firstDate') {
-      return new Date(a.firstDate) - new Date(b.firstDate);
+      return new Date(a.order[0].date) - new Date(b.order[0].date);
     }
   });
 
