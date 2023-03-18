@@ -6,11 +6,16 @@ import Button from 'react-bootstrap/Button';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
 import axios from 'axios';
 import FileInput from './FileInput';
+import { auth } from 'actions/user_action';
+import { useDispatch } from 'react-redux';
 
 function MeetingCreate() {
   const navigate = useNavigate();
+  const [authUser, setAuthUser] = useState({});
+  const dispatch = useDispatch();
 
   const [values, setValues] = useState({
+    creator: '',
     title: '',
     maxNum: 0,
     types: { writing: false, discussion: false },
@@ -67,6 +72,7 @@ function MeetingCreate() {
     const form = e.target; // 이벤트가 발생한 폼 요소
     console.log(form);
     const formData = new FormData(form); // 폼 데이터 추출
+    formData.append('creator', authUser._id);
 
     axios
       .post('/api/meeting/create', formData)
@@ -78,6 +84,12 @@ function MeetingCreate() {
         console.error(error);
       });
   };
+
+  useEffect(() => {
+    dispatch(auth()).then((response) => {
+      setAuthUser(response.payload);
+    });
+  }, []);
 
   return (
     <Layout>
