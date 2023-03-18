@@ -5,12 +5,23 @@ import { useEffect, useState } from 'react';
 import { meetingList } from 'MeetigData';
 import MyMeetingList from './MyMeetingList';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
+import { auth } from 'actions/user_action';
+import { useDispatch } from 'react-redux';
 
 function MyMeeting() {
-  const [mockList, setMockList] = useState([]);
+  // const [mockList, setMockList] = useState([]);
 
+  // useEffect(() => {
+  //   setMockList(meetingList);
+  // }, []);
+
+  const dispatch = useDispatch();
+  
   useEffect(() => {
-    setMockList(meetingList);
+    dispatch(auth()).then((response) => {
+      const { _id } = response.payload;
+      console.log(_id);
+    });
   }, []);
 
   return (
