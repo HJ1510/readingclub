@@ -89,24 +89,6 @@ function Booknote() {
   return (
     <Layout>
       <div className='main'>
-        <div className='noteNav' style={{ display: '' }}>
-          <Link to={'/booknote'}>
-            <Button className='Header-button' variant='secondary'>
-              나의 노트
-            </Button>
-          </Link>
-          <Link to={'/booknote/notelist'}>
-            <Button className='Header-button' variant='secondary'>
-              노트리스트
-            </Button>
-          </Link>
-          <Link to={'/note/notebookmark'}>
-            <Button className='Header-button' variant='secondary'>
-              저장노트
-            </Button>
-          </Link>
-        </div>
-
         <div className='booknote'>
           <div className='booknotelay'>
             <div className='booknote-sidebar'>
