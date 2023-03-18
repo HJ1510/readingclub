@@ -85,6 +85,7 @@ function MeetingList({ title }) {
                           );
                         })}
                         {/* </Link> */}
+                        <p>모임 개설자: {item.creatorName}</p>
                       </Col>
                     </Row>
                   </Link>
