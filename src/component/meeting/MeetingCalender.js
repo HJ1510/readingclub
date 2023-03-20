@@ -35,9 +35,10 @@ function MeetingCalender(className) {
   const [currentEvents, setCurrentEvents] = useState([]);
 
   const handleEventClick = (clickInfo) => {
-    window.location.href =
-      'http://localhost:3000/meeting/info/' +
-      clickInfo.event.autoIncrementField;
+    const meetingId = clickInfo.event._def.extendedProps.autoIncrementField;
+    console.log(meetingId);
+    console.log(clickInfo);
+    window.location.href = 'http://localhost:3000/meeting/info/' + meetingId;
   };
 
   const handleEvents = (events) => {
