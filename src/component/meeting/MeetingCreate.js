@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
-import axios from 'axios';
 import FileInput from './FileInput';
 import { auth } from 'actions/user_action';
 import { useDispatch } from 'react-redux';

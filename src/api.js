@@ -194,9 +194,9 @@ export async function getAllOrders() {
   }
 }
 
-export async function insertMember(body) {
+export async function insertMember(no, body) {
   try {
-    const response = await axios.post('/api/meeting/:no/register', body);
+    const response = await axios.post(`/api/meeting/${no}/register`, body);
     return response.data;
   } catch (error) {
     throw new Error('생성하는데 실패하였습니다');
