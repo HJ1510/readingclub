@@ -1,6 +1,5 @@
 import Layout from 'layout/Layout';
-import '../../assets/css/component/note/Booknote.css';
-// import "../../assets/css/component/note/Booknote.module.css";
+import styles from '../../assets/css/component/note/Booknote.module.css';
 import Chartdata from './Chartdata';
 import { useState, useEffect } from 'react';
 import Chart from './Chart';
@@ -89,17 +88,16 @@ function Booknote() {
   return (
     <Layout>
       <div className='main'>
-        <div className='booknote'>
-          <div className='booknotelay'>
-            <div className='booknote-sidebar'>
+        <div className={styles.booknote}>
+          <div className={styles.booknotelay}>
+            <div className={styles.booknote_sidebar}>
               <div className='sidebar-card'></div>
               <img
-                style={{ height: '300px', display: 'flex' }}
-                className='avatar'
+                className={styles.avatar}
                 src='https://avatars.githubusercontent.com/u/114986610?v=4'
               ></img>
-              <div className='cardname'>
-                <h1 className='carduser'>SunMoo</h1>
+              <div className={styles.cardname}>
+                <h1 className={styles.carduser}>SunMoo</h1>
               </div>
               <div className='cardusercolum'>
                 <Link
@@ -161,58 +159,31 @@ function Booknote() {
               </div>
             </div>
 
-            <div className='booknote-mian' style={{ height: '500px' }}>
-              <div
-                className='bookcontainer'
-                style={{ display: 'flex', gap: '15px' }}
-              >
-                <div
-                  style={{
-                    width: '400px',
-                    height: '100%',
-                    marginTop: '20px',
-                    marginBottom: '20px',
-                  }}
-                >
-                  <Chart></Chart>
-                </div>
+            <div className={styles.booknote_mian}>
+              <div className={styles.bookcontainer}>
+                <Chart className={styles.chart_container} />
                 {id && (
-                  <label
-                    className='box-body'
-                    style={{ width: '400px', height: '100%', display: 'block' }}
-                  >
-                    <h2
-                      style={{
-                        textAlign: 'center',
-                        height: '50px',
-                        margin: '10px',
-                      }}
-                    >
-                      목표 도서수 {id.bookGoal} books
-                    </h2>
-                    <div style={{ width: '100%' }}>
-                      <div className='d-flex justify-content-center align-items-center'>
-                        <StyledCircularProgressbar
-                          value={percentage}
-                          text={`${percentage}%`}
-                        />
-                        <div style={{ width: '400px' }}>
-                          <span style={{ marginLeft: '10px' }}>
-                            {`현재 권수: ${id.postCount} books`}
-                            <br />
-                            <span style={{ marginLeft: '10px' }}>
-                              {`남은 권수: ${id.bookGoal - id.postCount} books`}
-                            </span>
-                          </span>
-                        </div>
+                  <label className={styles.box_body}>
+                    <h2>목표 도서수 {id.bookGoal} books</h2>
+                    <div className='d-flex justify-content-center align-items-center'>
+                      <StyledCircularProgressbar
+                        value={percentage}
+                        text={`${percentage}%`}
+                      />
+                      <div className={styles.book_goal}>
+                        <span>{`현재 권수: ${id.postCount} books`}</span>
+                        <br />
+                        <span>
+                          {`남은 권수: ${id.bookGoal - id.postCount} books`}
+                        </span>
                       </div>
                     </div>
                   </label>
                 )}
               </div>
 
-              <div className='glassbox'>
-                <Heatmap></Heatmap>
+              <div className={styles.glassbox}>
+                <Heatmap />
               </div>
             </div>
           </div>
@@ -223,11 +194,8 @@ function Booknote() {
             </div>
           </div>
         </div>
-        <div className='page-nav'>
-          <nav
-            aria-label='Page navigation example'
-            style={{ display: 'inline-block' }}
-          >
+        <div className={styles.page_nav}>
+          <nav aria-label='Page navigation example'>
             <ul className='pagination'>
               <li className='page-item'>
                 <a className='page-link' href='#' aria-label='Previous'>

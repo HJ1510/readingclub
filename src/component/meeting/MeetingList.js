@@ -18,7 +18,7 @@ function MeetingList({ title }) {
     if (order === 'autoIncrementField') {
       return b.autoIncrementField - a.autoIncrementField;
     } else if (order === 'firstDate') {
-      return new Date(a.firstDate) - new Date(b.firstDate);
+      return new Date(a.order[0].date) - new Date(b.order[0].date);
     }
   });
 
@@ -73,8 +73,8 @@ function MeetingList({ title }) {
                       <Col className={styles.meetingItem}>
                         <h5 className={styles.meetingTitle}>{item.title}</h5>
                         <p className={styles.meetingDetail}>
-                          모임날짜: {item.firstDate} / 정원: {item.maxNum} /
-                          모임지역: {item.location}
+                          첫모임날짜: {item.order[0].date}/ 정원: {item.maxNum}{' '}
+                          / 모임지역: {item.order[0].location}
                         </p>
                         {/* <Link to={""}> */}
                         {item.hashtags.map((hashTag, idx) => {
@@ -85,6 +85,7 @@ function MeetingList({ title }) {
                           );
                         })}
                         {/* </Link> */}
+                        <p>모임 개설자: {item.creatorName}</p>
                       </Col>
                     </Row>
                   </Link>

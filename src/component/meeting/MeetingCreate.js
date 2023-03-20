@@ -4,13 +4,18 @@ import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
-import axios from 'axios';
 import FileInput from './FileInput';
+import { auth } from 'actions/user_action';
+import { useDispatch } from 'react-redux';
+import { createMeetings } from 'api';
 
 function MeetingCreate() {
   const navigate = useNavigate();
+  const [authUser, setAuthUser] = useState({});
+  const dispatch = useDispatch();
 
   const [values, setValues] = useState({
+    creator: '',
     title: '',
     maxNum: 0,
     types: { writing: false, discussion: false },
@@ -59,25 +64,28 @@ function MeetingCreate() {
     handleChange(name, value, id);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(values.title);
-    console.log(values.firstDate);
 
     const form = e.target; // 이벤트가 발생한 폼 요소
     console.log(form);
     const formData = new FormData(form); // 폼 데이터 추출
+    formData.append('creator', authUser._id);
 
-    axios
-      .post('/api/meeting/create', formData)
-      .then((response) => {
-        console.log(response.data);
-        navigate(-1);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    try {
+      const response = await createMeetings(formData);
+      console.log(response);
+      navigate(-1);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  useEffect(() => {
+    dispatch(auth()).then((response) => {
+      setAuthUser(response.payload);
+    });
+  }, []);
 
   return (
     <Layout>

@@ -1,11 +1,13 @@
 import Board from './board';
 import Layout from 'layout/Layout';
 // import { getMeetingByNo } from 'MeetigData';
-import { getMeetings } from 'api';
+import { getMeetings, insertMember } from 'api';
 import { Col, Container, Row } from 'react-bootstrap';
 import Chart from 'react-apexcharts';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { auth } from 'actions/user_action';
+import { useDispatch } from 'react-redux';
 import MeetingModal from './MeetingModal';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
 
@@ -13,6 +15,9 @@ function MeetingInfo() {
   const { no } = useParams();
   const [meetinginfo, setMeetinginfo] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [message, setMessage] = useState('');
+  const [authUser, setAuthUser] = useState({});
+  const dispatch = useDispatch();
 
   const getMeetingByNo = async (no) => {
     const { meetings } = await getMeetings();
@@ -97,9 +102,26 @@ function MeetingInfo() {
     return <Chart options={options} series={series} type='pie' />;
   };
 
-  function handleClick() {
-    setShowModal(true);
-  }
+  const handleClick = async () => {
+    try {
+      const body = {
+        userId: authUser._id,
+      };
+      console.log(body);
+      console.log(no);
+      const response = await insertMember(no, body);
+
+      if (response.success === true) {
+        setShowModal(true);
+        setMessage('가입 신청이 완료되었습니다.');
+      } else {
+        setShowModal(true);
+        setMessage('오류입니다');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   function handleCloseModal() {
     setShowModal(false);
@@ -107,11 +129,13 @@ function MeetingInfo() {
 
   useEffect(() => {
     getMeetingByNo(parseInt(no)).then((meeting) => {
-      console.log('meeting:', meeting);
       setMeetinginfo(meeting);
-      // if (meeting !== null) {
-      //   console.log(meeting.title); // "첫번째 모임입니다."
-      // }
+      if (meeting !== null) {
+        console.log(meeting.title); // "첫번째 모임입니다."
+      }
+    });
+    dispatch(auth()).then((response) => {
+      setAuthUser(response.payload);
     });
   }, []);
 
@@ -121,8 +145,13 @@ function MeetingInfo() {
         <Row>
           <Col>
             <div>
-              <h2>{meetinginfo.title}</h2>
+              <h2>모임 이름 : {meetinginfo.title}</h2>
             </div>
+            {meetinginfo.creator && (
+              <div>
+                <h2>모임장 : {meetinginfo.creator.name}</h2>
+              </div>
+            )}
             <div>
               <h2>정원 : {meetinginfo.maxNum}</h2>
             </div>
@@ -144,10 +173,7 @@ function MeetingInfo() {
               <p onClick={handleClick}>가입신청</p>
             </div>
             {showModal && (
-              <MeetingModal
-                message='가입 신청이 완료되었습니다.'
-                onClose={handleCloseModal}
-              />
+              <MeetingModal message={message} onClose={handleCloseModal} />
             )}
           </Col>
         </Row>
