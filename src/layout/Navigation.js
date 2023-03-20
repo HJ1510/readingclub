@@ -1,10 +1,10 @@
-import "assets/css/layout/Layout.css";
-import { Link, useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { auth } from "actions/user_action";
-import axios from "axios";
+import 'assets/css/layout/Layout.css';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { auth } from 'actions/user_action';
+import axios from 'axios';
 
 function Navigation() {
   const dispatch = useDispatch();
@@ -13,26 +13,25 @@ function Navigation() {
   const { userInfo } = useSelector((state) => state.user);
 
   const handleMouseEnter = (e) => {
-    e.target.querySelector("::before");
+    e.target.querySelector('::before');
   };
 
   const handleMouseLeave = (e) => {
-    e.target.querySelector("::before");
+    e.target.querySelector('::before');
   };
 
   const onClickHandler = () => {
     axios.get(`/api/users/logout`).then((response) => {
       if (response.data.success) {
-        navigate("/login");
+        navigate('/login');
       } else {
-        alert("로그아웃에 실패했습니다");
+        alert('로그아웃에 실패했습니다');
       }
     });
   };
 
   useEffect(() => {
     dispatch(auth()).then((response) => {
-    
       // 로그인 하지 않은상태
       if (!response.payload.isAuth) {
         setinlogin(true);
@@ -42,89 +41,60 @@ function Navigation() {
     });
   }, []);
   return (
-    <header className="site-header">
-      <div className="container">
+    <header className='site-header'>
+      <div className='container'>
         <nav>
-          <ul className="nav-menu">
+          <ul className='nav-menu'>
             <li>
-              <Link
-                to={"/meeting"}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
+              <NavLink to={'/meeting'} activeclassname='active'>
                 Meetings
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
-                to={"/meeting/mymeeting"}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
+              <NavLink to={'/mymeeting'} activeclassname='active'>
                 My Meeting
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
-                to={"/booknote/notelist"}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
+              <NavLink to={'/booknote/notelist'} activeclassname='active'>
                 Notes
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
-                to={"/booknote"}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
+              <NavLink to={'/booknote'} activeclassname='active'>
                 My Note
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
-                to={"/note/notebookmark"}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
+              <NavLink to={'/note/notebookmark'} activeclassname='active'>
                 Boomarked
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
-                to={"/community"}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
+              <NavLink to={'/community'} activeclassname='active'>
                 Community
-              </Link>
+              </NavLink>
             </li>
             {inlogin ? (
               <li>
-                <Link
-                  to={"/login"}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  className="login"
-                >
+                <Link to={'/login'} className='login'>
                   Login-in
                 </Link>
               </li>
             ) : (
               <>
                 <li>
-                  <Link to="#" onClick={onClickHandler} className="login">
-                    로그아웃 / {userInfo && userInfo.name + "님"}
+                  <Link to='#' onClick={onClickHandler} className='login'>
+                    로그아웃 / {userInfo && userInfo.name + '님'}
                   </Link>
                 </li>
                 <li>
-                  <Link to="#" onClick={onClickHandler} className="login">
+                  <Link to='#' onClick={onClickHandler} className='login'>
                     회원정보
                   </Link>
                 </li>
               </>
-            )}{" "}
+            )}{' '}
           </ul>
         </nav>
         <div></div>
