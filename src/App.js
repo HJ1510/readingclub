@@ -45,7 +45,7 @@ const App = () => {
         <Route path="createmeeting" element={<MeetingCreate />} />
       </Route>
       <Route path="mymeeting" element={<MyMeeting />} />
-      <Route path="jo"element={<Jofrom></Jofrom>}/>
+      <Route path="jo/:no"element={<Jofrom></Jofrom>}/>
       <Route path="chat" element={<Chat></Chat>}/>
       <Route path="community" element={<Community />} />
       <Route path="booknote">
@@ -57,7 +57,7 @@ const App = () => {
         <Route path="progress"element={<Progress></Progress>}/>
        
       </Route>
-      <Route path="jo" element={<Jofrom />} />
+    
     </Routes>
   );
 };

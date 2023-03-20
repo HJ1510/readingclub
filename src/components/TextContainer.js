@@ -7,13 +7,13 @@ const TextContainer = ({ users }) => (
   <div className='textContainer'>
     <div>
       <h1>
-        실시간 채팅 프로그램{' '}
+        모임 채팅{' '}
         <span role='img' aria-label='emoji'>
           💬
         </span>
       </h1>
       <h2>
-        Created with React, Express, Node and Socket.IO{' '}
+      모임원들과 소통하세요{' '}
         <span role='img' aria-label='emoji'>
           ❤️
         </span>

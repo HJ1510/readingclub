@@ -8,12 +8,14 @@ import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { Button } from "react-bootstrap";
 import ChatModal from "./ChatModal";
-
-// const socket = io("http://localhost:3001");
+import { useNavigate } from "react-router";
+import { useParams } from "react-router";
 
 function MeetingGroup() {
   const now = 60;
+  const {no} = useParams()
 
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   // const [messages, setMessages] = useState([]);
 
@@ -25,13 +27,16 @@ function MeetingGroup() {
 
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
-
+  const handlechat = ()=>{
+    navigate(`/jo/${no}`)
+  }
+  
   return (
     <Layout className="meeting">
       <Container>
         <h5>모임원들이 보는 모임페이지</h5>
         <h2>모임명</h2>
-        <Button onClick={handleOpenModal}>채팅 열기</Button>
+        <Button onClick={() => handlechat(no)}>채팅 열기</Button>
         {/* <ChatModal
           show={showModal}
           handleClose={handleCloseModal}

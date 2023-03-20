@@ -2,16 +2,18 @@ import React from 'react'
 import onlineIcon from '../components/onlineIcon.png'
 import closeIcon from '../components/closeIcon.png'
 import './infoBar.css'
-const InfoBar = ({ room }) => {
+
+const InfoBar = ({ room, name}) => {
+
   return (
     <div className='infoBar'>
       <div className='leftInnerContainer'>
         <img className='onlineIcon' src={onlineIcon} alt='online icon' />
-        <h3>{room}</h3>
+        <h3>{name}</h3>
       </div>
       <div className='rightInnerContainer'>
-        <a href='/'>
-          <img src={closeIcon} alt='close icon' />
+        <a href={`/meeting/group/${room}`}>
+          <img src={closeIcon} alt='close icon' style={{width:"10px"}}/>
         </a>
       </div>
     </div>
