@@ -8,6 +8,7 @@ import axios from 'axios';
 import FileInput from './FileInput';
 import { auth } from 'actions/user_action';
 import { useDispatch } from 'react-redux';
+import { createMeetings } from 'api';
 
 function MeetingCreate() {
   const navigate = useNavigate();
@@ -64,7 +65,7 @@ function MeetingCreate() {
     handleChange(name, value, id);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const form = e.target; // 이벤트가 발생한 폼 요소
@@ -72,15 +73,13 @@ function MeetingCreate() {
     const formData = new FormData(form); // 폼 데이터 추출
     formData.append('creator', authUser._id);
 
-    axios
-      .post('/api/meeting/create', formData)
-      .then((response) => {
-        console.log(response.data);
-        navigate(-1);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    try {
+      const response = await createMeetings(formData);
+      console.log(response);
+      navigate(-1);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {

@@ -177,15 +177,12 @@ export async function getMeetings() {
 }
 
 export async function createMeetings(formData) {
-  const response = await fetch('/api/meeting/create', {
-    method: 'POST',
-    body: formData,
-  });
-  if (!response.ok) {
+  try {
+    const response = await axios.post('/api/meeting/create', formData);
+    return response.data;
+  } catch (error) {
     throw new Error('생성하는데 실패하였습니다');
   }
-  const body = await response.json();
-  return body;
 }
 
 export async function getAllOrders() {
@@ -194,5 +191,14 @@ export async function getAllOrders() {
     return response.data;
   } catch (error) {
     throw new Error('모임 데이터를 불러오는데 실패했습니다');
+  }
+}
+
+export async function insertMember(body) {
+  try {
+    const response = await axios.post('/api/meeting/:no/register', body);
+    return response.data;
+  } catch (error) {
+    throw new Error('생성하는데 실패하였습니다');
   }
 }

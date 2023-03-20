@@ -16,9 +16,6 @@ function renderEventContent(eventInfo) {
 
 function MeetingCalender(className) {
   const [events, setEvents] = useState([]);
-  useEffect(() => {
-    listLoad();
-  }, []);
 
   const listLoad = async (search) => {
     const orders = await getAllOrders();
@@ -32,8 +29,6 @@ function MeetingCalender(className) {
     setEvents(transformedData);
   };
 
-  const [currentEvents, setCurrentEvents] = useState([]);
-
   const handleEventClick = (clickInfo) => {
     const meetingId = clickInfo.event._def.extendedProps.autoIncrementField;
     console.log(meetingId);
@@ -41,9 +36,9 @@ function MeetingCalender(className) {
     window.location.href = 'http://localhost:3000/meeting/info/' + meetingId;
   };
 
-  const handleEvents = (events) => {
-    setCurrentEvents(events);
-  };
+  useEffect(() => {
+    listLoad();
+  }, []);
 
   return (
     <div className={className.className}>
@@ -64,7 +59,6 @@ function MeetingCalender(className) {
         events={events}
         eventContent={renderEventContent}
         eventClick={handleEventClick}
-        eventsSet={handleEvents}
         height='600px'
       />
     </div>
