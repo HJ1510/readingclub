@@ -11,7 +11,7 @@ function MeetingAdmin() {
   const now = 60;
 
   return (
-    <Layout className='meeting'>
+    <Layout className={styles.meeting}>
       <Container>
         <h5>모임장이 보는 페이지</h5>
         <h2>모임명</h2>
@@ -30,52 +30,52 @@ function MeetingAdmin() {
         </Row>
         <Row>
           <Col>
-            <div className='member'>
+            <div className={styles.member}>
               <img src={profile} />
               참여자1
               <ProgressBar
-                className='attendanceBar'
+                className={styles.attendanceBar}
                 now={now}
                 label={`${now}%`}
               />
               <button>승인</button>
               <button>승인거부</button>
             </div>
-            <div className='member'>
+            <div className={styles.member}>
               <img src={profile} />
               참여자2
               <ProgressBar
-                className='attendanceBar'
+                className={styles.attendanceBar}
                 now={now}
                 label={`${now}%`}
               />
               <button>내보내기</button>
             </div>
-            <div className='member'>
+            <div className={styles.member}>
               <img src={profile} />
               참여자3
               <ProgressBar
-                className='attendanceBar'
+                className={styles.attendanceBar}
                 now={now}
                 label={`${now}%`}
               />
               <button>내보내기</button>
             </div>
-            <div className='member'>
+            <div className={styles.member}>
               <img src={profile} />
               참여자4
               <ProgressBar
-                className='attendanceBar'
+                className={styles.attendanceBar}
                 now={now}
                 label={`${now}%`}
               />
               <button>내보내기</button>
             </div>
-            <div className='member'>
+            <div className={styles.member}>
               <img src={profile} />
               참여자5
               <ProgressBar
-                className='attendanceBar'
+                className={styles.attendanceBar}
                 now={now}
                 label={`${now}%`}
               />
