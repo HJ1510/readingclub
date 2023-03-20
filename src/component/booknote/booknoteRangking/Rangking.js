@@ -4,6 +4,7 @@ import { Grid, Typography } from "@mui/material";
 import "./Rangking.modules.css";
 import { BiMedal } from "react-icons/bi";
 import { FaMedal } from "react-icons/fa";
+
 import {
   Table,
   TableBody,
