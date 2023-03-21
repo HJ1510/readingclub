@@ -129,9 +129,6 @@ function MeetingInfo() {
   useEffect(() => {
     getMeetingByNo(parseInt(no)).then((meeting) => {
       setMeetinginfo(meeting);
-      if (meeting !== null) {
-        console.log(meeting.title); // "첫번째 모임입니다."
-      }
     });
     dispatch(auth()).then((response) => {
       setAuthUser(response.payload);

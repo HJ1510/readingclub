@@ -141,6 +141,7 @@ export async function getUserMeetings(userId) {
   }
 }
 
+// 모든 모임 회차 조회
 export async function getAllOrders() {
   try {
     const response = await axios.get('/api/meeting/allorders');

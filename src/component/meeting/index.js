@@ -6,22 +6,9 @@ import MeetingList from './MeetingList';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
-import { auth } from 'actions/user_action';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
 import { getAllOrders } from 'api';
 
 function Meeting() {
-  const dispatch = useDispatch();
-
-  const getAuthId = () => {
-    dispatch(auth()).then((response) => {
-      const { _id } = response.payload;
-      console.log(_id);
-      return _id;
-    });
-  };
-
   return (
     <div className={styles.Meeting}>
       <Layout>

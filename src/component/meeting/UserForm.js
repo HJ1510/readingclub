@@ -1,15 +1,14 @@
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
-import { auth } from 'actions/user_action';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { getUserMeetings } from 'api';
 
 function UserForm() {
-  const [authUser, setAuthUser] = useState({});
   const [meeting, setMeeting] = useState([]);
-  const dispatch = useDispatch();
+
+  const userData = useSelector((state) => state.user.userData);
 
   const listLoad = async (id) => {
     const loadMeetings = await getUserMeetings(id);
@@ -23,29 +22,16 @@ function UserForm() {
   };
 
   useEffect(() => {
-    dispatch(auth()).then((response) => {
-      setAuthUser(response.payload);
-      const { _id } = response.payload;
-      listLoad(_id);
-    });
-  }, []);
+    if (userData) {
+      listLoad(userData._id);
+    }
+  }, [userData]);
 
   return (
     <div className='user-form'>
-      {/* <div>
-        <p>
-          <input type={"text"} placeholder="ID"></input>
-        </p>
-        <p>
-          <input type={"text"} placeholder="PASSWORD"></input>
-        </p>
-        <p>
-          <button>회원가입</button>
-          <button>로그인</button>
-        </p>
-      </div> */}
       <div>
-        <p>{authUser.name}님 안녕하세요</p>
+        {userData && <p>{userData.name}님 안녕하세요</p>}
+
         {meeting &&
           meeting.map((item, idx) => {
             return (

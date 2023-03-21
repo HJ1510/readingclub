@@ -34,20 +34,22 @@ function MyMeetingList(props) {
         {'>'}
       </button>
       {/* 현재 페이지에 해당하는 모임들 보여주기 */}
-      {meeting.map((item) => {
+      {meeting.map((item, idx) => {
         return (
-          <div key={item.no}>
+          <div key={idx}>
             <h5>{item.title}</h5>
 
-            {item.meetingStatus === '모집중' ? (
+            {item.meetingStatus === 'recruiting' ? (
               <p>모집중</p>
-            ) : item.meetingStatus === '진행중' ? (
+            ) : item.meetingStatus === 'in_progress' ? (
               <p>진행중</p>
-            ) : (
+            ) : item.meetingStatus === 'completed' ? (
               <p>진행완료</p>
+            ) : (
+              <p>오류</p>
             )}
 
-            {item.role === 'host' ? (
+            {item.members[0].role === 'host' ? (
               <div>
                 <p>host</p>
                 <a href={`http://localhost:3000/meeting/admin/${item.no}`}>

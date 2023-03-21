@@ -13,18 +13,16 @@ function renderEventContent(eventInfo) {
   );
 }
 
-function MeetingCalender({ apiFunction }) {
+function MeetingCalender({ apiFunction, userId }) {
   const [events, setEvents] = useState([]);
 
-  const listLoad = async (search) => {
-    const orders = await apiFunction();
+  const listLoad = async () => {
+    const orders = await apiFunction(userId);
     const transformedData = orders.map((order) => ({
       autoIncrementField: order.autoIncrementField,
       title: order.title,
       date: order.order[0].date,
     }));
-
-    console.log(transformedData);
     setEvents(transformedData);
   };
 

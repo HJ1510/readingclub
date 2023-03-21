@@ -40,6 +40,7 @@ function Navigation() {
       }
     });
   }, []);
+  
   return (
     <header className='site-header'>
       <div className='container'>

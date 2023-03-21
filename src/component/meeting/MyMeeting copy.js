@@ -4,24 +4,34 @@ import MeetingCalender from './MeetingCalender';
 import { useEffect, useState } from 'react';
 import MyMeetingList from './MyMeetingList';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
-import { useSelector } from 'react-redux';
+import { auth } from 'actions/user_action';
+import { useDispatch } from 'react-redux';
 import { getUserMeetings } from 'api';
 
 function MyMeeting() {
   const [meeting, setMeeting] = useState([]);
+  const dispatch = useDispatch();
 
-  const userData = useSelector((state) => state.user.userData);
-  // console.log(userData);
+  const listLoad = async (id) => {
+    const loadMeetings = await getUserMeetings(id);
+
+    console.log(loadMeetings);
+    const meetings = loadMeetings.map((meeting) => ({
+      title: meeting.title,
+      role: meeting.members[0].role,
+      no: meeting.autoIncrementField,
+      meetingStatus: meeting.meetingStatus,
+    }));
+    setMeeting(meetings);
+  };
 
   useEffect(() => {
-    if (userData) {
-      const fetchMeetings = async () => {
-        const data = await getUserMeetings(userData._id);
-        setMeeting(data);
-      };
-      fetchMeetings();
-    }
-  }, [userData]);
+    dispatch(auth()).then((response) => {
+      const { _id } = response.payload;
+      console.log(_id);
+      listLoad(_id);
+    });
+  }, []);
 
   return (
     <Layout>
@@ -30,7 +40,6 @@ function MyMeeting() {
           <Col md={7}>
             <MeetingCalender
               apiFunction={getUserMeetings}
-              userId={userData._id}
               className={styles.Calender}
             />
           </Col>
