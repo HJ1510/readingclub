@@ -202,3 +202,12 @@ export async function insertMember(no, body) {
     throw new Error('생성하는데 실패하였습니다');
   }
 }
+
+export async function getAllMembersByNo(no) {
+  try {
+    const response = await axios.get(`/api/meeting/admin/${no}/allmembers`);
+    return response.data;
+  } catch (error) {
+    throw new Error('모임 데이터를 불러오는데 실패했습니다');
+  }
+}

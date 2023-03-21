@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Layout from 'layout/Layout';
-import { meetingList } from 'MeetigData';
 import { Col, Container, Row, Card, ProgressBar } from 'react-bootstrap';
 import profile from 'assets/images/profile.png';
 import AttendanceList from './AttendanceList';
 import data from 'mockAttend.json';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
+import { useMembers } from 'hooks/useMembers';
 
 function MeetingAdmin() {
+  const { no } = useParams();
+  const members = useMembers(no);
   const now = 60;
 
   return (
@@ -28,61 +31,38 @@ function MeetingAdmin() {
             <p>지역</p>
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <div className={styles.member}>
-              <img src={profile} />
-              참여자1
-              <ProgressBar
-                className={styles.attendanceBar}
-                now={now}
-                label={`${now}%`}
-              />
-              <button>승인</button>
-              <button>승인거부</button>
-            </div>
-            <div className={styles.member}>
-              <img src={profile} />
-              참여자2
-              <ProgressBar
-                className={styles.attendanceBar}
-                now={now}
-                label={`${now}%`}
-              />
-              <button>내보내기</button>
-            </div>
-            <div className={styles.member}>
-              <img src={profile} />
-              참여자3
-              <ProgressBar
-                className={styles.attendanceBar}
-                now={now}
-                label={`${now}%`}
-              />
-              <button>내보내기</button>
-            </div>
-            <div className={styles.member}>
-              <img src={profile} />
-              참여자4
-              <ProgressBar
-                className={styles.attendanceBar}
-                now={now}
-                label={`${now}%`}
-              />
-              <button>내보내기</button>
-            </div>
-            <div className={styles.member}>
-              <img src={profile} />
-              참여자5
-              <ProgressBar
-                className={styles.attendanceBar}
-                now={now}
-                label={`${now}%`}
-              />
-              <button>내보내기</button>
-            </div>
-          </Col>
-        </Row>
+        {members &&
+          members.map((item, idx) => {
+            return (
+              <Row key={idx}>
+                <Col>
+                  <div className={styles.member}>
+                    <img src={profile} />
+                    <div>
+                      <p>이름: {item.name}</p>
+                      <p>권한: {item.role}</p>
+                      <p>상태: {item.status}</p>
+                    </div>
+                    <ProgressBar
+                      className={styles.attendanceBar}
+                      now={now}
+                      label={`${now}%`}
+                    />
+                    {item.status === 'provisional_member' && (
+                      <>
+                        <button>승인</button>
+                        <button>승인거부</button>
+                      </>
+                    )}
+                    {item.status === 'full_member' && <button>내보내기</button>}
+                    {item.status === 'rejected_member' && (
+                      <span>탈퇴회원입니다</span>
+                    )}
+                  </div>
+                </Col>
+              </Row>
+            );
+          })}
         <p>출석부</p>
         <AttendanceList orders={data.order} />
       </Container>
