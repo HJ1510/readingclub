@@ -4,6 +4,8 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { useState, useEffect } from 'react';
 import 'assets/css/Calendar.css';
+import { auth } from 'actions/user_action';
+import { useDispatch } from 'react-redux';
 
 function renderEventContent(eventInfo) {
   return (
@@ -13,17 +15,22 @@ function renderEventContent(eventInfo) {
   );
 }
 
-function MeetingCalender({ apiFunction, userId }) {
+function MeetingCalender({ apiFunction }) {
   const [events, setEvents] = useState([]);
+  const dispatch = useDispatch();
 
-  const listLoad = async () => {
+  const listLoad = async (userId) => {
     const orders = await apiFunction(userId);
+    console.log(userId);
+    console.log(typeof userId);
+
     const transformedData = orders.map((order) => ({
       autoIncrementField: order.autoIncrementField,
       title: order.title,
       date: order.order[0].date,
     }));
     setEvents(transformedData);
+    console.log(events);
   };
 
   const handleEventClick = (clickInfo) => {
@@ -34,7 +41,10 @@ function MeetingCalender({ apiFunction, userId }) {
   };
 
   useEffect(() => {
-    listLoad();
+    dispatch(auth()).then((response) => {
+      const { _id } = response.payload;
+      listLoad(_id);
+    });
   }, []);
 
   return (

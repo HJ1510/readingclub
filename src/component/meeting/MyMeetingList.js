@@ -4,8 +4,6 @@ import { useState } from 'react';
 
 function MyMeetingList(props) {
   const meeting = props.meeting;
-  console.log(meeting);
-
   const [currentPage, setCurrentPage] = useState(1);
   const meetingsPerPage = 4; // 한 페이지에 보여줄 모임의 수
 

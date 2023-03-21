@@ -4,24 +4,25 @@ import MeetingCalender from './MeetingCalender';
 import { useEffect, useState } from 'react';
 import MyMeetingList from './MyMeetingList';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
-import { useSelector } from 'react-redux';
+import { auth } from 'actions/user_action';
+import { useDispatch } from 'react-redux';
 import { getUserMeetings } from 'api';
 
 function MyMeeting() {
   const [meeting, setMeeting] = useState([]);
+  const dispatch = useDispatch();
 
-  const userData = useSelector((state) => state.user.userData);
-  // console.log(userData);
+  const listLoad = async (id) => {
+    const loadMeetings = await getUserMeetings(id);
+    setMeeting(loadMeetings);
+  };
 
   useEffect(() => {
-    if (userData) {
-      const fetchMeetings = async () => {
-        const data = await getUserMeetings(userData._id);
-        setMeeting(data);
-      };
-      fetchMeetings();
-    }
-  }, [userData]);
+    dispatch(auth()).then((response) => {
+      const { _id } = response.payload;
+      listLoad(_id);
+    });
+  }, []);
 
   return (
     <Layout>
@@ -30,7 +31,6 @@ function MyMeeting() {
           <Col md={7}>
             <MeetingCalender
               apiFunction={getUserMeetings}
-              userId={userData._id}
               className={styles.Calender}
             />
           </Col>
