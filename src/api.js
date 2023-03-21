@@ -90,60 +90,6 @@ export async function createComment(formData) {
   return body;
 }
 
-// export async function updateComment(id, formData) {
-//   const response = await fetch(
-//     `https://learn.codeit.kr/4514/film-reviews/${id}`,
-//     {
-//       method: "PUT",
-//       body: formData,
-//     }
-//   );
-//   if (!response.ok) {
-//     throw new Error("수정하는데 실패하였습니다");
-//   }
-//   const body = await response.json();
-//   return body;
-// }
-
-// export async function deleteComment(id) {
-//   const response = await fetch(
-//     `https://learn.codeit.kr/4514/film-reviews/${id}`,
-//     {
-//       method: "DELETE",
-//     }
-//   );
-//   if (!response.ok) {
-//     throw new Error("삭제에 실패하였습니다");
-//   }
-//   const body = await response.json();
-//   return body;
-// }
-
-// export async function getComments({ order = "createdAt" }) {
-//   // 쿼리 지정(정렬)
-//   const query = `order=${order}`;
-//   try {
-//     const response = await axios.get(
-//       `https://learn.codeit.kr/4514/film-reviews?${query}`
-//     );
-//     return response.data;
-//   } catch (error) {
-//     throw new Error("코멘트를 불러오는데 실패했습니다");
-//   }
-// }
-
-// export async function createComment(formData) {
-//   try {
-//     const response = await axios.post(
-//       "https://learn.codeit.kr/4514/film-reviews/",
-//       formData
-//     );
-//     return response.data;
-//   } catch (error) {
-//     throw new Error("생성하는데 실패하였습니다");
-//   }
-// }
-
 export async function updateComment(id, formData) {
   try {
     const response = await axios.put(
@@ -182,6 +128,16 @@ export async function createMeetings(formData) {
     return response.data;
   } catch (error) {
     throw new Error('생성하는데 실패하였습니다');
+  }
+}
+
+// 유저별 모임 조회
+export async function getUserMeetings(userId) {
+  try {
+    const response = await axios.get(`/api/meetings/${userId}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('모임 데이터를 불러오는데 실패했습니다');
   }
 }
 

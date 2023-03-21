@@ -9,6 +9,7 @@ import styles from 'assets/css/component/meeting/Meeting.module.css';
 import { auth } from 'actions/user_action';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { getAllOrders } from 'api';
 
 function Meeting() {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ function Meeting() {
     <div className={styles.Meeting}>
       <Layout>
         <Row>
-          <Col md={9}>{<MeetingCalender className='Calender' />}</Col>
+          <Col md={9}>{<MeetingCalender apiFunction={getAllOrders} />}</Col>
           <Col md={2} className={styles.UserForm}>
             <UserForm inLogin='True' />
           </Col>

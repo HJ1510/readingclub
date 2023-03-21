@@ -4,15 +4,29 @@ import styles from 'assets/css/component/meeting/Meeting.module.css';
 import { auth } from 'actions/user_action';
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
+import { getUserMeetings } from 'api';
 
 function UserForm() {
-  const [userId, setUserId] = useState();
   const [authUser, setAuthUser] = useState({});
+  const [meeting, setMeeting] = useState([]);
   const dispatch = useDispatch();
+
+  const listLoad = async (id) => {
+    const loadMeetings = await getUserMeetings(id);
+
+    const meetings = loadMeetings.map((meeting) => ({
+      title: meeting.title,
+      role: meeting.members[0].role,
+      no: meeting.autoIncrementField,
+    }));
+    setMeeting(meetings);
+  };
 
   useEffect(() => {
     dispatch(auth()).then((response) => {
       setAuthUser(response.payload);
+      const { _id } = response.payload;
+      listLoad(_id);
     });
   }, []);
 
@@ -32,12 +46,16 @@ function UserForm() {
       </div> */}
       <div>
         <p>{authUser.name}님 안녕하세요</p>
-        <div className='bnt-user-meeting'>
-          <button>모임1</button>
-        </div>
-        <p>
-          <button>모임2</button>
-        </p>
+        {meeting &&
+          meeting.map((item, idx) => {
+            return (
+              <div className='bnt-user-meeting' key={idx}>
+                <a href={`http://localhost:3000/meeting/group/${item.no}`}>
+                  <button>{item.title}</button>
+                </a>
+              </div>
+            );
+          })}
         <p>
           <Link to='/meeting/createmeeting'>
             <Button variant='outline-danger' size='lg'>

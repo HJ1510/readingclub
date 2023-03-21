@@ -7,20 +7,28 @@ import MyMeetingList from './MyMeetingList';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
 import { auth } from 'actions/user_action';
 import { useDispatch } from 'react-redux';
+import { getUserMeetings } from 'api';
 
 function MyMeeting() {
-  // const [mockList, setMockList] = useState([]);
-
-  // useEffect(() => {
-  //   setMockList(meetingList);
-  // }, []);
-
+  const [meeting, setMeeting] = useState([]);
   const dispatch = useDispatch();
-  
+
+  const listLoad = async (id) => {
+    const loadMeetings = await getUserMeetings(id);
+    console.log(loadMeetings);
+
+    const meetings = loadMeetings.map((meeting) => ({
+      title: meeting.title,
+      role: meeting.members[0].role,
+      no: meeting.autoIncrementField,
+    }));
+    setMeeting(meetings);
+  };
+
   useEffect(() => {
     dispatch(auth()).then((response) => {
       const { _id } = response.payload;
-      console.log(_id);
+      listLoad(_id);
     });
   }, []);
 
@@ -32,7 +40,7 @@ function MyMeeting() {
             <MeetingCalender className={styles.Calender} />
           </Col>
           <Col md={5}>
-            <MyMeetingList />
+            <MyMeetingList meeting={meeting} />
           </Col>
         </Row>
       </div>

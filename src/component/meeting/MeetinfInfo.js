@@ -1,6 +1,5 @@
 import Board from './board';
 import Layout from 'layout/Layout';
-// import { getMeetingByNo } from 'MeetigData';
 import { getMeetings, insertMember } from 'api';
 import { Col, Container, Row } from 'react-bootstrap';
 import Chart from 'react-apexcharts';

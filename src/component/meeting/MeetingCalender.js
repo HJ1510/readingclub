@@ -4,7 +4,6 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { useState, useEffect } from 'react';
 import 'assets/css/Calendar.css';
-import { getAllOrders } from 'api';
 
 function renderEventContent(eventInfo) {
   return (
@@ -14,11 +13,11 @@ function renderEventContent(eventInfo) {
   );
 }
 
-function MeetingCalender(className) {
+function MeetingCalender({ apiFunction }) {
   const [events, setEvents] = useState([]);
 
   const listLoad = async (search) => {
-    const orders = await getAllOrders();
+    const orders = await apiFunction();
     const transformedData = orders.map((order) => ({
       autoIncrementField: order.autoIncrementField,
       title: order.title,
@@ -41,7 +40,7 @@ function MeetingCalender(className) {
   }, []);
 
   return (
-    <div className={className.className}>
+    <div className='Calender'>
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, listPlugin]}
         headerToolbar={{
