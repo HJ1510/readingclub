@@ -5,7 +5,7 @@ import { Col } from 'react-bootstrap/Col';
 import { useState ,useEffect} from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-
+import { auth } from 'actions/user_action';
 export const Member = () => {
     
     const [user, setUser] = useState({
@@ -15,33 +15,31 @@ export const Member = () => {
         date:'',
         nickname:'',
         gender:"",
+        imgpath:"",
       });
     
     const [date, setDate] = useState("");
     const dispatch = useDispatch();
   
-   
     useEffect(() => {
-        // 사용자 정보 가져오기
-        axios.get('/api/users', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-          }
-        })
-          .then(res => {
+      dispatch(auth())
+        .then(response => {
+          if (response.payload.isAuth) {
             setUser({
-                name: user.name,
-                email: user.email,
-                password: '',
-                confirmPassword: '',
-                dateOfBirth: user.dateOfBirth,
-                nickname: user.nickname,
-                gender: user.gender,
+              ...user,
+              name: response.payload.name,
+              email: response.payload.email,
+              date: response.payload.date,
+              nickname: response.payload.nickname,
+              gender: response.payload.gender,
+              password: response.payload.password,
+              imgpath:response.payload.imgpath
             });
-          })
-          .catch(err => console.error(err));
-      }, []);
-    
+          } else {
+            // 로그인 하지 않은 경우 처리
+          }
+        });
+    }, []);
       const handleInputChange = e => {
         const { name, value } = e.target;
         setUser(prevUser => ({
@@ -69,15 +67,11 @@ export const Member = () => {
         <Layout>
             <Container>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="id">아이디</label>
-          <input
-            type="id"
-            id="id"
-            value={user.id}
-            onChange={handleInputChange}
-          />
-        </div>
+      <form>
+                <label htmlFor="image">프로필 이미지</label>
+                <img src={`${user.imgpath.path}`} alt="프로필 이미지"/>
+              
+                </form>
         <div>
           <label htmlFor="name">이름</label>
           <input
@@ -90,7 +84,7 @@ export const Member = () => {
         <div>
           <label htmlFor="password">password</label>
           <input
-            type="password"
+            type="text"
             id="password"
             value={user.password}
             onChange={handleInputChange}
@@ -119,7 +113,7 @@ export const Member = () => {
           <input
             type="date"
             id="date"
-            value={date}
+            value={user.date}
             onChange={(e) => setDate(e.target.value)}
           />
         </div>

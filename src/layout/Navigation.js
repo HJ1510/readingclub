@@ -5,13 +5,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { auth } from "actions/user_action";
 import axios from "axios";
-
+import Button from 'react-bootstrap/Button';
 function Navigation() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [inlogin, setinlogin] = useState(false);
   const { userInfo } = useSelector((state) => state.user);
-
+const [user,setUser]= useState();
   const handleMouseEnter = (e) => {
     e.target.querySelector("::before");
   };
@@ -32,7 +32,7 @@ function Navigation() {
 
   useEffect(() => {
     dispatch(auth()).then((response) => {
-    
+      setUser(response.payload)
       // 로그인 하지 않은상태
       if (!response.payload.isAuth) {
         setinlogin(true);
@@ -41,6 +41,7 @@ function Navigation() {
       }
     });
   }, []);
+
   return (
     <header className="site-header">
       <div className="container">
@@ -55,7 +56,7 @@ function Navigation() {
                 Meetings
               </Link>
             </li>
-            <li>
+            {inlogin?(null):    <li>
               <Link
                 to={"/meeting/mymeeting"}
                 onMouseEnter={handleMouseEnter}
@@ -63,7 +64,8 @@ function Navigation() {
               >
                 My Meeting
               </Link>
-            </li>
+            </li>}
+        
             <li>
               <Link
                 to={"/booknote/notelist"}
@@ -73,15 +75,18 @@ function Navigation() {
                 Notes
               </Link>
             </li>
-            <li>
-              <Link
-                to={"/booknote"}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
-                My Note
-              </Link>
-            </li>
+            {inlogin ? (
+              null
+            ):   <li>
+            <Link
+              to={"/booknote"}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              My Note
+            </Link>
+          </li>}
+          
             <li>
               <Link
                 to={"/note/notebookmark"}
@@ -118,8 +123,9 @@ function Navigation() {
                     로그아웃 / {userInfo && userInfo.name + "님"}
                   </Link>
                 </li>
+                
                 <li>
-                  <Link to="#" onClick={onClickHandler} className="login">
+                  <Link to={`/member`} className="login">
                     회원정보
                   </Link>
                 </li>
