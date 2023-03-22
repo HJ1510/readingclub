@@ -71,11 +71,12 @@ function MeetingCreate() {
     console.log(form);
     const formData = new FormData(form); // 폼 데이터 추출
     formData.append('creator', authUser._id);
+    formData.append('imgFile', values.imgFile);
 
     try {
       const response = await createMeetings(formData);
       console.log(response);
-      navigate(-1);
+      // navigate(-1);
     } catch (error) {
       console.error(error);
     }

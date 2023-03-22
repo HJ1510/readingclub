@@ -151,6 +151,16 @@ export async function getAllOrders() {
   }
 }
 
+// 모임별 회차 조회
+export async function getOrdersByNo(no) {
+  try {
+    const response = await axios.get(`/api/meeting/${no}/orders`);
+    return response.data;
+  } catch (error) {
+    throw new Error('모임 데이터를 불러오는데 실패했습니다');
+  }
+}
+
 export async function insertMember(no, body) {
   try {
     const response = await axios.post(`/api/meeting/${no}/register`, body);

@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router';
 import { useParams } from 'react-router';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
 import { useMembers } from 'hooks/useMembers';
+import { getOrdersByNo } from 'api';
 
 function MeetingGroup() {
   const now = 60;
@@ -45,7 +46,7 @@ function MeetingGroup() {
         /> */}
         <Row>
           <Col>
-            <MeetingCalender />
+            <MeetingCalender apiFunction={getOrdersByNo} />
           </Col>
         </Row>
         <Row>

@@ -21,8 +21,6 @@ function MeetingCalender({ apiFunction }) {
 
   const listLoad = async (userId) => {
     const orders = await apiFunction(userId);
-    console.log(userId);
-    console.log(typeof userId);
 
     const transformedData = orders.map((order) => ({
       autoIncrementField: order.autoIncrementField,
@@ -30,7 +28,6 @@ function MeetingCalender({ apiFunction }) {
       date: order.order[0].date,
     }));
     setEvents(transformedData);
-    console.log(events);
   };
 
   const handleEventClick = (clickInfo) => {

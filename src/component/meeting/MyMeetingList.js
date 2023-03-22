@@ -35,8 +35,11 @@ function MyMeetingList(props) {
       {meeting.map((item, idx) => {
         return (
           <div key={idx}>
-            <h5>{item.title}</h5>
-
+            <a
+              href={`http://localhost:3000/meeting/group/${item.autoIncrementField}`}
+            >
+              <h5>{item.title}</h5>
+            </a>
             {item.meetingStatus === 'recruiting' ? (
               <p>모집중</p>
             ) : item.meetingStatus === 'in_progress' ? (
