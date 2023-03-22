@@ -11,7 +11,7 @@ function Navigation() {
   const navigate = useNavigate();
   const [inlogin, setinlogin] = useState(false);
   const { userInfo } = useSelector((state) => state.user);
-
+const [user,setUser]= useState();
   const handleMouseEnter = (e) => {
     e.target.querySelector('::before');
   };
@@ -32,6 +32,7 @@ function Navigation() {
 
   useEffect(() => {
     dispatch(auth()).then((response) => {
+      setUser(response.payload)
       // 로그인 하지 않은상태
       if (!response.payload.isAuth) {
         setinlogin(true);
@@ -40,7 +41,7 @@ function Navigation() {
       }
     });
   }, []);
-  
+
   return (
     <header className='site-header'>
       <div className='container'>
@@ -89,8 +90,9 @@ function Navigation() {
                     로그아웃 / {userInfo && userInfo.name + '님'}
                   </Link>
                 </li>
+                
                 <li>
-                  <Link to='#' onClick={onClickHandler} className='login'>
+                  <Link to={`/member`} className="login">
                     회원정보
                   </Link>
                 </li>

@@ -1,5 +1,6 @@
 import Layout from 'layout/Layout';
-import styles from '../../assets/css/component/note/Booknote.module.css';
+import '../../assets/css/component/note/Booknote.css';
+
 import Chartdata from './Chartdata';
 import { useState, useEffect } from 'react';
 import Chart from './Chart';
