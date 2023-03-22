@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getArticle } from 'api';
 import { useEffect, useState } from 'react';
 import styles from 'assets/css/component/meeting/Board.module.css';
@@ -16,6 +16,9 @@ function formatDate(value) {
 }
 
 function ArticleList({ title }) {
+  const { no } = useParams();
+  console.log(no); //5
+  console.log(parseInt(no));
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState('');
 
@@ -92,9 +95,14 @@ function ArticleList({ title }) {
     <div className={styles.articleList}>
       <Container>
         <Row>
-          <Col></Col>
           <Col>
-            <Link to='/meeting/write' className={styles.articleWriteButton}>
+            <Link
+              to={{
+                pathname: '/meeting/write',
+                state: { no: no },
+              }}
+              className={styles.articleWriteButton}
+            >
               <HiPencilSquare size='24' />
             </Link>
           </Col>

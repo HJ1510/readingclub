@@ -189,3 +189,15 @@ export async function getAllMembersByNo(no) {
     throw new Error('모임 데이터를 불러오는데 실패했습니다');
   }
 }
+
+export async function insertFAQArticle(no, formData) {
+  try {
+    const response = await axios.post(
+      `/api/meeting/${no}/faqArticle/create`,
+      formData
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error('FAQArticle 게시글 생성하는데 실패하였습니다');
+  }
+}
