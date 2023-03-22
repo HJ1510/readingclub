@@ -113,9 +113,20 @@ export async function deleteComment(id) {
   }
 }
 
+// 모든 모임 조회
 export async function getMeetings() {
   try {
     const response = await axios.get('/api/meeting/all');
+    return response.data;
+  } catch (error) {
+    throw new Error('모임 데이터를 불러오는데 실패했습니다');
+  }
+}
+
+// 특정 모임 조회
+export async function getMeetingByNo(no) {
+  try {
+    const response = await axios.get(`/api/meeting/${no}`);
     return response.data;
   } catch (error) {
     throw new Error('모임 데이터를 불러오는데 실패했습니다');
@@ -134,10 +145,10 @@ export async function createMeetings(formData) {
 // 유저별 모임 조회
 export async function getUserMeetings(userId) {
   try {
-    const response = await axios.get(`/api/meetings/${userId}`);
+    const response = await axios.get(`/api/users/${userId}/meetings`);
     return response.data;
   } catch (error) {
-    throw new Error('모임 데이터를 불러오는데 실패했습니다');
+    throw new Error('유저의 모임 데이터를 가져오지 못했습니다');
   }
 }
 
@@ -172,7 +183,7 @@ export async function insertMember(no, body) {
 
 export async function getAllMembersByNo(no) {
   try {
-    const response = await axios.get(`/api/meeting/admin/${no}/allmembers`);
+    const response = await axios.get(`/api/meeting/${no}/members`);
     return response.data;
   } catch (error) {
     throw new Error('모임 데이터를 불러오는데 실패했습니다');

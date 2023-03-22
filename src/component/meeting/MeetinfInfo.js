@@ -1,6 +1,6 @@
 import Board from './board';
 import Layout from 'layout/Layout';
-import { getMeetings, insertMember } from 'api';
+import { insertMember, getMeetingByNo } from 'api';
 import { Col, Container, Row } from 'react-bootstrap';
 import Chart from 'react-apexcharts';
 import { Link, useParams } from 'react-router-dom';
@@ -17,17 +17,6 @@ function MeetingInfo() {
   const [message, setMessage] = useState('');
   const [authUser, setAuthUser] = useState({});
   const dispatch = useDispatch();
-
-  const getMeetingByNo = async (no) => {
-    const { meetings } = await getMeetings();
-
-    const array = meetings.filter((x) => x.autoIncrementField === no);
-    if (array.length === 1) {
-      // console.log(array[0]);
-      return array[0];
-    }
-    return null;
-  };
 
   const genderData = {
     series: [70, 30],
@@ -129,6 +118,7 @@ function MeetingInfo() {
   useEffect(() => {
     getMeetingByNo(parseInt(no)).then((meeting) => {
       setMeetinginfo(meeting);
+      console.log(meeting);
     });
     dispatch(auth()).then((response) => {
       setAuthUser(response.payload);
