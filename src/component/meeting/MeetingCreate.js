@@ -76,7 +76,7 @@ function MeetingCreate() {
     try {
       const response = await createMeetings(formData);
       console.log(response);
-      // navigate(-1);
+      navigate(-1);
     } catch (error) {
       console.error(error);
     }

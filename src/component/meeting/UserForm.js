@@ -7,6 +7,19 @@ import { getUserMeetings } from 'api';
 
 function UserForm() {
   const [meeting, setMeeting] = useState([]);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(3);
+  const [user, setUser] = useState({});
+
+  const handleNext = () => {
+    setStartIndex(startIndex + 3);
+    setEndIndex(endIndex + 3);
+  };
+
+  const handlePrev = () => {
+    setStartIndex(startIndex - 3);
+    setEndIndex(endIndex - 3);
+  };
 
   const userData = useSelector((state) => state.user.userData);
 
@@ -16,9 +29,19 @@ function UserForm() {
     const meetings = loadMeetings.map((meeting) => ({
       title: meeting.title,
       role: meeting.members[0].role,
+      memberStatus: meeting.members[0].status,
       no: meeting.autoIncrementField,
     }));
-    setMeeting(meetings);
+
+    const sortedMeetings = meetings.sort((a, b) => b.no - a.no);
+    setMeeting(sortedMeetings);
+    // memberStatus가 'host', 'full_member'인 모임만 보이게
+    // const filteredMeetings = sortedMeetings.filter(
+    //   (meeting) =>
+    //     meeting.memberStatus === 'host' ||
+    //     meeting.memberStatus === 'full_member'
+    // );
+    // setMeeting(filteredMeetings);
   };
 
   useEffect(() => {
@@ -30,18 +53,30 @@ function UserForm() {
   return (
     <div className='user-form'>
       <div>
+        
         {userData && <p>{userData.name}님 안녕하세요</p>}
 
-        {meeting &&
-          meeting.map((item, idx) => {
-            return (
-              <div className='bnt-user-meeting' key={idx}>
-                <a href={`http://localhost:3000/meeting/group/${item.no}`}>
-                  <button>{item.title}</button>
-                </a>
-              </div>
-            );
-          })}
+        {meeting && (
+          <>
+            {meeting.slice(startIndex, endIndex).map((item, idx) => {
+              return (
+                <div className='bnt-user-meeting' key={idx}>
+                  <a href={`http://localhost:3000/meeting/group/${item.no}`}>
+                    <button>
+                      {item.title}/{item.memberStatus}
+                    </button>
+                  </a>
+                </div>
+              );
+            })}
+            <button onClick={handlePrev} disabled={startIndex === 0}>
+              &lt;
+            </button>
+            <button onClick={handleNext} disabled={endIndex >= meeting.length}>
+              &gt;
+            </button>
+          </>
+        )}
         <p>
           <Link to='/meeting/createmeeting'>
             <Button variant='outline-danger' size='lg'>

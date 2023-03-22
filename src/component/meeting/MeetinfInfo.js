@@ -118,7 +118,6 @@ function MeetingInfo() {
   useEffect(() => {
     getMeetingByNo(parseInt(no)).then((meeting) => {
       setMeetinginfo(meeting);
-      console.log(meeting);
     });
     dispatch(auth()).then((response) => {
       setAuthUser(response.payload);

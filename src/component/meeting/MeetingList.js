@@ -67,7 +67,7 @@ function MeetingList({ title }) {
                     <Row>
                       <Col md={1}></Col>
                       <Col md={2}>
-                        <img src={meetingImgSample} alt='sample' />
+                        <img src={item.imgFile} alt='sample' />
                       </Col>
                       <Col md={1}></Col>
                       <Col className={styles.meetingItem}>
