@@ -2,77 +2,35 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Link, useParams } from 'react-router-dom';
-import { getArticle } from 'api';
+import { getArticle, getFAQArticlesByMeetingNo } from 'api';
 import { useEffect, useState } from 'react';
 import styles from 'assets/css/component/meeting/Board.module.css';
 import { HiPencilSquare } from 'react-icons/hi2';
-import mockItems from 'mock.json';
 
 function formatDate(value) {
   const date = new Date(value);
-  return `${date.getFullYear()}. ${(date.getMonth() + 1)
+  return `${date.getFullYear()}-${(date.getMonth() + 1)
     .toString()
-    .padStart(2, '0')}. ${date.getDate().toString().padStart(2, '0')}`;
+    .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
 }
 
 function ArticleList({ title }) {
   const { no } = useParams();
-  console.log(no); //5
-  console.log(parseInt(no));
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState('');
 
-  // mockjson
-  // const { _embedded } = mockItems;
-
-  // const listLoad = () => {
-  //   const { articles } = _embedded;
-  //   setItems(articles);
-  // };
-
-  // useEffect(() => {
-  //   listLoad();
-  // }, []);
-
-  // 백엔드 api
-  // const listLoad = async (search) => {
-  //   const { _embedded } = await getArticle();
-  //   const { articles } = _embedded;
-  //   setItems(articles);
-  // };
-
-  // useEffect(() => {
-  //   listLoad(search);
-  // }, []);
-
-  // 코드잇 api
-  // const listLoad = async () => {
-  //   const { foods } = await getArticle();
-  //   setItems(foods);
-  // };
-
-  // useEffect(() => {
-  //   listLoad();
-  // }, []);
-
-  // const handleSearchSubmit = (e) => {
-  //   e.preventDefault();
-  //   setSearch(e.target["search"].value);
-  // };
-
   const listLoad = async () => {
     if (title === 'FAQ') {
-      const { content } = await getArticle();
-      console.log(content);
-      setItems(content);
+      const FAQArticle = await getFAQArticlesByMeetingNo(no);
+      setItems(FAQArticle);
     } else if (title === '모임후기') {
-      const { _embedded } = mockItems;
-      const { articles } = _embedded;
-      setItems(articles);
+      const { content } = await getArticle();
+      // console.log(content);
+      setItems(content);
     } else if (title === '모임원 게시판') {
       const { foods } = await getArticle();
       setItems(foods);
-      console.log(items);
+      // console.log(items);
     } else {
       console.log('게시판이 생성되지 않았습니다');
       console.log(title);
@@ -80,27 +38,17 @@ function ArticleList({ title }) {
     }
   };
 
-  // 조회수 증가
-  function handleClick(id) {
-    fetch(`/articles/${id}/hit`, {
-      method: 'POST',
-    });
-  }
-
   useEffect(() => {
     listLoad();
   }, []);
 
-  return title ? (
+  return items ? (
     <div className={styles.articleList}>
       <Container>
         <Row>
           <Col>
             <Link
-              to={{
-                pathname: '/meeting/write',
-                state: { no: no },
-              }}
+              to={`/meeting/${no}/write`}
               className={styles.articleWriteButton}
             >
               <HiPencilSquare size='24' />
@@ -127,18 +75,13 @@ function ArticleList({ title }) {
                 <div key={idx}>
                   <Row className={styles.articles}>
                     <Col md={1}></Col>
-                    <Col md={1}>{item.id}</Col>
+                    <Col md={1}>{item.autoIncrementField}</Col>
                     <Col md={5} className={styles.articlesTitle}>
-                      <Link
-                        to={`${item.id}`}
-                        onClick={() => handleClick(item.id)}
-                      >
-                        {item.title}
-                      </Link>
+                      <Link to={`${item._id}`}>{item.title}</Link>
                     </Col>
-                    <Col md={1}>{item.createdBy}</Col>
+                    <Col md={1}>{item.creator.name}</Col>
                     <Col md={2}>{formatDate(item.createdAt)}</Col>
-                    <Col md={1}>조회수</Col>
+                    <Col md={1}>{item.hitCount}</Col>
                   </Row>
                 </div>
               );
@@ -150,7 +93,7 @@ function ArticleList({ title }) {
       </Container>
     </div>
   ) : (
-    ''
+    '글이 없습니다 글을 작성해주세요'
   );
 }
 
