@@ -1,7 +1,6 @@
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import styles from 'assets/css/component/meeting/Meeting.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { getUserMeetings } from 'api';
 
@@ -9,7 +8,8 @@ function UserForm() {
   const [meeting, setMeeting] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(3);
-  const [user, setUser] = useState({});
+
+  const userData = useSelector((state) => state.user.userData);
 
   const handleNext = () => {
     setStartIndex(startIndex + 3);
@@ -20,8 +20,6 @@ function UserForm() {
     setStartIndex(startIndex - 3);
     setEndIndex(endIndex - 3);
   };
-
-  const userData = useSelector((state) => state.user.userData);
 
   const listLoad = async (id) => {
     const loadMeetings = await getUserMeetings(id);
@@ -45,46 +43,52 @@ function UserForm() {
   };
 
   useEffect(() => {
-    if (userData) {
+    if (userData && userData.name) {
       listLoad(userData._id);
     }
   }, [userData]);
 
   return (
     <div className='user-form'>
-      <div>
-        
-        {userData && <p>{userData.name}님 안녕하세요</p>}
+      {userData && userData.name ? (
+        <div>
+          <p>{userData.name}님 안녕하세요</p>
 
-        {meeting && (
-          <>
-            {meeting.slice(startIndex, endIndex).map((item, idx) => {
-              return (
-                <div className='bnt-user-meeting' key={idx}>
-                  <a href={`http://localhost:3000/meeting/group/${item.no}`}>
-                    <button>
-                      {item.title}/{item.memberStatus}
-                    </button>
-                  </a>
-                </div>
-              );
-            })}
-            <button onClick={handlePrev} disabled={startIndex === 0}>
-              &lt;
-            </button>
-            <button onClick={handleNext} disabled={endIndex >= meeting.length}>
-              &gt;
-            </button>
-          </>
-        )}
-        <p>
-          <Link to='/meeting/createmeeting'>
-            <Button variant='outline-danger' size='lg'>
-              모임개설
-            </Button>
-          </Link>
-        </p>
-      </div>
+          {meeting && (
+            <>
+              {meeting.slice(startIndex, endIndex).map((item, idx) => {
+                return (
+                  <div className='bnt-user-meeting' key={idx}>
+                    <a href={`http://localhost:3000/meeting/group/${item.no}`}>
+                      <button>
+                        {item.title}/{item.memberStatus}
+                      </button>
+                    </a>
+                  </div>
+                );
+              })}
+              <button onClick={handlePrev} disabled={startIndex === 0}>
+                &lt;
+              </button>
+              <button
+                onClick={handleNext}
+                disabled={endIndex >= meeting.length}
+              >
+                &gt;
+              </button>
+            </>
+          )}
+          <p>
+            <Link to='/meeting/createmeeting'>
+              <Button variant='outline-danger' size='lg'>
+                모임개설
+              </Button>
+            </Link>
+          </p>
+        </div>
+      ) : (
+        '로그인'
+      )}
     </div>
   );
 }
