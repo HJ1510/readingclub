@@ -60,7 +60,7 @@ function ArticleView() {
                 </div>
               </div>
               <div className={styles.article_body}>
-                <div>내용: {data.content}</div>
+                <div>내용: {parse(data.content)}</div>
                 <div>
                   hashTag:
                   {data.hashtags.map((hashtag, idx) => {

@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
 import styles from 'assets/css/component/meeting/Board.module.css';
 
 const INITIAL_VALUES = {
@@ -19,6 +21,11 @@ function ArticleForm({ initialValues, onSubmit, user }) {
     }
   };
 
+  const handleContentChange = (event, editor) => {
+    const data = editor.getData();
+    setFormData((prevValues) => ({ ...prevValues, content: data }));
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     handleChange(name, value);
@@ -26,10 +33,15 @@ function ArticleForm({ initialValues, onSubmit, user }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    // console.log(formData.title);
-    formData.append('creator', user._id);
-    onSubmit(formData);
+    const data = new FormData();
+    data.append('title', formData.title);
+    data.append('content', formData.content);
+    data.append('hashtags', formData.hashtags);
+    data.append('creator', user._id);
+    for (let [key, value] of data.entries()) {
+      console.log(key, value);
+    }
+    onSubmit(data);
   };
 
   useEffect(() => {
@@ -52,15 +64,13 @@ function ArticleForm({ initialValues, onSubmit, user }) {
           />
         </div>
         <div>
-          <textarea
-            name='content'
-            value={formData.content}
-            placeholder='content'
-            onChange={handleInputChange}
-            id={styles.content_txt}
+          <CKEditor
+            editor={ClassicEditor}
+            data={formData.content}
+            onChange={handleContentChange}
+            id='CKEditor'
           />
         </div>
-
         <div>
           <input
             type='text'

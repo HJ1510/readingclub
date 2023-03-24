@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import { getFAQArticleById, updateFAQArticleById } from 'api';
 import ArticleForm from './ArticleForm';
+import Layout from 'layout/Layout';
 
 function ArticleEdit() {
   const { no, id } = useParams();
@@ -41,7 +42,7 @@ function ArticleEdit() {
   };
 
   return (
-    <div>
+    <Layout>
       <h1>ArticleEdit</h1>
       <h2>{editMode ? '글 수정하기' : '글 작성하기'}</h2>
       <ArticleForm
@@ -49,7 +50,7 @@ function ArticleEdit() {
         onSubmit={handleSubmit}
         user={userData}
       />
-    </div>
+    </Layout>
   );
 }
 

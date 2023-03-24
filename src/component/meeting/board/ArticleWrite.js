@@ -1,9 +1,9 @@
-import ArticleForm from './ArticleForm';
-import Layout from 'layout/Layout';
 import { useParams } from 'react-router';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { insertFAQArticle } from 'api';
+import ArticleForm from './ArticleForm';
+import Layout from 'layout/Layout';
 
 function ArticleWrite() {
   const { no } = useParams();
