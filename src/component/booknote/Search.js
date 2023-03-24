@@ -78,7 +78,7 @@ function SearchBar() {
           </button>
         </div>
       </div>
-    
+      <p>{(styles.booknotelisttitle1)}</p>
       <div>
         {results.length > 0 ? (
           <ul>
@@ -89,7 +89,7 @@ function SearchBar() {
                 </Col>
 
                 <Col className={styles.booknotelisttitle1}>
-                  <h3 style={{ margin: '15px' }}>#카테고리 : {result.category}</h3>
+                  <h3 style={{ margin: '15px' }}>#카테고리</h3>
                   <h3 style={{ margin: '15px' }}>
                     <Link to={`/booknote/${result._id}`}>
                       제목: {result.title}
@@ -147,7 +147,7 @@ function SearchBar() {
                         width: '900px',
                       }}
                     >
-                      <h3 style={{ margin: '15px' }}>#카테고리 : {booknotlist.category}</h3>
+                      <h3 style={{ margin: '15px' }}>#카테고리</h3>
                       <h3 style={{ margin: '15px' }}>
                         <Link to={`/booknote/${booknotlist._id}`}>
                           제목: {booknotlist.title}
