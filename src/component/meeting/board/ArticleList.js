@@ -1,9 +1,8 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Link, useParams } from 'react-router-dom';
-import { getFAQArticlesByMeetingNo } from 'api';
-import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useArticle } from 'hooks/useArticle';
 import styles from 'assets/css/component/meeting/Board.module.css';
 import { HiPencilSquare } from 'react-icons/hi2';
 
@@ -14,33 +13,8 @@ function formatDate(value) {
     .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
 }
 
-function ArticleList({ title }) {
-  const { no } = useParams();
-  const [items, setItems] = useState([]);
-  const [search, setSearch] = useState('');
-
-  const listLoad = async () => {
-    if (title === 'FAQ') {
-      const FAQArticle = await getFAQArticlesByMeetingNo(no);
-      setItems(FAQArticle);
-    } else if (title === '모임후기') {
-      // const { content } = await getArticle();
-      // console.log(content);
-      // setItems(content);
-    } else if (title === '모임원 게시판') {
-      // const { foods } = await getArticle();
-      // setItems(foods);
-      // console.log(items);
-    } else {
-      console.log('게시판이 생성되지 않았습니다');
-      console.log(title);
-      return;
-    }
-  };
-
-  useEffect(() => {
-    listLoad();
-  }, []);
+function ArticleList({ loadData, no }) {
+  const items = useArticle(loadData);
 
   return (
     <div>
