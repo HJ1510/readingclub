@@ -19,14 +19,19 @@ function SearchBar() {
   useEffect(() => {
     axios.get('/api/category').then((response) => {
       setcategoryname(response.data);
+
+  
     });
   }, []);
   const handleSearch = async (e) => {
     e.preventDefault(); // 폼의 기본 동작 막기
 
-    try {
-      const response = await axios.get(`/search?keyword=${query}`);
+    try { 
+      const response = await axios.get(`/search?keyword=${query}`,{ headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+              } });
       setResults(response.data);
+ console.log(results)
     } catch (error) {
       console.error(error);
     }
@@ -40,10 +45,11 @@ function SearchBar() {
       if (response.data.isAuth) {
         axios.get('/api/notelist/user').then((response) => {
           setNoteList(response.data);
+     
         });
       } else {
-        navigate('/');
-      }
+          navigate('/');
+        }
     });
   }, []);
 
@@ -56,8 +62,8 @@ function SearchBar() {
         >
           {categoryname.map((category) => {
             return (
-              <option key={category.name} value={category}>
-                {category.name}
+              <option key={category.category} value={category}>
+                {category.category}
               </option>
             );
           })}
@@ -77,7 +83,7 @@ function SearchBar() {
           </button>
         </div>
       </div>
-      <p>{console.log(styles.booknotelisttitle1)}</p>
+      <p>{(styles.booknotelisttitle1)}</p>
       <div>
         {results.length > 0 ? (
           <ul>

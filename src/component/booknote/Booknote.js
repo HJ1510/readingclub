@@ -93,12 +93,18 @@ function Booknote() {
           <div className={styles.booknotelay}>
             <div className={styles.booknote_sidebar}>
               <div className='sidebar-card'></div>
-              <img
+              {id&&(
+                <img
                 className={styles.avatar}
-                src='https://avatars.githubusercontent.com/u/114986610?v=4'
+                src={id.imgpath.path}
               ></img>
+              )}
+              
               <div className={styles.cardname}>
-                <h1 className={styles.carduser}>SunMoo</h1>
+                {id&&(
+                  <h1 className={styles.carduser}>{id.name}</h1>
+                )}
+                
               </div>
               <div className='cardusercolum'>
                 <Link

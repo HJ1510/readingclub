@@ -11,9 +11,7 @@ function Chart() {
     });
   }, []);
 
-  const categoryNames = categories.map((category) => category.name);
-  const categoryValues = categories.map((category) => category.value);
-
+  const   colors=['#0088FE', '#00C49F', '#FFBB28', '#FF8042']
   const chartData = {
     options: {
       chart: {
@@ -28,7 +26,7 @@ function Chart() {
         enabled: false,
       },
       xaxis: {
-        categories: categoryNames,
+        categories: categories.map((category) => category.category),
       },
       yaxis: {
         title: {
@@ -39,13 +37,15 @@ function Chart() {
         text: "카테고리",
         align: "center",
       },
-      colors: ['#FF5733', '#C70039', '#900C3F', '#581845']
+      colors: colors,
     },
-    series: [
-      {
-        data: categoryValues,
-      },
-    ],
+    series: categories.map((category, index) => {
+      return {
+        name: category.category,
+        data: [category.percentage],
+        color: colors[index],
+      };
+    }),
   };
 
   return (
