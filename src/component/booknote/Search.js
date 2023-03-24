@@ -16,14 +16,18 @@ function SearchBar() {
   useEffect(() => {
     axios.get("/api/category").then((response) => {
       setcategoryname(response.data);
+    
     });
   }, []);
   const handleSearch = async (e) => {
     e.preventDefault(); // 폼의 기본 동작 막기
 
-    try {
-      const response = await axios.get(`/search?keyword=${query}`);
+    try { 
+      const response = await axios.get(`/search?keyword=${query}`,{ headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+              } });
       setResults(response.data);
+ console.log(results)
     } catch (error) {
       console.error(error);
     }
@@ -37,10 +41,11 @@ function SearchBar() {
       if (response.data.isAuth) {
         axios.get("/api/notelist/user").then((response) => {
           setNoteList(response.data);
+     
         });
       } else {
-        navigate("/");
-      }
+          navigate('/');
+        }
     });
   }, []);
   return (
@@ -52,8 +57,8 @@ function SearchBar() {
         >
           {categoryname.map((category) => {
             return (
-              <option key={category.name} value={category}>
-                {category.name}
+              <option key={category.category} value={category}>
+                {category.category}
               </option>
             );
           })}
@@ -73,34 +78,23 @@ function SearchBar() {
           </button>
         </div>
       </div>
-      {results.length > 0 ? (
-        <ul>
-          {results.map((result) => (
-            <div
-              key={result.id}
-              className="booklist"
-              style={{
-                paddingTop: "30px",
-                paddingBottom: "20px",
-                display: "flex",
-                borderBottom: "1px solid  #e6e0e0",
-              }}
-            >
-              <Col md={2} className="tumb">
-                <img src={result.thumbnail} alt="thumbnail"></img>
-              </Col>
-              <Col
-                className="booknotelisttitle1"
-                style={{
-                  width: "900px",
-                }}
-              >
-                <h3 style={{ margin: "15px" }}>#카테고리</h3>
-                <h3 style={{ margin: "15px" }}>
-                  <Link to={`/booknote/${result._id}`}>
-                    제목: {result.title}
-                  </Link>
-                </h3>
+    
+      <div>
+        {results.length > 0 ? (
+          <ul>
+            {results.map((result) => (
+              <div key={result.id} className={styles.booklist}>
+                <Col md={2} className={styles.tumb}>
+                  <img src={result.thumbnail} alt='thumbnail'></img>
+                </Col>
+
+                <Col className={styles.booknotelisttitle1}>
+                  <h3 style={{ margin: '15px' }}>#카테고리 : {result.category}</h3>
+                  <h3 style={{ margin: '15px' }}>
+                    <Link to={`/booknote/${result._id}`}>
+                      제목: {result.title}
+                    </Link>
+                  </h3>
 
                 <h5 style={{ margin: "10px" }}>
                   내용: {parse(result.content)}
@@ -144,15 +138,21 @@ function SearchBar() {
                       width: "900px",
                     }}
                   >
-                    <h3 style={{ margin: "15px" }}>#카테고리</h3>
-                    <h3 style={{ margin: "15px" }}>
-                      <Link
-                        to={`/booknote/${booknotlist._id}`}
-                      
-                      >
-                        제목: {booknotlist.title}
-                      </Link>
-                    </h3>
+                    <Col md={2} className='tumb'>
+                      <img src={booknotlist.thumbnail} alt='thumbnail'></img>
+                    </Col>
+                    <Col
+                      className='booknotelisttitle1'
+                      style={{
+                        width: '900px',
+                      }}
+                    >
+                      <h3 style={{ margin: '15px' }}>#카테고리 : {booknotlist.category}</h3>
+                      <h3 style={{ margin: '15px' }}>
+                        <Link to={`/booknote/${booknotlist._id}`}>
+                          제목: {booknotlist.title}
+                        </Link>
+                      </h3>
 
                     <h5 style={{ margin: "10px" }}>
                       내용: {parse(booknotlist.content)}

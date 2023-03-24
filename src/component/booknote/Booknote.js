@@ -1,7 +1,6 @@
 import Layout from 'layout/Layout';
 import '../../assets/css/component/note/Booknote.css';
-
-import Chartdata from './Chartdata';
+import styles from '../../assets/css/component/note/Booknote.module.css';
 import { useState, useEffect } from 'react';
 import Chart from './Chart';
 import { Link, useNavigate } from 'react-router-dom';
@@ -93,13 +92,18 @@ function Booknote() {
           <div className='booknotelay'>
             <div className='booknote-sidebar'>
               <div className='sidebar-card'></div>
-              <img
-                style={{ height: '300px', display: 'flex' }}
-                className='avatar'
-                src='https://avatars.githubusercontent.com/u/114986610?v=4'
+              {id&&(
+                <img
+                className={styles.avatar}
+                src={id.imgpath.path}
               ></img>
-              <div className='cardname'>
-                <h1 className='carduser'>SunMoo</h1>
+              )}
+              
+              <div className={styles.cardname}>
+                {id&&(
+                  <h1 className={styles.carduser}>{id.name}</h1>
+                )}
+                
               </div>
               <div className='cardusercolum'>
                 <Link

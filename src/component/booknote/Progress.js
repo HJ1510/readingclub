@@ -18,7 +18,7 @@ const Label = ({ value }) => (
 
 export default function Progress(props) {
   const {target,setTarget}= props;
-  //const [target, setTarget] = useState('');
+  // const [target, setTarget] = useState('');
   const [current, setCurrent] = useState('');
   const [value, setValue] = useState(0);
   const [avg, setAvg] = useState(0);
@@ -61,7 +61,7 @@ const dispatch =useDispatch();
   
      axios.put(`/api/users/${id}/bookgoal`, { bookGoal: target })
     .then((res) => {
-      // 업데이트가 성공적으로 이루어졌을 때의 로직
+     
     })
     .catch((err) => {
       console.error(err);
