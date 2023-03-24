@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Link, useParams } from 'react-router-dom';
-import { getArticle, getFAQArticlesByMeetingNo } from 'api';
+import { getFAQArticlesByMeetingNo } from 'api';
 import { useEffect, useState } from 'react';
 import styles from 'assets/css/component/meeting/Board.module.css';
 import { HiPencilSquare } from 'react-icons/hi2';
@@ -24,12 +24,12 @@ function ArticleList({ title }) {
       const FAQArticle = await getFAQArticlesByMeetingNo(no);
       setItems(FAQArticle);
     } else if (title === '모임후기') {
-      const { content } = await getArticle();
+      // const { content } = await getArticle();
       // console.log(content);
-      setItems(content);
+      // setItems(content);
     } else if (title === '모임원 게시판') {
-      const { foods } = await getArticle();
-      setItems(foods);
+      // const { foods } = await getArticle();
+      // setItems(foods);
       // console.log(items);
     } else {
       console.log('게시판이 생성되지 않았습니다');

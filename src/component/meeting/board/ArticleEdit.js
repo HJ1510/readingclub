@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
+import { getFAQArticleById, updateFAQArticleById } from 'api';
 import ArticleForm from './ArticleForm';
-import { getFAQArticleById } from 'api';
 
 function ArticleEdit() {
   const { no, id } = useParams();
+  const navigate = useNavigate();
   const [editMode, setEditMode] = useState(false); // 글 작성 모드인지, 글 수정 모드인지 구분하는 변수
   const [article, setArticle] = useState(null);
 
   const userData = useSelector((state) => state.user.userData);
+  // console.log(userData);
 
   useEffect(() => {
     const articleLoad = async (no, id) => {
@@ -28,14 +31,13 @@ function ArticleEdit() {
   }, [article]);
 
   const handleSubmit = async (formData) => {
-    console.log(formData);
-    // try {
-    //   const response = await insertFAQArticle(no ? no : '', formData);
-    //   console.log(response);
-    //   navigate(-1);
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      const response = await updateFAQArticleById({ no, id }, formData);
+      console.log(response);
+      navigate(-1);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

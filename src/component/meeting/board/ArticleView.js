@@ -90,7 +90,7 @@ function ArticleView() {
               </div>
             </div>
           ) : (
-            '글이 없음'
+            'loading...'
           )}
         </Container>
       </Layout>

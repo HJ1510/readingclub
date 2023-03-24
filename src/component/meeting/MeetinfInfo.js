@@ -95,8 +95,6 @@ function MeetingInfo() {
       const body = {
         userId: authUser._id,
       };
-      console.log(body);
-      console.log(no);
       const response = await insertMember(no, body);
 
       if (response.success === true) {

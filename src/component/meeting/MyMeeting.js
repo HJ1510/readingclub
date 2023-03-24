@@ -12,9 +12,7 @@ function MyMeeting() {
   const userData = useSelector((state) => state.user.userData);
 
   const listLoad = async (id) => {
-    console.log(id);
     const loadMeetings = await getUserMeetings(id);
-
     setMeeting(loadMeetings);
   };
 

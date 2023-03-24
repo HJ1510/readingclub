@@ -12,7 +12,6 @@ function ArticleWrite() {
   const userData = useSelector((state) => state.user.userData);
 
   const handleSubmit = async (formData) => {
-    console.log(formData);
     try {
       const response = await insertFAQArticle(no ? no : '', formData);
       console.log(response);

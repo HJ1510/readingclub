@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from 'assets/css/component/meeting/Board.module.css';
 
 const INITIAL_VALUES = {
@@ -9,13 +9,10 @@ const INITIAL_VALUES = {
 
 function ArticleForm({ initialValues, onSubmit, user }) {
   const [formData, setFormData] = useState(INITIAL_VALUES);
-  const prevArticle = initialValues;
-  console.log(`prevArticle: ${prevArticle.title}`);
 
   const handleChange = (name, value) => {
     if (name === 'hashtags') {
       const hashtags = value.split(','); // 입력된 값을 쉼표로 분리하여 배열로 변환
-      console.log(hashtags);
       setFormData((prevValues) => ({ ...prevValues, [name]: hashtags }));
     } else {
       setFormData((prevValues) => ({ ...prevValues, [name]: value }));
@@ -30,9 +27,16 @@ function ArticleForm({ initialValues, onSubmit, user }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+    // console.log(formData.title);
     formData.append('creator', user._id);
     onSubmit(formData);
   };
+
+  useEffect(() => {
+    if (initialValues) {
+      setFormData(initialValues);
+    }
+  }, [initialValues]);
 
   return (
     <div className={styles.Write}>
