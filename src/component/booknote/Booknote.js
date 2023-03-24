@@ -1,7 +1,6 @@
 import Layout from 'layout/Layout';
 import '../../assets/css/component/note/Booknote.css';
 import styles from '../../assets/css/component/note/Booknote.module.css';
-import Chartdata from './Chartdata';
 import { useState, useEffect } from 'react';
 import Chart from './Chart';
 import { Link, useNavigate } from 'react-router-dom';

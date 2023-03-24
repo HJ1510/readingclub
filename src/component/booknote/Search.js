@@ -83,7 +83,6 @@ function SearchBar() {
           </button>
         </div>
       </div>
-      <p>{(styles.booknotelisttitle1)}</p>
       <div>
         {results.length > 0 ? (
           <ul>
