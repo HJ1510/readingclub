@@ -7,6 +7,7 @@ import MeetingInfo from 'component/meeting/MeetinfInfo';
 import ArticleView from 'component/meeting/board/ArticleView';
 import ArticleWrite from 'component/meeting/board/ArticleWrite';
 import ArticleModiForm from 'component/meeting/board/ArticleModiForm';
+import ArticleEdit from 'component/meeting/board/ArticleEdit';
 import LoginPage from 'component/user/Login';
 import Join from 'component/user/Join';
 import Booknote from 'component/booknote/Booknote';
@@ -36,7 +37,7 @@ const App = () => {
         <Route index element={<Meeting />} />
         <Route path='info/:no' element={<MeetingInfo />} />
         <Route path='info/:no/:id' element={<ArticleView />} />
-        <Route path='info/:no/modi/:id' element={<ArticleModiForm />} />
+        <Route path='info/:no/modi/:id' element={<ArticleEdit />} />
         <Route path='group/:no' element={<MeetingGroup />} />
         <Route path='group/:no/:id' element={<ArticleView />} />
         <Route path='admin/:no' element={<MeetingAdmin />} />

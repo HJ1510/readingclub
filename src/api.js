@@ -232,3 +232,13 @@ export async function deleteFAQArticleById(no, id) {
     throw new Error('FAQArticle 게시글 삭제하는데 실패하였습니다');
   }
 }
+
+// 특정 FAQArticle 수정
+export async function updateFAQArticleById(no, id) {
+  try {
+    const response = await axios.patch(`/api/meeting/${no}/faqArticle/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('FAQArticle 게시글 수정하는데 실패하였습니다');
+  }
+}
