@@ -62,7 +62,16 @@ function ArticleView() {
               </div>
               <div className={styles.article_body}>
                 <div>내용: {data.content}</div>
-                <div>hashTag {data.hashTag}</div>
+                <div>
+                  hashTag:
+                  {data.hashtags.map((hashtag, idx) => {
+                    return (
+                      <p className={styles.hashTag} key={idx}>
+                        {hashtag}
+                      </p>
+                    );
+                  })}
+                </div>
               </div>
               <button
                 onClick={() => {

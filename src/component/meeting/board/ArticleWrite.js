@@ -12,19 +12,24 @@ const INITIAL_VALUES = {
   content: '',
   writer: '',
   createAt: null,
-  hashTag: '',
+  hashtags: [],
 };
 
 function ArticleWrite() {
   const { no } = useParams();
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [values, setValues] = useState(INITIAL_VALUES);
   const [authUser, setAuthUser] = useState({});
-  const dispatch = useDispatch();
 
   const handleChange = (name, value) => {
-    setValues((prevValues) => ({ ...prevValues, [name]: value }));
+    if (name === 'hashtags') {
+      const hashtags = value.split(','); // 입력된 값을 쉼표로 분리하여 배열로 변환
+      console.log(hashtags);
+      setValues((prevValues) => ({ ...prevValues, [name]: hashtags }));
+    } else {
+      setValues((prevValues) => ({ ...prevValues, [name]: value }));
+    }
   };
 
   const handleInputChange = (e) => {
@@ -34,10 +39,9 @@ function ArticleWrite() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('handleSubmit called');
-    const formData = new FormData();
-    formData.append('title', values.title);
-    formData.append('content', values.content);
+    const form = e.target;
+    console.log(values.hashtags);
+    const formData = new FormData(form);
     formData.append('creator', authUser._id);
 
     try {
@@ -78,6 +82,16 @@ function ArticleWrite() {
               onChange={handleInputChange}
               id={styles.content_txt}
             ></textarea>
+
+            <input
+              type='text'
+              autoComplete='off'
+              name='hashtags'
+              value={values.hashtags}
+              placeholder='hashtags'
+              onChange={handleInputChange}
+            ></input>
+            <br />
 
             <button type='submit'>글쓰기</button>
           </form>
