@@ -68,6 +68,7 @@ export async function getMeetingByNo(no) {
   }
 }
 
+// 모임 생성
 export async function createMeetings(formData) {
   try {
     const response = await axios.post('/api/meeting/create', formData);
@@ -179,5 +180,18 @@ export async function updateFAQArticleById({ no, id }, formData) {
   } catch (error) {
     console.error(error); // 오류 메시지 출력
     throw new Error('FAQArticle 게시글 수정하는데 실패하였습니다');
+  }
+}
+
+// reviewArticle 작성
+export async function insertreviewArticle(no, formData) {
+  try {
+    const response = await axios.post(
+      `/api/meeting/${no}/reviewArticle/create`,
+      formData
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error('reviewArticle 게시글 생성하는데 실패하였습니다');
   }
 }

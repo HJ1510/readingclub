@@ -162,7 +162,7 @@ function MeetingInfo() {
         </Row>
         <Row>
           <Board title='FAQ' />
-          <Board title='모임후기' />
+          <Board title='review' />
         </Row>
       </Container>
     </Layout>
