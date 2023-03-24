@@ -1,8 +1,7 @@
 import { createArticle, insertFAQArticle } from 'api';
 import Layout from 'layout/Layout';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router';
-import { Link, useParams, useLocation } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { auth } from 'actions/user_action';
 import { useDispatch } from 'react-redux';
 import Editor from './Editor';
@@ -17,8 +16,7 @@ const INITIAL_VALUES = {
 };
 
 function ArticleWrite() {
-  // const location = useLocation();
-  // const no = location.state.no;
+  const { no } = useParams();
 
   const navigate = useNavigate();
   const [values, setValues] = useState(INITIAL_VALUES);
@@ -35,16 +33,21 @@ function ArticleWrite() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // preventDefault(): 기본 동작 막는 함수
-    console.log(e.target.title);
+    e.preventDefault();
+    console.log('handleSubmit called');
     const formData = new FormData();
     formData.append('title', values.title);
     formData.append('content', values.content);
     formData.append('creator', authUser._id);
 
-    await insertFAQArticle(formData);
-
-    setValues(values);
+    try {
+      const response = await insertFAQArticle(no, formData);
+      console.log(response);
+      navigate(-1);
+      setValues(INITIAL_VALUES);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -57,7 +60,7 @@ function ArticleWrite() {
     <div>
       <Layout>
         <div className={styles.Write}>
-          <div>
+          <form onSubmit={handleSubmit}>
             <input
               type='text'
               autoComplete='off'
@@ -67,14 +70,17 @@ function ArticleWrite() {
               onChange={handleInputChange}
               id={styles.title_txt}
             ></input>
-          </div>
-          <Editor
-            handleSubmit={handleSubmit}
-            content={values.content}
-            setContent={(content) =>
-              setValues((prevValues) => ({ ...prevValues, content }))
-            }
-          />
+
+            <textarea
+              name='content'
+              value={values.content}
+              placeholder='content'
+              onChange={handleInputChange}
+              id={styles.content_txt}
+            ></textarea>
+
+            <button type='submit'>글쓰기</button>
+          </form>
         </div>
       </Layout>
     </div>

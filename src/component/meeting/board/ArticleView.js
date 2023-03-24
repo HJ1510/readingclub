@@ -1,30 +1,33 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Layout from "layout/Layout";
-import parse from "html-react-parser";
-import { getArticle, deleteArticle } from "api";
-import Comment from "component/comment";
-import { Container } from "react-bootstrap";
-import profile from "assets/images/profile.png";
-import styles from "assets/css/component/meeting/Board.module.css";
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import Layout from 'layout/Layout';
+import parse from 'html-react-parser';
+import { getFAQArticleById, deleteArticle } from 'api';
+import Comment from 'component/comment';
+import { Container } from 'react-bootstrap';
+import profile from 'assets/images/profile.png';
+import styles from 'assets/css/component/meeting/Board.module.css';
+
+function formatDate(value) {
+  const date = new Date(value);
+  return `${date.getFullYear()}-${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+}
 
 function ArticleView() {
   const [data, setData] = useState({});
-  const { id, no } = useParams();
-
+  const { no, id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const articleLoad = async (id) => {
-      const { foods } = await getArticle();
+    const articleLoad = async (no, id) => {
+      const FAQArticle = await getFAQArticleById(no, id);
+      console.log(FAQArticle);
 
-      const article = foods.filter((item) => item.id === parseInt(id));
-
-      setData(article[0]);
-      // console.log(article[0]);
+      setData(FAQArticle);
     };
-    articleLoad(id);
-    // console.log(`2+${id}`);
+    articleLoad(no, id);
   }, [id]);
 
   const onDelete = () => {
@@ -36,12 +39,10 @@ function ArticleView() {
     <div>
       <Layout>
         <Container>
-          <h4>글 상세 페이지</h4>
-          {data ? (
+          {data && data.creator ? (
             <div className={styles.ArticleContentBox}>
               <div className={styles.article_header}>
                 <div className={styles.ArticleTitle}>
-                  <div>{data.id}</div>
                   <h3>{data.title}</h3>
                 </div>
                 <div className={styles.WriterInfo}>
@@ -49,13 +50,13 @@ function ArticleView() {
                     <img src={profile}></img>
                   </div>
                   <div className={styles.article_writer}>
-                    <div>글쓴이 id</div>
+                    <div>{data?.creator?.name}</div>
                   </div>
                   <div className={styles.article_info}>
-                    <div>작성일</div>
+                    <div>{formatDate(data.createdAt)}</div>
                   </div>
                   <div className={styles.article_hit}>
-                    <div>조회수</div>
+                    <div>{data.hitCount}</div>
                   </div>
                 </div>
               </div>
@@ -82,7 +83,7 @@ function ArticleView() {
               </div>
             </div>
           ) : (
-            "글이 없음"
+            '글이 없음'
           )}
         </Container>
       </Layout>

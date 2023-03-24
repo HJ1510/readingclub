@@ -190,6 +190,7 @@ export async function getAllMembersByNo(no) {
   }
 }
 
+// FAQArticle 작성
 export async function insertFAQArticle(no, formData) {
   try {
     const response = await axios.post(
@@ -199,5 +200,25 @@ export async function insertFAQArticle(no, formData) {
     return response.data;
   } catch (error) {
     throw new Error('FAQArticle 게시글 생성하는데 실패하였습니다');
+  }
+}
+
+// 모임별 전체 FAQArticle 조회
+export async function getFAQArticlesByMeetingNo(no) {
+  try {
+    const response = await axios.get(`/api/meeting/${no}/faqArticle`);
+    return response.data;
+  } catch (error) {
+    throw new Error('모임 데이터를 불러오는데 실패했습니다');
+  }
+}
+
+// 특정 FAQArticle 조회
+export async function getFAQArticleById(no, id) {
+  try {
+    const response = await axios.get(`/api/meeting/${no}/faqArticle/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('모임 데이터를 불러오는데 실패했습니다');
   }
 }

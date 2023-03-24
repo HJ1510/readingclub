@@ -40,14 +40,14 @@ const App = () => {
         <Route path='group/:no' element={<MeetingGroup />} />
         <Route path='group/:no/:id' element={<ArticleView />} />
         <Route path='admin/:no' element={<MeetingAdmin />} />
-        <Route path='write' element={<ArticleWrite />} />
+        <Route path=':no/write' element={<ArticleWrite />} />
         <Route path='createmeeting' element={<MeetingCreate />} />
       </Route>
-      <Route path="mymeeting" element={<MyMeeting />} />
-      <Route path="jo/:no"element={<Jofrom></Jofrom>}/>
-      <Route path="chat" element={<Chat></Chat>}/>
-      <Route path="community" element={<Community />} />
-      <Route path="booknote">
+      <Route path='mymeeting' element={<MyMeeting />} />
+      <Route path='jo/:no' element={<Jofrom></Jofrom>} />
+      <Route path='chat' element={<Chat></Chat>} />
+      <Route path='community' element={<Community />} />
+      <Route path='booknote'>
         <Route index element={<Booknote />} />
         <Route path='notelist' element={<Rangking />} />
         <Route path='writebook' element={<Writebook />} />
@@ -55,7 +55,6 @@ const App = () => {
         <Route path=':id/edit' element={<Booknoteupdate />} />
         <Route path='progress' element={<Progress />} />
       </Route>
-    
     </Routes>
   );
 };
