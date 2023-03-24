@@ -209,7 +209,7 @@ export async function getFAQArticlesByMeetingNo(no) {
     const response = await axios.get(`/api/meeting/${no}/faqArticle`);
     return response.data;
   } catch (error) {
-    throw new Error('모임 데이터를 불러오는데 실패했습니다');
+    throw new Error('FAQArticle 리스트를 불러오는데 실패했습니다');
   }
 }
 
@@ -219,6 +219,16 @@ export async function getFAQArticleById(no, id) {
     const response = await axios.get(`/api/meeting/${no}/faqArticle/${id}`);
     return response.data;
   } catch (error) {
-    throw new Error('모임 데이터를 불러오는데 실패했습니다');
+    throw new Error('FAQArticle 게시글 조회하는데 실패하였습니다');
+  }
+}
+
+// 특정 FAQArticle 삭제
+export async function deleteFAQArticleById(no, id) {
+  try {
+    const response = await axios.delete(`/api/meeting/${no}/faqArticle/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('FAQArticle 게시글 삭제하는데 실패하였습니다');
   }
 }

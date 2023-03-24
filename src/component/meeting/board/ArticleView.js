@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Layout from 'layout/Layout';
 import parse from 'html-react-parser';
-import { getFAQArticleById, deleteArticle } from 'api';
+import { getFAQArticleById, deleteFAQArticleById } from 'api';
 import Comment from 'component/comment';
 import { Container } from 'react-bootstrap';
 import profile from 'assets/images/profile.png';
@@ -23,15 +23,14 @@ function ArticleView() {
   useEffect(() => {
     const articleLoad = async (no, id) => {
       const FAQArticle = await getFAQArticleById(no, id);
-      console.log(FAQArticle);
-
       setData(FAQArticle);
     };
     articleLoad(no, id);
   }, [id]);
 
-  const onDelete = () => {
-    deleteArticle(id);
+  const onDelete = async (no, id) => {
+    await deleteFAQArticleById(no, id);
+    navigate(-1);
     return;
   };
 
@@ -75,8 +74,7 @@ function ArticleView() {
               </div>
               <button
                 onClick={() => {
-                  onDelete();
-                  navigate(-1);
+                  onDelete(no, id);
                 }}
               >
                 삭제
