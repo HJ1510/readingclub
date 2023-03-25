@@ -205,3 +205,23 @@ export async function getReviewArticlesByMeetingNo(no) {
     throw new Error('reviewArticle 리스트를 불러오는데 실패했습니다');
   }
 }
+
+// 특정 reviewArticle 조회
+export async function getReviewArticleById(no, id) {
+  try {
+    const response = await axios.get(`/api/meeting/${no}/reviewArticle/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('reviewArticle 게시글 조회하는데 실패하였습니다');
+  }
+}
+
+// 특정 reviewArticle 삭제
+export async function deleteReviewArticleById(no, id) {
+  try {
+    const response = await axios.delete(`/api/meeting/${no}/reviewArticle/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('FAQArticle 게시글 삭제하는데 실패하였습니다');
+  }
+}

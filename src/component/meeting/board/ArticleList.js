@@ -52,7 +52,9 @@ function ArticleList({ title, loadData, no }) {
                   <Col md={1}></Col>
                   <Col md={1}>{item.autoIncrementField}</Col>
                   <Col md={5} className={styles.articlesTitle}>
-                    <Link to={`${item._id}`}>{item.title}</Link>
+                    <Link to={`${item._id}`} state={{ title: title }}>
+                      {item.title}
+                    </Link>
                   </Col>
                   <Col md={1}>{item.creator.name}</Col>
                   <Col md={2}>{formatDate(item.createdAt)}</Col>

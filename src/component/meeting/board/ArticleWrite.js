@@ -1,6 +1,6 @@
-import { useLocation, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { insertFAQArticle, insertReviewArticle } from 'api';
 import ArticleForm from './ArticleForm';
 import Layout from 'layout/Layout';
