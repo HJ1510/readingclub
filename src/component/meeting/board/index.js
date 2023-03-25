@@ -5,14 +5,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 function Board({ title }) {
   const { no } = useParams();
-  const loadFAQArticles = async () => {
-    const FAQArticle = await getFAQArticlesByMeetingNo(no);
+
+  const loadFAQArticles = async (page) => {
+    const FAQArticle = await getFAQArticlesByMeetingNo(no, page);
     return FAQArticle;
   };
 
-  const loadReviewArticles = async () => {
-    // 모임 후기 데이터 로드 로직
-    const reviewArticle = await getReviewArticlesByMeetingNo(no);
+  const loadReviewArticles = async (page) => {
+    const reviewArticle = await getReviewArticlesByMeetingNo(no, page);
     return reviewArticle;
   };
 

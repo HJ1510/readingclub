@@ -140,9 +140,11 @@ export async function insertFAQArticle(no, formData) {
 }
 
 // 모임별 전체 FAQArticle 조회
-export async function getFAQArticlesByMeetingNo(no) {
+export async function getFAQArticlesByMeetingNo(no, page) {
   try {
-    const response = await axios.get(`/api/meeting/${no}/faqArticle`);
+    const response = await axios.get(
+      `/api/meeting/${no}/faqArticle?page=${page}`
+    );
     return response.data;
   } catch (error) {
     throw new Error('FAQArticle 리스트를 불러오는데 실패했습니다');
@@ -197,9 +199,11 @@ export async function insertReviewArticle(no, formData) {
 }
 
 // 모임별 전체 reviewArticle 조회
-export async function getReviewArticlesByMeetingNo(no) {
+export async function getReviewArticlesByMeetingNo(no, page) {
   try {
-    const response = await axios.get(`/api/meeting/${no}/reviewArticle`);
+    const response = await axios.get(
+      `/api/meeting/${no}/reviewArticle?page=${page}`
+    );
     return response.data;
   } catch (error) {
     throw new Error('reviewArticle 리스트를 불러오는데 실패했습니다');

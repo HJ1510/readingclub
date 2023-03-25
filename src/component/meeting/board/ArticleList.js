@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { useArticle } from 'hooks/useArticle';
 import styles from 'assets/css/component/meeting/Board.module.css';
 import { HiPencilSquare } from 'react-icons/hi2';
+import Pagination from './Pagination';
+import { useState } from 'react';
 
 function formatDate(value) {
   const date = new Date(value);
@@ -14,7 +16,20 @@ function formatDate(value) {
 }
 
 function ArticleList({ title, loadData, no }) {
-  const items = useArticle(loadData);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [data, handlePageChange] = useArticle(loadData);
+  const items =
+    title === 'FAQ'
+      ? data.faqArticles
+      : title === 'review'
+      ? data.reviewArticles
+      : data.meetingBoardArticles;
+  const totalPages = data.totalPages;
+
+  const handlePaginationPageChange = (page) => {
+    setCurrentPage(page);
+    handlePageChange(page);
+  };
 
   return (
     <div>
@@ -29,23 +44,9 @@ function ArticleList({ title, loadData, no }) {
               <HiPencilSquare size='24' />
             </Link>
           </Col>
-          {/* <Col md={2}>
-            <form onSubmit={handleSearchSubmit}>
-              <input name="search" />
-              <button type="submit">검색</button>
-            </form>
-          </Col> */}
         </Row>
         {items && items.length !== 0 ? (
           <div className={styles.articleList}>
-            <Row className={styles.boardHeader}>
-              <Col md={1}></Col>
-              <Col md={1}>No.</Col>
-              <Col md={5}>제목</Col>
-              <Col md={1}>작성자</Col>
-              <Col md={2}>작성일</Col>
-              <Col md={1}>조회수</Col>
-            </Row>
             {items.map((item, idx) => (
               <div key={idx}>
                 <Row className={styles.articles}>
@@ -63,7 +64,13 @@ function ArticleList({ title, loadData, no }) {
               </div>
             ))}
             <Row>
-              <Col>페이징</Col>
+              <Col>
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={handlePaginationPageChange}
+                />
+              </Col>
             </Row>
           </div>
         ) : (

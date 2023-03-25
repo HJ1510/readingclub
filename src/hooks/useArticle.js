@@ -6,11 +6,17 @@ export function useArticle(loadData) {
   useEffect(() => {
     async function fetchData() {
       if (!loadData) return;
-      const data = await loadData();
+      const data = await loadData(1);
       setData(data);
     }
     fetchData();
   }, [loadData]);
 
-  return data;
+  const handlePageChange = async (page) => {
+    if (!loadData) return;
+    const data = await loadData(page);
+    setData(data);
+  };
+
+  return [data, handlePageChange];
 }
