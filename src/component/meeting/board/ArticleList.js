@@ -13,7 +13,7 @@ function formatDate(value) {
     .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
 }
 
-function ArticleList({ loadData, no }) {
+function ArticleList({ title, loadData, no }) {
   const items = useArticle(loadData);
 
   return (
@@ -23,6 +23,7 @@ function ArticleList({ loadData, no }) {
           <Col>
             <Link
               to={`/meeting/${no}/write`}
+              state={{ title: title }}
               className={styles.articleWriteButton}
             >
               <HiPencilSquare size='24' />
