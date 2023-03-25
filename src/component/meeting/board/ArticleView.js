@@ -113,7 +113,7 @@ function ArticleView() {
               >
                 삭제
               </button>
-              <Link to={`../info/${no}/modi/${id}`}>
+              <Link to={`../info/${no}/modi/${id}`} state={{ title: title }}>
                 <button>수정</button>
               </Link>
               <Link to={`../info/${no}`}>

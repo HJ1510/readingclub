@@ -219,9 +219,25 @@ export async function getReviewArticleById(no, id) {
 // 특정 reviewArticle 삭제
 export async function deleteReviewArticleById(no, id) {
   try {
-    const response = await axios.delete(`/api/meeting/${no}/reviewArticle/${id}`);
+    const response = await axios.delete(
+      `/api/meeting/${no}/reviewArticle/${id}`
+    );
     return response.data;
   } catch (error) {
-    throw new Error('FAQArticle 게시글 삭제하는데 실패하였습니다');
+    throw new Error('reviewArticle 게시글 삭제하는데 실패하였습니다');
+  }
+}
+
+// 특정 reviewArticle 수정
+export async function updateReviewArticleById({ no, id }, formData) {
+  try {
+    const response = await axios.patch(
+      `/api/meeting/${no}/reviewArticle/${id}`,
+      formData
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error); // 오류 메시지 출력
+    throw new Error('reviewArticle 게시글 수정하는데 실패하였습니다');
   }
 }

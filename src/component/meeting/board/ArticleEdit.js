@@ -1,23 +1,44 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { useNavigate } from 'react-router-dom';
-import { getFAQArticleById, updateFAQArticleById } from 'api';
+import { useNavigate, useLocation } from 'react-router-dom';
+import {
+  getFAQArticleById,
+  updateFAQArticleById,
+  getReviewArticleById,
+  updateReviewArticleById,
+} from 'api';
 import ArticleForm from './ArticleForm';
 import Layout from 'layout/Layout';
 
 function ArticleEdit() {
   const { no, id } = useParams();
   const navigate = useNavigate();
-  const [editMode, setEditMode] = useState(false); // 글 작성 모드인지, 글 수정 모드인지 구분하는 변수
+  const location = useLocation();
+  const { title } = location.state;
+  console.log(title);
+
+  const [editMode, setEditMode] = useState(false);
   const [article, setArticle] = useState(null);
 
   const userData = useSelector((state) => state.user.userData);
-  // console.log(userData);
 
   useEffect(() => {
     const articleLoad = async (no, id) => {
-      const data = await getFAQArticleById(no, id);
+      let data;
+      switch (title) {
+        case 'FAQ':
+          data = await getFAQArticleById(no, id);
+          break;
+        case 'review':
+          data = await getReviewArticleById(no, id);
+          break;
+        // case 'meetingBoard':
+        //   data = await getMeetingBoardArticleById(no, id);
+        //   break;
+        default:
+          throw new Error('게시판이 생성되지 않았습니다.');
+      }
       setArticle(data);
     };
     articleLoad(no, id);
@@ -25,15 +46,28 @@ function ArticleEdit() {
 
   useEffect(() => {
     if (article) {
-      setEditMode(true); // 글 수정 모드로 변경
+      setEditMode(true);
     } else {
-      setEditMode(false); // 글 작성 모드로 변경
+      setEditMode(false);
     }
   }, [article]);
 
   const handleSubmit = async (formData) => {
     try {
-      const response = await updateFAQArticleById({ no, id }, formData);
+      let response;
+      switch (title) {
+        case 'FAQ':
+          response = await updateFAQArticleById({ no, id }, formData);
+          break;
+        case 'review':
+          response = await updateReviewArticleById({ no, id }, formData);
+          break;
+        // case 'meetingBoard':
+        //   response = await updateMeetingBoardArticleById({ no, id }, formData);
+        //   break;
+        default:
+          throw new Error('게시판이 생성되지 않았습니다.');
+      }
       console.log(response);
       navigate(-1);
     } catch (error) {
