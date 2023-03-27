@@ -51,12 +51,15 @@ function MeetingAdmin() {
         </Row>
         {members &&
           members.map((member, idx) => {
-            console.log(member.imgpath.path);
             return (
               <Row key={idx}>
                 <Col>
                   <div className={styles.member}>
-                    <img src={`/${member.imgpath.path}`} alt='member' />
+                    {member.imgpath && member.imgpath.path ? (
+                      <img src={`/${member.imgpath.path}`} alt='member' />
+                    ) : (
+                      <img src={profile} alt='member' />
+                    )}
                     <div>
                       <p>이름: {member.name}</p>
                       <p>권한: {member.role}</p>
