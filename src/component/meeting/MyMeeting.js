@@ -12,9 +12,7 @@ function MyMeeting() {
   const userData = useSelector((state) => state.user.userData);
 
   const listLoad = async (id) => {
-    console.log(id);
     const loadMeetings = await getUserMeetings(id);
-
     setMeeting(loadMeetings);
   };
 
@@ -34,6 +32,7 @@ function MyMeeting() {
                 apiFunction={getUserMeetings}
                 userId={userData._id}
                 className={styles.Calender}
+                title='joinedGroupScheduleCalendar'
               />
             )}
           </Col>

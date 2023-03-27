@@ -9,9 +9,9 @@ import { Button } from 'react-bootstrap';
 import ChatModal from './ChatModal';
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router';
-import styles from 'assets/css/component/meeting/Meeting.module.css';
 import { useMembers } from 'hooks/useMembers';
 import { getOrdersByNo } from 'api';
+import styles from 'assets/css/component/meeting/Meeting.module.css';
 
 function MeetingGroup() {
   const now = 60;
@@ -46,7 +46,11 @@ function MeetingGroup() {
         /> */}
         <Row>
           <Col>
-            <MeetingCalender apiFunction={getOrdersByNo} />
+            <MeetingCalender
+              apiFunction={getOrdersByNo}
+              no={no}
+              title='groupScheduleCalendar'
+            />
           </Col>
         </Row>
         <Row>
@@ -82,7 +86,7 @@ function MeetingGroup() {
           })}
 
         <Row>
-          <Board title='모임원 게시판' />
+          <Board title='meetingBoard' />
         </Row>
       </Container>
     </Layout>

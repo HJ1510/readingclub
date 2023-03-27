@@ -15,22 +15,41 @@ function renderEventContent(eventInfo) {
   );
 }
 
-function MeetingCalender({ apiFunction }) {
+function MeetingCalender({ apiFunction, title, no }) {
   const [events, setEvents] = useState([]);
   const dispatch = useDispatch();
 
-  const listLoad = async (userId) => {
-    const orders = await apiFunction(userId);
+  const listLoad = async (no) => {
+    const orders = await apiFunction(no);
+    // console.log(orders);
 
-    const transformedData = orders.map((order) => ({
-      autoIncrementField: order.autoIncrementField,
-      title: order.title,
-      date: order.order[0].date,
-    }));
+    let transformedData;
+    if (title === 'allScheduleCalendar') {
+      transformedData = orders.map((order) => ({
+        meetingNo: order.meetingNo,
+        title: order.title,
+        date: order.order[0].date,
+      }));
+    } else if (title === 'groupScheduleCalendar') {
+      transformedData = orders.map((order) => ({
+        orderNo: order.orderNo,
+        title: order.title,
+        date: order.date,
+      }));
+    } else if (title === 'joinedGroupScheduleCalendar') {
+      transformedData = orders.map((order) => ({
+        meetingNo: order.autoIncrementField,
+        orderNo: order.autoIncrementField,
+        title: order.title,
+        date: order.order[0].date,
+      }));
+    }
+
     setEvents(transformedData);
   };
 
   const handleEventClick = (clickInfo) => {
+    if (title !== 'allScheduleCalendar') return;
     const meetingId = clickInfo.event._def.extendedProps.autoIncrementField;
     console.log(meetingId);
     console.log(clickInfo);
@@ -38,11 +57,17 @@ function MeetingCalender({ apiFunction }) {
   };
 
   useEffect(() => {
-    dispatch(auth()).then((response) => {
-      const { _id } = response.payload;
-      listLoad(_id);
-    });
-  }, []);
+    if (title === 'joinedGroupScheduleCalendar') {
+      dispatch(auth()).then((response) => {
+        const { _id } = response.payload;
+        listLoad(_id);
+      });
+    } else if (title === 'groupScheduleCalendar') {
+      listLoad(no);
+    } else {
+      listLoad();
+    }
+  }, [title, no]);
 
   return (
     <div className='Calender'>

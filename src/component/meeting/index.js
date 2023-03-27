@@ -13,7 +13,14 @@ function Meeting() {
     <div className={styles.Meeting}>
       <Layout>
         <Row>
-          <Col md={9}>{<MeetingCalender apiFunction={getAllOrders} />}</Col>
+          <Col md={9}>
+            {
+              <MeetingCalender
+                apiFunction={getAllOrders}
+                title='allScheduleCalendar'
+              />
+            }
+          </Col>
           <Col md={2} className={styles.UserForm}>
             <UserForm inLogin='True' />
           </Col>

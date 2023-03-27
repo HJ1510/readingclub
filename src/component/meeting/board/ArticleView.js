@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useLocation } from 'react-router-dom';
 import Layout from 'layout/Layout';
 import parse from 'html-react-parser';
-import { getFAQArticleById, deleteFAQArticleById } from 'api';
+import {
+  getFAQArticleById,
+  deleteFAQArticleById,
+  getReviewArticleById,
+  deleteReviewArticleById,
+} from 'api';
 import Comment from 'component/comment';
 import { Container } from 'react-bootstrap';
 import profile from 'assets/images/profile.png';
@@ -20,16 +25,45 @@ function ArticleView() {
   const { no, id } = useParams();
   const navigate = useNavigate();
 
+  const location = useLocation();
+  const { title } = location.state;
+  console.log(title);
+
   useEffect(() => {
     const articleLoad = async (no, id) => {
-      const FAQArticle = await getFAQArticleById(no, id);
-      setData(FAQArticle);
+      let article;
+      switch (title) {
+        case 'FAQ':
+          article = await getFAQArticleById(no, id);
+          break;
+        case 'review':
+          article = await getReviewArticleById(no, id);
+          break;
+        // case 'meetingBoard':
+        //   article = await getMeetingBoardArticleById(no, id);
+        //   break;
+        default:
+          throw new Error('게시판이 생성되지 않았습니다.');
+      }
+      setData(article);
     };
     articleLoad(no, id);
   }, [id]);
 
   const onDelete = async (no, id) => {
-    await deleteFAQArticleById(no, id);
+    switch (title) {
+      case 'FAQ':
+        await deleteFAQArticleById(no, id);
+        break;
+      case 'review':
+        await deleteReviewArticleById(no, id);
+        break;
+      // case 'meetingBoard':
+      //   await deleteMeetingBoardArticleById(no, id);
+      //   break;
+      default:
+        throw new Error('게시판이 생성되지 않았습니다.');
+    }
     navigate(-1);
     return;
   };
@@ -60,10 +94,10 @@ function ArticleView() {
                 </div>
               </div>
               <div className={styles.article_body}>
-                <div>내용: {data.content}</div>
+                <div>내용: {parse(data.content)}</div>
                 <div>
                   hashTag:
-                  {data.hashtags.map((hashtag, idx) => {
+                  {data?.hashtags?.map((hashtag, idx) => {
                     return (
                       <p className={styles.hashTag} key={idx}>
                         {hashtag}
@@ -79,7 +113,7 @@ function ArticleView() {
               >
                 삭제
               </button>
-              <Link to={`../info/${no}/modi/${id}`}>
+              <Link to={`../info/${no}/modi/${id}`} state={{ title: title }}>
                 <button>수정</button>
               </Link>
               <Link to={`../info/${no}`}>
@@ -90,7 +124,7 @@ function ArticleView() {
               </div>
             </div>
           ) : (
-            '글이 없음'
+            'loading...'
           )}
         </Container>
       </Layout>

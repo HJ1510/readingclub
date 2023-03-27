@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { auth } from 'actions/user_action';
 import { useDispatch } from 'react-redux';
 import MeetingModal from './MeetingModal';
+import { useMembers } from 'hooks/useMembers';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
 
 function MeetingInfo() {
@@ -17,9 +18,56 @@ function MeetingInfo() {
   const [message, setMessage] = useState('');
   const [authUser, setAuthUser] = useState({});
   const dispatch = useDispatch();
+  const members = useMembers(no);
+
+  console.log(members);
+
+  const totalMembers = members.length;
+
+  // 객체 생성 시, 초기값 설정
+  const genderCounts = { male: 0, female: 0 };
+  const ageCounts = {
+    under20: 0,
+    twenties: 0,
+    thirties: 0,
+    forties: 0,
+    over40: 0,
+  };
+
+  // 배열 순회 대신 for...of 구문 활용
+  if (totalMembers > 0) {
+    for (const member of members) {
+      // 성별, 연령대 별로 count 증가
+      if (member.gender === 'male' || member.gender === 'female') {
+        genderCounts[member.gender]++;
+      }
+
+      if (member.age < 20) {
+        ageCounts.under20++;
+      } else if (member.age < 30) {
+        ageCounts.twenties++;
+      } else if (member.age < 40) {
+        ageCounts.thirties++;
+      } else if (member.age < 50) {
+        ageCounts.forties++;
+      } else {
+        ageCounts.over40++;
+      }
+    }
+  }
+
+  // 각 퍼센트 값 계산
+  const malePercentage = (genderCounts.male / totalMembers) * 100;
+  const femalePercentage = (genderCounts.female / totalMembers) * 100;
+
+  const under20Percentage = (ageCounts.under20 / totalMembers) * 100;
+  const twentiesPercentage = (ageCounts.twenties / totalMembers) * 100;
+  const thirtiesPercentage = (ageCounts.thirties / totalMembers) * 100;
+  const fortiesPercentage = (ageCounts.forties / totalMembers) * 100;
+  const over40Percentage = (ageCounts.over40 / totalMembers) * 100;
 
   const genderData = {
-    series: [70, 30],
+    series: [femalePercentage, malePercentage],
     options: {
       chart: {
         type: 'pie',
@@ -53,12 +101,18 @@ function MeetingInfo() {
   };
 
   const agesData = {
-    series: [30, 40, 30],
+    series: [
+      under20Percentage,
+      twentiesPercentage,
+      thirtiesPercentage,
+      fortiesPercentage,
+      over40Percentage,
+    ],
     options: {
       chart: {
         type: 'pie',
       },
-      labels: ['20', '30', '40'],
+      labels: ['under20', '20', '30', '40', 'over40'],
       colors: ['#F2CDA6', '#A6CAF0', '#80C080'],
       title: {
         align: 'left',
@@ -95,8 +149,6 @@ function MeetingInfo() {
       const body = {
         userId: authUser._id,
       };
-      console.log(body);
-      console.log(no);
       const response = await insertMember(no, body);
 
       if (response.success === true) {
@@ -141,10 +193,15 @@ function MeetingInfo() {
               <h2>정원 : {meetinginfo.maxNum}</h2>
             </div>
           </Col>
-          <Col md={6} className={styles.chartContainer}>
-            <PieChart options={genderData.options} series={genderData.series} />
-            <PieChart options={agesData.options} series={agesData.series} />
-          </Col>
+          {totalMembers > 0 && (
+            <Col md={6} className={styles.chartContainer}>
+              <PieChart
+                options={genderData.options}
+                series={genderData.series}
+              />
+              <PieChart options={agesData.options} series={agesData.series} />
+            </Col>
+          )}
         </Row>
         <Row>
           <Col className={styles.MeetingInfoButtons}>
@@ -164,7 +221,7 @@ function MeetingInfo() {
         </Row>
         <Row>
           <Board title='FAQ' />
-          <Board title='모임후기' />
+          <Board title='review' />
         </Row>
       </Container>
     </Layout>

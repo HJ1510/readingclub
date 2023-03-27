@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
 import styles from 'assets/css/component/meeting/Board.module.css';
 
 const INITIAL_VALUES = {
@@ -9,17 +11,19 @@ const INITIAL_VALUES = {
 
 function ArticleForm({ initialValues, onSubmit, user }) {
   const [formData, setFormData] = useState(INITIAL_VALUES);
-  const prevArticle = initialValues;
-  console.log(`prevArticle: ${prevArticle.title}`);
 
   const handleChange = (name, value) => {
     if (name === 'hashtags') {
       const hashtags = value.split(','); // 입력된 값을 쉼표로 분리하여 배열로 변환
-      console.log(hashtags);
       setFormData((prevValues) => ({ ...prevValues, [name]: hashtags }));
     } else {
       setFormData((prevValues) => ({ ...prevValues, [name]: value }));
     }
+  };
+
+  const handleContentChange = (event, editor) => {
+    const data = editor.getData();
+    setFormData((prevValues) => ({ ...prevValues, content: data }));
   };
 
   const handleInputChange = (e) => {
@@ -29,10 +33,22 @@ function ArticleForm({ initialValues, onSubmit, user }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    formData.append('creator', user._id);
-    onSubmit(formData);
+    const data = new FormData();
+    data.append('title', formData.title);
+    data.append('content', formData.content);
+    data.append('hashtags', formData.hashtags);
+    data.append('creator', user._id);
+    for (let [key, value] of data.entries()) {
+      console.log(key, value);
+    }
+    onSubmit(data);
   };
+
+  useEffect(() => {
+    if (initialValues) {
+      setFormData(initialValues);
+    }
+  }, [initialValues]);
 
   return (
     <div className={styles.Write}>
@@ -48,15 +64,13 @@ function ArticleForm({ initialValues, onSubmit, user }) {
           />
         </div>
         <div>
-          <textarea
-            name='content'
-            value={formData.content}
-            placeholder='content'
-            onChange={handleInputChange}
-            id={styles.content_txt}
+          <CKEditor
+            editor={ClassicEditor}
+            data={formData.content}
+            onChange={handleContentChange}
+            id='CKEditor'
           />
         </div>
-
         <div>
           <input
             type='text'

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getAllMembersByNo } from 'api';
 
 export function useMembers(no) {
-  const [members, setMembers] = useState();
+  const [members, setMembers] = useState([]);
 
   useEffect(() => {
     async function fetchData() {

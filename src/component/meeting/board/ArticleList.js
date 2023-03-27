@@ -1,11 +1,12 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Link, useParams } from 'react-router-dom';
-import { getArticle, getFAQArticlesByMeetingNo } from 'api';
-import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useArticle } from 'hooks/useArticle';
 import styles from 'assets/css/component/meeting/Board.module.css';
 import { HiPencilSquare } from 'react-icons/hi2';
+import Pagination from './Pagination';
+import { useState } from 'react';
 
 function formatDate(value) {
   const date = new Date(value);
@@ -14,33 +15,23 @@ function formatDate(value) {
     .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
 }
 
-function ArticleList({ title }) {
-  const { no } = useParams();
-  const [items, setItems] = useState([]);
-  const [search, setSearch] = useState('');
+function ArticleList({ title, loadData, no }) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [data, handlePageChange] = useArticle(loadData);
+  // console.log(data);
+  const items =
+    title === 'FAQ'
+      ? data.faqArticles
+      : title === 'review'
+      ? data.reviewArticles
+      : data.meetingArticles;
+  const totalPages = data.totalPages;
+  // console.log(items);
 
-  const listLoad = async () => {
-    if (title === 'FAQ') {
-      const FAQArticle = await getFAQArticlesByMeetingNo(no);
-      setItems(FAQArticle);
-    } else if (title === '모임후기') {
-      const { content } = await getArticle();
-      // console.log(content);
-      setItems(content);
-    } else if (title === '모임원 게시판') {
-      const { foods } = await getArticle();
-      setItems(foods);
-      // console.log(items);
-    } else {
-      console.log('게시판이 생성되지 않았습니다');
-      console.log(title);
-      return;
-    }
+  const handlePaginationPageChange = (page) => {
+    setCurrentPage(page);
+    handlePageChange(page);
   };
-
-  useEffect(() => {
-    listLoad();
-  }, []);
 
   return (
     <div>
@@ -49,17 +40,12 @@ function ArticleList({ title }) {
           <Col>
             <Link
               to={`/meeting/${no}/write`}
+              state={{ title: title }}
               className={styles.articleWriteButton}
             >
               <HiPencilSquare size='24' />
             </Link>
           </Col>
-          {/* <Col md={2}>
-            <form onSubmit={handleSearchSubmit}>
-              <input name="search" />
-              <button type="submit">검색</button>
-            </form>
-          </Col> */}
         </Row>
         {items && items.length !== 0 ? (
           <div className={styles.articleList}>
@@ -75,9 +61,13 @@ function ArticleList({ title }) {
               <div key={idx}>
                 <Row className={styles.articles}>
                   <Col md={1}></Col>
-                  <Col md={1}>{item.autoIncrementField}</Col>
+                  {/* <Col md={1}>{item.autoIncrementField}</Col>
+                   */}
+                  <Col md={1}>{items.length - idx}</Col>
                   <Col md={5} className={styles.articlesTitle}>
-                    <Link to={`${item._id}`}>{item.title}</Link>
+                    <Link to={`${item._id}`} state={{ title: title }}>
+                      {item.title}
+                    </Link>
                   </Col>
                   <Col md={1}>{item.creator.name}</Col>
                   <Col md={2}>{formatDate(item.createdAt)}</Col>
@@ -86,7 +76,13 @@ function ArticleList({ title }) {
               </div>
             ))}
             <Row>
-              <Col>페이징</Col>
+              <Col>
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={handlePaginationPageChange}
+                />
+              </Col>
             </Row>
           </div>
         ) : (

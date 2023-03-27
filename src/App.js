@@ -6,7 +6,6 @@ import Meeting from './component/meeting';
 import MeetingInfo from 'component/meeting/MeetinfInfo';
 import ArticleView from 'component/meeting/board/ArticleView';
 import ArticleWrite from 'component/meeting/board/ArticleWrite';
-import ArticleModiForm from 'component/meeting/board/ArticleModiForm';
 import ArticleEdit from 'component/meeting/board/ArticleEdit';
 import LoginPage from 'component/user/Login';
 import Join from 'component/user/Join';
