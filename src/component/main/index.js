@@ -65,10 +65,10 @@ function Main() {
   }, [nextImage]);
 
   useEffect(() => {
-    if (currentImageRef.current && nextImageRef.current) {
+    if (currentImageRef.current && nextImageRef.current&&currentImageRef.current.classList) {
       currentImageRef.current.classList.add("next");
       nextImageRef.current.classList.add("prev");
-      setTimeout(() => {
+      setTimeout(() => { currentImageRef.current.classList&& 
         currentImageRef.current.classList.remove("next");
         nextImageRef.current.classList.remove("prev");
       }, 1000);

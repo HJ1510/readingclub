@@ -28,11 +28,7 @@ function Chart() {
       xaxis: {
         categories: categories.map((category) => category.category),
       },
-      yaxis: {
-        title: {
-          text: "총 권수",
-        },
-      },
+      
       title: {
         text: "카테고리",
         align: "center",
@@ -49,7 +45,7 @@ function Chart() {
   };
 
   return (
-    <div id="chart">
+    <div id="chart" >
       {categories.length ? (
         <ReactApexChart
           options={chartData.options}
