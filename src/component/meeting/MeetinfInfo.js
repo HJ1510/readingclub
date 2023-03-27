@@ -20,8 +20,6 @@ function MeetingInfo() {
   const dispatch = useDispatch();
   const members = useMembers(no);
 
-  console.log(members);
-
   const totalMembers = members.length;
 
   // 객체 생성 시, 초기값 설정

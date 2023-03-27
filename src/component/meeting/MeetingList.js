@@ -57,7 +57,6 @@ function MeetingList({ title }) {
       <div>
         {meetingItems
           ? meetingItems.map((item, idx) => {
-              console.log(item.imgFile);
               return (
                 <Container className={styles.meetingList} key={idx}>
                   <Link

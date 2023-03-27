@@ -6,7 +6,7 @@ import { useArticle } from 'hooks/useArticle';
 import styles from 'assets/css/component/meeting/Board.module.css';
 import { HiPencilSquare } from 'react-icons/hi2';
 import Pagination from './Pagination';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function formatDate(value) {
   const date = new Date(value);
@@ -18,7 +18,9 @@ function formatDate(value) {
 function ArticleList({ title, loadData, no }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [data, handlePageChange] = useArticle(loadData);
-  // console.log(data);
+  const [totalItems, setTotalItems] = useState(0);
+  const [pageSize, setPageSize] = useState(0);
+
   const items =
     title === 'FAQ'
       ? data.faqArticles
@@ -32,6 +34,11 @@ function ArticleList({ title, loadData, no }) {
     setCurrentPage(page);
     handlePageChange(page);
   };
+
+  useEffect(() => {
+    setTotalItems(data?.totalArticles);
+    setPageSize(parseInt(data?.pageSize));
+  }, []);
 
   return (
     <div>
@@ -61,9 +68,12 @@ function ArticleList({ title, loadData, no }) {
               <div key={idx}>
                 <Row className={styles.articles}>
                   <Col md={1}></Col>
-                  {/* <Col md={1}>{item.autoIncrementField}</Col>
-                   */}
-                  <Col md={1}>{items.length - idx}</Col>
+                  <Col md={1}>{item.autoIncrementField}</Col>
+                  {/* <Col md={1}>
+                    {totalItems &&
+                      currentPage &&
+                      totalItems - (currentPage - 1) * 5 - idx}
+                  </Col> */}
                   <Col md={5} className={styles.articlesTitle}>
                     <Link to={`${item._id}`} state={{ title: title }}>
                       {item.title}

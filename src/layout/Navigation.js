@@ -83,27 +83,29 @@ function Navigation() {
                 Community
               </NavLink>
             </li>
-            {inlogin ? (
-              <li>
-                <Link to={'/login'} className='login'>
-                  Login-in
-                </Link>
-              </li>
-            ) : (
-              <>
+            <div className='inLogin'>
+              {inlogin ? (
                 <li>
-                  <Link to='#' onClick={onClickHandler} className='login'>
-                    로그아웃 / {userInfo && userInfo.name + '님'}
+                  <Link to={'/login'} className='login'>
+                    Login-in
                   </Link>
                 </li>
+              ) : (
+                <>
+                  <li>
+                    <Link to='#' onClick={onClickHandler} className='inLogin'>
+                      로그아웃 / {userInfo && userInfo.name + '님'}
+                    </Link>
+                  </li>
 
-                <li>
-                  <Link to={`/member`} className='login'>
-                    회원정보
-                  </Link>
-                </li>
-              </>
-            )}{' '}
+                  <li>
+                    <Link to={`/member`} className='inLogin'>
+                      회원정보
+                    </Link>
+                  </li>
+                </>
+              )}
+            </div>
           </ul>
         </nav>
         <div></div>
