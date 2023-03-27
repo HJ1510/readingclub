@@ -16,22 +16,25 @@ function SearchBar() {
   const [notelist, setNoteList] = useState([]);
   let [countspan, setcountspan] = useState(5);
   const [categoryname, setcategoryname] = useState([]);
+ 
   useEffect(() => {
     axios.get('/api/category').then((response) => {
       setcategoryname(response.data);
 
-  
+
     });
   }, []);
   const handleSearch = async (e) => {
     e.preventDefault(); // 폼의 기본 동작 막기
 
-    try { 
-      const response = await axios.get(`/search?keyword=${query}`,{ headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-              } });
+    try {
+      const response = await axios.get(`/search?keyword=${query}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       setResults(response.data);
- console.log(results)
+      console.log(results)
     } catch (error) {
       console.error(error);
     }
@@ -45,11 +48,12 @@ function SearchBar() {
       if (response.data.isAuth) {
         axios.get('/api/notelist/user').then((response) => {
           setNoteList(response.data);
+        
      
         });
       } else {
-          navigate('/');
-        }
+        navigate('/');
+      }
     });
   }, []);
 
@@ -85,94 +89,91 @@ function SearchBar() {
       </div>
       <div>
         {results.length > 0 ? (
-          <ul>
-            {results.map((result) => (
-              <div key={result.id} className={styles.booklist}>
-                <Col md={2} className={styles.tumb}>
-                  <img src={result.thumbnail} alt='thumbnail'></img>
-                </Col>
 
-                <Col className={styles.booknotelisttitle1}>
-                  <h3 style={{ margin: '15px' }}>#카테고리</h3>
-                  <h3 style={{ margin: '15px' }}>
-                    <Link to={`/booknote/${result._id}`}>
-                      제목: {result.title}
-                    </Link>
-                  </h3>
+      
 
-                  <h5 style={{ margin: '10px' }}>
-                    내용: {parse(result.content)}
-                  </h5>
-                </Col>
+            <div className="row row-cols-1 row-cols-sm-3 row-cols-md-2 g-5 " style={{ marginTop: "20px" }}>
+                {results.map((book, index) => (
+                   <div key={index} className="row mb-1 " >
+                   <div className="col-md6 ">
+                     <div className="row g-0 border rounded  flex-md-row mb-4  h-md-250 booknotelisttitle1 ">
+                       <div className="col-auto d-none d-lg-block ">
+ 
+                         <img className="bd-placeholder-img" width="200" height="270" src={book.thumbnail} >
+ 
+                         </img>
+ 
+                       </div >
+                       <div className="col p-4 d-flex flex-column position-static ">
+                         <strong className="d-inline-block mb-2 text-primary">{book.booktitle}</strong>
+                         <h3 className="mb-0">제목 :{book.title}</h3>
+                         <br />
+                         <div className="mb-1 text-muted"></div>
+                         <p className="card-text mb-auto">  {parse(book.content.length > 15
+                           ? book.content.substring(0, 15) + ".."
+                           : book.content
+                         )}</p>
+ 
+                         <div style={{ display: "flex" }}>
+                           <Link to={`/booknote/${book._id}`}   className="stretched-link " style={{ marginRight: "20px" }}>View</Link>
+                           <a style={{ marginRight: "20px" }}>조회수 : {book.hit}</a>
+                           <a>🧡 {book.likes}</a>
+ 
+                         </div>
+                         <a>{book.createdAt}</a>
+                       </div>
+ 
+ 
+ 
+                     </div>
+ 
+                   </div>
+                 </div>
 
-                <div className='booknotelisticon' style={{ display: 'block' }}>
-                  <span
-                    style={{ height: '100px' }}
-                    onClick={() => {
-                      setcountspan(countspan + 1);
-                    }}
-                  >
-                    👍{countspan}
-                  </span>
-                  <br />
-                </div>
+                ))}
               </div>
-            ))}
-          </ul>
+
+       
         ) : (
           query.length === 0 && (
-            <div>
-              {notelist.map((booknotlist) => {
-                return (
-                  <div
-                    key={booknotlist._id}
-                    className='booklist'
-                    style={{
-                      paddingTop: '30px',
-                      paddingBottom: '20px',
-                      display: 'flex',
-                      borderBottom: '1px solid  #e6e0e0',
-                    }}
-                  >
-                    <Col md={2} className='tumb'>
-                      <img src={booknotlist.thumbnail} alt='thumbnail'></img>
-                    </Col>
-                    <Col
-                      className='booknotelisttitle1'
-                      style={{
-                        width: '900px',
-                      }}
-                    >
-                      <h3 style={{ margin: '15px' }}>#카테고리</h3>
-                      <h3 style={{ margin: '15px' }}>
-                        <Link to={`/booknote/${booknotlist._id}`}>
-                          제목: {booknotlist.title}
-                        </Link>
-                      </h3>
+            <div className="row row-cols-1 row-cols-sm-3 row-cols-md-2 g-5 " style={{ marginTop: "20px" }}>
+              {notelist.map((book, index) => (
+                <div key={index} className="row mb-1 " >
+                  <div className="col-md6 ">
+                    <div className="row g-0 border rounded  flex-md-row mb-4  h-md-250 booknotelisttitle1 ">
+                      <div className="col-auto d-none d-lg-block ">
 
-                      <h5 style={{ margin: '10px' }}>
-                        내용: {parse(booknotlist.content)}
-                      </h5>
-                    </Col>
-                    <div
-                      className='booknotelisticon'
-                      style={{ display: 'block' }}
-                      key={booknotlist.id} // key prop 추가
-                    >
-                      <span
-                        style={{ height: '100px' }}
-                        onClick={() => {
-                          setcountspan(countspan + 1);
-                        }}
-                      >
-                        👍{countspan}
-                      </span>
-                      <div>조회수: {booknotlist.hit}</div>
-                      <br />
+                        <img className="bd-placeholder-img" width="200" height="270" src={book.thumbnail} >
+
+                        </img>
+
+                      </div >
+                      <div className="col p-4 d-flex flex-column position-static ">
+                        <strong className="d-inline-block mb-2 text-primary">{book.booktitle}</strong>
+                        <h3 className="mb-0">제목 :{book.title}</h3>
+                        <br />
+                        <div className="mb-1 text-muted"></div>
+                        <p className="card-text mb-auto">  {parse(book.content.length > 15
+                          ? book.content.substring(0, 15) + ".."
+                          : book.content
+                        )}</p>
+
+                        <div style={{ display: "flex" }}>
+                          <Link to={`/booknote/${book._id}`}   className="stretched-link " style={{ marginRight: "20px" }}>View</Link>
+                          <a style={{ marginRight: "20px" }}>조회수 : {book.hit}</a>
+                          <a>🧡 {book.likes}</a>
+
+                        </div>
+                        <a>{book.createdAt}</a>
+                      </div>
+
+
+
                     </div>
+
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
           )
         )}

@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { FcLike } from "react-icons/fc";
 import {AiFillHeart} from "react-icons/ai";
-import Comment from "component/comment";
+import BComment from "./booknoteCommet";
 import Layout from "./../../layout/Layout";
 import { Row, Col } from "react-bootstrap";
 import parse from "html-react-parser";
@@ -164,7 +164,7 @@ useEffect(() => {
           </button>
         </div>
       </div>
-      <Comment></Comment>
+      <BComment></BComment>
     </Layout>
   );
 }

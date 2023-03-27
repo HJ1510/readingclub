@@ -24,7 +24,7 @@ import Chat from 'components/chat';
 import Jofrom from 'components/jofrom';
 import { Member } from './component/user/Member';
 import Rangking from 'component/booknote/booknoteRangking/Rangking';
-
+import BComment from 'component/booknote/booknoteCommet';
 axios.defaults.withCredentials = true;
 const App = () => {
   return (
@@ -55,6 +55,7 @@ const App = () => {
         <Route path=':id' element={<Booknoteno />} />
         <Route path=':id/edit' element={<Booknoteupdate />} />
         <Route path='progress' element={<Progress />} />
+        <Route path='bcommente' element={<BComment></BComment>}/>
       </Route>
     </Routes>
   );

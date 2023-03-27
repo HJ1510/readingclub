@@ -52,26 +52,33 @@ const [user,setUser]= useState();
                 Meetings
               </NavLink>
             </li>
+            {inlogin ? null : (
             <li>
               <NavLink to={'/mymeeting'} activeclassname='active'>
                 My Meeting
               </NavLink>
             </li>
+            )}
             <li>
+              
               <NavLink to={'/booknote/notelist'} activeclassname='active'>
                 Notes
               </NavLink>
             </li>
+            {inlogin ? null : (
             <li>
-              <NavLink to={'/booknote'} activeclassname='active'>
+              <NavLink to={'/booknote'} activeClassName='active'>
                 My Note
               </NavLink>
             </li>
+           )}
+           {inlogin ? null : (
             <li>
               <NavLink to={'/note/notebookmark'} activeclassname='active'>
                 Boomarked
               </NavLink>
             </li>
+           )}
             <li>
               <NavLink to={'/community'} activeclassname='active'>
                 Community
