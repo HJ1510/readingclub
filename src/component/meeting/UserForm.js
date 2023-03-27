@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { getUserMeetings } from 'api';
+import { fontSize } from '@mui/system';
 
 function UserForm() {
   const [meeting, setMeeting] = useState([]);
@@ -52,7 +53,10 @@ function UserForm() {
     <div className='user-form'>
       {userData && userData.name ? (
         <div>
-          <p>{userData.name}님 안녕하세요</p>
+          <p>
+            <strong style={{ fontSize: '2.2em' }}>{userData.name}</strong>님
+            안녕하세요
+          </p>
 
           {meeting && (
             <>
@@ -60,27 +64,41 @@ function UserForm() {
                 return (
                   <div className='bnt-user-meeting' key={idx}>
                     <a href={`http://localhost:3000/meeting/group/${item.no}`}>
-                      <button>
+                      <Button
+                        variant='outline-dark'
+                        size='lg'
+                        style={{ width: '100%', marginBottom: '20px' }}
+                      >
                         {item.title}/{item.memberStatus}
-                      </button>
+                      </Button>
                     </a>
                   </div>
                 );
               })}
-              <button onClick={handlePrev} disabled={startIndex === 0}>
+              <button
+                onClick={handlePrev}
+                disabled={startIndex === 0}
+                style={{ float: 'left', marginLeft: '20px', marginTop: '10px' }}
+              >
                 &lt;
               </button>
               <button
                 onClick={handleNext}
                 disabled={endIndex >= meeting.length}
+                style={{
+                  float: 'right',
+                  marginRight: '20px',
+                  marginTop: '10px',
+                }}
               >
                 &gt;
               </button>
             </>
           )}
+          <div style={{ height: '0px' }}></div>
           <p>
             <Link to='/meeting/createmeeting'>
-              <Button variant='outline-danger' size='lg'>
+              <Button variant='primary' size='lg' style={{ marginTop: '50px' }}>
                 모임개설
               </Button>
             </Link>

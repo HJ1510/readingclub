@@ -3,7 +3,8 @@ import { Col, Row } from 'react-bootstrap';
 import MeetingCalender from './MeetingCalender';
 import { useEffect, useState } from 'react';
 import MyMeetingList from './MyMeetingList';
-import styles from 'assets/css/component/meeting/Meeting.module.css';
+// import styles from 'assets/css/component/meeting/Meeting.module.css';
+import '../../assets/css/component/community/Community.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserMeetings } from 'api';
 
@@ -24,23 +25,22 @@ function MyMeeting() {
 
   return (
     <Layout>
-      <div>
-        <Row>
-          <Col md={7}>
-            {userData && (
-              <MeetingCalender
-                apiFunction={getUserMeetings}
-                userId={userData._id}
-                className={styles.Calender}
-                title='joinedGroupScheduleCalendar'
-              />
-            )}
-          </Col>
-          <Col md={5}>
-            <MyMeetingList meeting={meeting} />
-          </Col>
-        </Row>
-      </div>
+      <main>
+        <section class='py-5 text-center container'>
+          <div class='row py-lg-5'>
+            <div class='col-lg-6 col-md-8 mx-auto'>
+              {userData && (
+                <MeetingCalender
+                  apiFunction={getUserMeetings}
+                  userId={userData._id}
+                  title='joinedGroupScheduleCalendar'
+                />
+              )}
+            </div>
+          </div>
+        </section>
+        <MyMeetingList meeting={meeting} />
+      </main>
     </Layout>
   );
 }

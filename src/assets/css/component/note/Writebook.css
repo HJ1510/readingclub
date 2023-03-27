@@ -23,7 +23,6 @@
   border: 2px solid #0056b3;
   background-color: #cbe5ff;
   cursor: pointer;
-  
 }
 
 /* 마우스를 올려놓을 때 테두리가 생기는 스타일 */
@@ -57,43 +56,43 @@
 }
 
 .book img {
-     height: auto;
-    border-radius: 4px;
-    margin: 20px;
-  }
-  .cs {
-    background-color: #fff;
-    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    padding: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  .title-input{
-    border: none;
-    border-radius: 20px;
-    padding: 10px;
-    font-size: 16px;
-    background-color: #f8f9fa;
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
-    margin: 20px auto;
-  }
-  .booksearchbox{
-    border: none;
-    border-radius: 20px;
-    padding: 10px;
-    font-size: 16px;
-    background-color: #f8f9fa;
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
-    margin: 20px auto;
-  }label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-    color: #555;
-    margin: 20px
-  }
+  height: auto;
+  border-radius: 4px;
+  margin: 20px;
+}
+.cs {
+  background-color: #fff;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.title-input {
+  border: none;
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #f8f9fa;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  margin: 20px auto;
+}
+.booksearchbox {
+  border: none;
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #f8f9fa;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  margin: 20px auto;
+}
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #555;
+}

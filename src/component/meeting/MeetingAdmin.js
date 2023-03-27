@@ -16,6 +16,9 @@ function MeetingAdmin() {
   const now = 60;
 
   const handleClick = async (no, memberId, status) => {
+    console.log(no);
+    console.log(memberId);
+    console.log(status);
     try {
       const data = await updateMemberStatus({ no, memberId }, status);
       console.log(data);
