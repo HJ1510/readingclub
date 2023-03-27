@@ -2,7 +2,6 @@ import Board from './board';
 import Layout from 'layout/Layout';
 import MeetingCalender from './MeetingCalender';
 import { Col, Container, Row, Card, ProgressBar } from 'react-bootstrap';
-import profile from 'assets/images/profile.png';
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import { Button } from 'react-bootstrap';
@@ -10,6 +9,7 @@ import ChatModal from './ChatModal';
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router';
 import { useMembers } from 'hooks/useMembers';
+import { useMeetingInfo } from 'hooks/useMeetingInfo';
 import { getOrdersByNo } from 'api';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
 
@@ -19,6 +19,8 @@ function MeetingGroup() {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const members = useMembers(no);
+  const meetingInfo = useMeetingInfo(no);
+  console.log(meetingInfo);
   // const [messages, setMessages] = useState([]);
 
   // useEffect(() => {
@@ -56,7 +58,11 @@ function MeetingGroup() {
         <Row>
           <Col>
             <Card>
-              <Card.Header>#... #...</Card.Header>
+              <Card.Header>
+                {meetingInfo?.hashtags?.map((hashtag) => (
+                  <p key={hashtag}>{hashtag}</p>
+                ))}
+              </Card.Header>
               <Card.Body>
                 <Card.Text></Card.Text>
               </Card.Body>
@@ -67,13 +73,13 @@ function MeetingGroup() {
           </Col>
         </Row>
         {members &&
-          members.map((item, idx) => {
+          members.map((member, idx) => {
             return (
               <Row key={idx}>
                 <Col>
                   <div className={styles.member}>
-                    <img src={profile} />
-                    {item.name}
+                    <img src={`/${member.imgpath.path}`} alt='member' />
+                    {member.name}
                     <ProgressBar
                       className='attendanceBar'
                       now={now}

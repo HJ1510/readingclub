@@ -56,7 +56,7 @@ function MeetingAdmin() {
               <Row key={idx}>
                 <Col>
                   <div className={styles.member}>
-                    <img src={`/${member.imgpath.path}`} alt='sample' />
+                    <img src={`/${member.imgpath.path}`} alt='member' />
                     <div>
                       <p>이름: {member.name}</p>
                       <p>권한: {member.role}</p>

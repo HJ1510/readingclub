@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 export function useArticle(loadData) {
   const [data, setData] = useState([]);
-  console.log(data);
+  // console.log(data);
 
   useEffect(() => {
     async function fetchData() {
