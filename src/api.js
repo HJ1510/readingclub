@@ -314,10 +314,23 @@ export async function updateMemberStatus({ no, memberId }, body) {
       `/api/meetings/${no}/members/${memberId}`,
       body
     );
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);
     throw new Error('멤버 상태 변경에 실패하였습니다');
   }
 }
+
+// // faq 코멘트 조회
+// export async function getFAQComments({ order = 'createdAt' }) {
+//   // 쿼리 지정(정렬)
+//   const query = `order=${order}`;
+//   const response = await fetch(
+//     `https://learn.codeit.kr/4514/film-reviews?${query}`
+//   );
+//   if (!response.ok) {
+//     throw new Error('코멘트를 불러오는데 실패했습니다');
+//   }
+//   const body = await response.json();
+//   return body;
+// }

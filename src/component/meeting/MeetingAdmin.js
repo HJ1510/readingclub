@@ -16,12 +16,10 @@ function MeetingAdmin() {
   const now = 60;
 
   const handleClick = async (no, memberId, status) => {
-    console.log(no);
-    console.log(memberId);
-    console.log(status);
     try {
-      const data = await updateMemberStatus({ no, memberId }, status);
-      console.log(data);
+      const body = { status: status };
+      await updateMemberStatus({ no, memberId }, body);
+      window.location.reload();
     } catch (err) {
       console.error(err);
     }
@@ -48,46 +46,58 @@ function MeetingAdmin() {
             </Card>
           </Col>
           <Col>
-            <p>지역</p>
+            <p>{meetinginfo.location}</p>
           </Col>
         </Row>
         {members &&
-          members.map((item, idx) => {
+          members.map((member, idx) => {
             return (
               <Row key={idx}>
                 <Col>
                   <div className={styles.member}>
-                    <img src={profile} />
+                    {member.imgpath && member.imgpath.path ? (
+                      <img src={`/${member.imgpath.path}`} alt='member' />
+                    ) : (
+                      <img src={profile} alt='member' />
+                    )}
                     <div>
-                      <p>이름: {item.name}</p>
-                      <p>권한: {item.role}</p>
-                      <p>상태: {item.status}</p>
+                      <p>이름: {member.name}</p>
+                      <p>권한: {member.role}</p>
+                      <p>상태: {member.status}</p>
                     </div>
                     <ProgressBar
                       className={styles.attendanceBar}
                       now={now}
                       label={`${now}%`}
                     />
-                    {item.status === 'provisional_member' && (
+                    {member.status === 'provisional_member' && (
                       <>
                         <button
                           onClick={() =>
-                            handleClick(no, item.userId, 'full_member')
+                            handleClick(no, member.userId, 'full_member')
                           }
                         >
                           승인
                         </button>
                         <button
                           onClick={() =>
-                            handleClick(no, item.userId, 'rejected_member')
+                            handleClick(no, member.userId, 'rejected_member')
                           }
                         >
                           승인거부
                         </button>
                       </>
                     )}
-                    {item.status === 'full_member' && <button>내보내기</button>}
-                    {item.status === 'rejected_member' && (
+                    {member.status === 'full_member' && (
+                      <button
+                        onClick={() =>
+                          handleClick(no, member.userId, 'rejected_member')
+                        }
+                      >
+                        내보내기
+                      </button>
+                    )}
+                    {member.status === 'rejected_member' && (
                       <span>탈퇴회원입니다</span>
                     )}
                   </div>

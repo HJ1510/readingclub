@@ -51,7 +51,7 @@ function UserForm() {
 
   return (
     <div className='user-form'>
-      {userData && userData.name ? (
+      {userData && userData.name && (
         <div>
           <p>
             <strong style={{ fontSize: '2.2em' }}>{userData.name}</strong>님
@@ -104,8 +104,6 @@ function UserForm() {
             </Link>
           </p>
         </div>
-      ) : (
-        '로그인'
       )}
     </div>
   );

@@ -15,6 +15,7 @@ function MyMeeting() {
   const listLoad = async (id) => {
     const loadMeetings = await getUserMeetings(id);
     setMeeting(loadMeetings);
+    console.log(meeting);
   };
 
   useEffect(() => {
@@ -28,7 +29,7 @@ function MyMeeting() {
       <main>
         <section className='py-5 text-center container'>
           <div className='row py-lg-5'>
-            <div className='col-lg-6 col-md-8 mx-auto'>
+            <div className='col-lg-12 col-md-12 mx-auto'>
               {userData && (
                 <MeetingCalender
                   apiFunction={getUserMeetings}
