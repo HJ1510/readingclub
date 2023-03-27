@@ -1,7 +1,7 @@
 import 'assets/css/App.css';
 import { Routes, Route } from 'react-router-dom';
 import Main from './component/main/index';
-import Community from './component/community';
+import Community from 'component/community/community';
 import Meeting from './component/meeting';
 import MeetingInfo from 'component/meeting/MeetinfInfo';
 import ArticleView from 'component/meeting/board/ArticleView';
@@ -25,6 +25,7 @@ import Jofrom from 'components/jofrom';
 import { Member } from './component/user/Member';
 import Rangking from 'component/booknote/booknoteRangking/Rangking';
 import BComment from 'component/booknote/booknoteCommet';
+
 axios.defaults.withCredentials = true;
 const App = () => {
   return (
@@ -48,6 +49,7 @@ const App = () => {
       <Route path='jo/:no' element={<Jofrom></Jofrom>} />
       <Route path='chat' element={<Chat></Chat>} />
       <Route path='community' element={<Community />} />
+   
       <Route path='booknote'>
         <Route index element={<Booknote />} />
         <Route path='notelist' element={<Rangking />} />

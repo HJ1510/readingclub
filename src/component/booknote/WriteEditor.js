@@ -41,6 +41,7 @@ const WriteEditor = () => {
       authors: selectedBook.authors,
       bookdatetime: selectedBook.datetime,
       category:category,
+    
     };
     dispatch(insertBoard(body)).then((response) => {
       if (response.payload.success) {

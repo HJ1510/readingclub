@@ -21,6 +21,7 @@ import { noteList } from "actions/borad_action";
 import { useNavigate } from "react-router";
 import { Link } from 'react-router-dom';
 import axios from "axios";
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${TableCell}head`]: {
     backgroundColor: theme.palette.common.black,
@@ -40,14 +41,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function Ranking() {
   const dispatch = useDispatch();
-
-  const [notes, setNotes] = useState([]);
+    const [notes, setNotes] = useState([]);
 
   const [showTable, setShowTable] = useState(false);
 
-const[user,setuser]= useState([]);
+  const [user, setuser] = useState([]);
 
   const navigate = useNavigate();
+
 
   const handleClick = async (bookid) => {
     try {
@@ -89,44 +90,9 @@ const[user,setuser]= useState([]);
             조회 수 👓
           </Typography>
           {notes
-        .sort((a, b) => b.hit - a.hit)
-        .slice(0, 5) // add this line to only keep the top 5 notes
-          .map((note, index) => {
-            let icon;
-            if (index === 0) {
-              icon = <FaMedal size="24" color="gold" />;
-            } else if (index === 1) {
-              icon = <FaMedal size="24" color="silver" />;
-            } else if (index === 2) {
-              icon = <FaMedal size="24" color="#8B4513" />;
-            } else {
-              icon = index + 1;
-            }
-            return (
-              <div
-                key={note._id}
-                className="ranking"
-                style={{ animationDelay: `${0.2 * index}s` }}
-              >
-                {icon} {` ${note.title}`}
-              </div>
-            );
-          })}
-        </Grid>
-        <Grid
-          item
-          xs={4}
-          className="rank"
-          style={{ marginRight: "20px", maxWidth: "300px" }}
-        >
-          <Typography variant="h5" gutterBottom>
-            게시글 수 💻
-          </Typography>
-          <div>
-            {user
-            .sort((a, b) => b.postCount - a.postCount)
-            .slice(0, 5)
-            .map((post, index) => {
+            .sort((a, b) => b.hit - a.hit)
+            .slice(0, 5) // add this line to only keep the top 5 notes
+            .map((note, index) => {
               let icon;
               if (index === 0) {
                 icon = <FaMedal size="24" color="gold" />;
@@ -139,14 +105,49 @@ const[user,setuser]= useState([]);
               }
               return (
                 <div
-                  key={post._id}
+                  key={note._id}
                   className="ranking"
                   style={{ animationDelay: `${0.2 * index}s` }}
                 >
-                  {icon} {` ${post.name}  ${post.postCount}개`}
+                  {icon} {` ${note.title}`}
                 </div>
               );
             })}
+        </Grid>
+        <Grid
+          item
+          xs={4}
+          className="rank"
+          style={{ marginRight: "20px", maxWidth: "300px" }}
+        >
+          <Typography variant="h5" gutterBottom>
+            게시글 수 💻
+          </Typography>
+          <div>
+            {user
+              .sort((a, b) => b.postCount - a.postCount)
+              .slice(0, 5)
+              .map((post, index) => {
+                let icon;
+                if (index === 0) {
+                  icon = <FaMedal size="24" color="gold" />;
+                } else if (index === 1) {
+                  icon = <FaMedal size="24" color="silver" />;
+                } else if (index === 2) {
+                  icon = <FaMedal size="24" color="#8B4513" />;
+                } else {
+                  icon = index + 1;
+                }
+                return (
+                  <div
+                    key={post._id}
+                    className="ranking"
+                    style={{ animationDelay: `${0.2 * index}s` }}
+                  >
+                    {icon} {` ${post.name}  ${post.postCount}개`}
+                  </div>
+                );
+              })}
           </div>
         </Grid>
         <Grid
@@ -159,30 +160,30 @@ const[user,setuser]= useState([]);
             좋아요 수 🧡
           </Typography>
           <div>
-            {notes 
-            .sort((a, b) => b.likes - a.likes)
-            .slice(0, 5)
-            .map((note, index) => {
-              let icon;
-              if (index === 0) {
-                icon = <FaMedal size="24" color="gold" />;
-              } else if (index === 1) {
-                icon = <FaMedal size="24" color="silver" />;
-              } else if (index === 2) {
-                icon = <FaMedal size="24" color="#8B4513" />;
-              } else {
-                icon =  `${index + 1}.  `;
-              }
-              return (
-                <div
-                  key={note._id}
-                  className="ranking"
-                  style={{ animationDelay: `${0.2 * index}s` }}
-                >
-                  {icon} {` ${note.title}`}
-                </div>
-              );
-            })}
+            {notes
+              .sort((a, b) => b.likes - a.likes)
+              .slice(0, 5)
+              .map((note, index) => {
+                let icon;
+                if (index === 0) {
+                  icon = <FaMedal size="24" color="gold" />;
+                } else if (index === 1) {
+                  icon = <FaMedal size="24" color="silver" />;
+                } else if (index === 2) {
+                  icon = <FaMedal size="24" color="#8B4513" />;
+                } else {
+                  icon = `${index + 1}.  `;
+                }
+                return (
+                  <div
+                    key={note._id}
+                    className="ranking"
+                    style={{ animationDelay: `${0.2 * index}s` }}
+                  >
+                    {icon} {` ${note.title}`}
+                  </div>
+                );
+              })}
           </div>
         </Grid>
       </Grid>
@@ -206,47 +207,39 @@ const[user,setuser]= useState([]);
           <cite>Aldous Huxley</cite>
         </div>
 
-        <TableContainer>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
+        <div className="row row-cols-1 row-cols-sm-3 row-cols-md-2 g-5 " style={{ marginTop: "20px" }}>
+        {notes.map((book, index) => (
+
+          <div class="row mb-4" key={book._id}>
+
+            <div class="col-md-12">
+              <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                  <strong class="d-inline-block mb-2 text-success"> {book.category}</strong>
+                  <h3 class="mb-0">{book.title}</h3>
+                  <div class="mb-1 text-muted">Created at: {book.createdAt}</div>
+                  <div style={{display:"flex"}}>
+                  <p>[조회수 👓: {book.hit}]</p>
                 
-              <StyledTableCell align="right"></StyledTableCell>
-                <StyledTableCell align="right">no</StyledTableCell>
-                <StyledTableCell align="right">제목</StyledTableCell>
-                <StyledTableCell align="right">저자</StyledTableCell>
-                <StyledTableCell align="right">출판사</StyledTableCell>
-                <StyledTableCell align="right">출간일</StyledTableCell>
-                <StyledTableCell align="right">조회수</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {notes.map((book, index) => (
-                <StyledTableRow key={book._id} className="card-1" onClick={() => handleClick(book._id)}>
-                        <StyledTableCell align="right">
-                        🧡{book.likes}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    <img src={book.thumbnail} alt="책 표지" />
-                  </StyledTableCell>
-                  <StyledTableCell align="right">{book.title}</StyledTableCell>
-                  <StyledTableCell align="right">
-                    {book.authors.join(", ")}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {book.publisher}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {book.bookdatetime}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {book.hit}
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                  
+                  <p style={{marginLeft:"10px"}}>[좋아요 <img style={{height:"30px"}} src="https://cdn-icons-png.flaticon.com/512/7579/7579706.png"/>: {book.likes}] </p>
+                  
+                  </div>
+                  <a  style={{marginTop:"50px"}}to class="btn btn-warning md-2"onClick={() => handleClick(book._id)}>Continue Reading</a>
+             
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                  
+                <img className="bd-placeholder-img" width="200" height="270" src={book.thumbnail} >
+
+</img>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        ))}
+  </div>
         <div className="page-nav">
           <nav
             aria-label="Page navigation example"
@@ -282,6 +275,7 @@ const[user,setuser]= useState([]);
           </nav>
         </div>
       </div>
+
     </Layout>
   );
 }

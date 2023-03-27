@@ -63,8 +63,8 @@
     border-width: var(--primer-borderWidth-thin, 1px);
     border-radius: 20px;
     border-color: #aaa7a7;
-  
-    font-family: 'Dongle', sans-serif;
+    
+   
     opacity: 0; /* 처음에는 안 보이도록 설정 */
     animation: fadeIn 2s forwards; /* 1초 동안 서서히 나타나도록 애니메이션 적용 */
     animation-delay: 0.5s;
