@@ -122,7 +122,7 @@ export async function getAllMembersByNo(no) {
     const response = await axios.get(`/api/meeting/${no}/members`);
     return response.data;
   } catch (error) {
-    throw new Error('모임 데이터를 불러오는데 실패했습니다');
+    throw new Error('모임 members데이터를 불러오는데 실패했습니다');
   }
 }
 
@@ -304,5 +304,20 @@ export async function updateMeetingBoardArticleById({ no, id }, formData) {
   } catch (error) {
     console.error(error); // 오류 메시지 출력
     throw new Error('meetingArticle 게시글 수정하는데 실패하였습니다');
+  }
+}
+
+// 모임 members 승인/거절
+export async function updateMemberStatus({ no, memberId }, body) {
+  try {
+    const response = await axios.patch(
+      `/api/meetings/${no}/members/${memberId}`,
+      body
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error('멤버 상태 변경에 실패하였습니다');
   }
 }

@@ -7,13 +7,22 @@ import AttendanceList from './AttendanceList';
 import data from 'mockAttend.json';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
 import { useMembers } from 'hooks/useMembers';
-import { getMeetingByNo } from 'api';
+import { getMeetingByNo, updateMemberStatus } from 'api';
 
 function MeetingAdmin() {
   const { no } = useParams();
   const [meetinginfo, setMeetinginfo] = useState('');
   const members = useMembers(no);
   const now = 60;
+
+  const handleClick = async (no, memberId, status) => {
+    try {
+      const data = await updateMemberStatus({ no, memberId }, status);
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
     getMeetingByNo(parseInt(no)).then((meeting) => {
@@ -58,8 +67,20 @@ function MeetingAdmin() {
                     />
                     {item.status === 'provisional_member' && (
                       <>
-                        <button>승인</button>
-                        <button>승인거부</button>
+                        <button
+                          onClick={() =>
+                            handleClick(no, item.userId, 'full_member')
+                          }
+                        >
+                          승인
+                        </button>
+                        <button
+                          onClick={() =>
+                            handleClick(no, item.userId, 'rejected_member')
+                          }
+                        >
+                          승인거부
+                        </button>
                       </>
                     )}
                     {item.status === 'full_member' && <button>내보내기</button>}
