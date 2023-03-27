@@ -107,39 +107,8 @@ function Booknote() {
               </div>
               
               <div className='cardusercolum'>
-                <Link
-                  style={{
-                    color: 'black',
-                    textDecorationLine: 'none',
-                  }}
-                  to='https://github.com/YuumiNam?tab=followers'
-                >
-                  followers{' '}
-                </Link>
-                <span
-                  onClick={() => {
-                    setcountspan(countspan + 1);
-                  }}
-                >
-                  🧡{countspan}
-                </span>
-                .
-                <Link
-                  style={{
-                    color: 'black',
-                    textDecorationLine: 'none',
-                  }}
-                  to='https://github.com/YuumiNam?tab=following'
-                >
-                  following{' '}
-                </Link>
-                <span
-                  onClick={() => {
-                    setcountspan(countspan + 1);
-                  }}
-                >
-                  🧡{countspan}
-                </span>
+             
+                
                 <br />
                 <Link
                   to='/booknote/writebook'
@@ -149,7 +118,7 @@ function Booknote() {
                 </Link>
                 <br/>
                 <Link to='#'   style={{ textDecoration: 'none', color: 'black' }} onClick={handleModalOpen}>
-                  목표도서 설정하기
+                  목표도서 설정하기 💪
                 </Link>
                 <Modal show={showModal} onHide={handleModalClose}>
                   <Modal.Header closeButton>

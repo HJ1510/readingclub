@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import {FaSearch} from "react-icons/fa";
 // import '../../assets/css/component/note/Booknote.css';
 import styles from '../../assets/css/component/note/Booknote.module.css';
 
@@ -62,7 +63,7 @@ function SearchBar() {
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <select
           className='form-select'
-          style={{ width: '300px', fontSize: '1.4em' }}
+          style={{ width: '300px',  }}
         >
           {categoryname.map((category) => {
             return (
@@ -78,13 +79,11 @@ function SearchBar() {
             type='text'
             placeholder='Search'
             aria-label='Search'
-            style={{ fontSize: '1.5em', borderRadius: '10px' }}
+            style={{   borderRadius: '10px' }}
             value={query}
             onChange={handleQueryChange}
           />
-          <button className='btn btn-outline-success' onClick={handleSearch}>
-            Search
-          </button>
+          <FaSearch onClick={handleSearch}></FaSearch>
         </div>
       </div>
       <div>
@@ -106,7 +105,7 @@ function SearchBar() {
                        </div >
                        <div className="col p-4 d-flex flex-column position-static ">
                          <strong className="d-inline-block mb-2 text-primary">{book.booktitle}</strong>
-                         <h3 className="mb-0">제목 :{book.title}</h3>
+                         <h3 className="mb-0">{book.title}</h3>
                          <br />
                          <div className="mb-1 text-muted"></div>
                          <p className="card-text mb-auto">  {parse(book.content.length > 15
@@ -150,7 +149,7 @@ function SearchBar() {
                       </div >
                       <div className="col p-4 d-flex flex-column position-static ">
                         <strong className="d-inline-block mb-2 text-primary">{book.booktitle}</strong>
-                        <h3 className="mb-0">제목 :{book.title}</h3>
+                        <strong className="mb-0" style={{fontSize:"2em"}}>{book.title}</strong>
                         <br />
                         <div className="mb-1 text-muted"></div>
                         <p className="card-text mb-auto">  {parse(book.content.length > 15
@@ -159,12 +158,12 @@ function SearchBar() {
                         )}</p>
 
                         <div style={{ display: "flex" }}>
-                          <Link to={`/booknote/${book._id}`}   className="stretched-link " style={{ marginRight: "20px" }}>View</Link>
+                         
                           <a style={{ marginRight: "20px" }}>조회수 : {book.hit}</a>
                           <a>🧡 {book.likes}</a>
-
+                          <Link to={`/booknote/${book._id}`}   className="stretched-link " style={{ marginLeft: "160px" }}>View</Link>
                         </div>
-                        <a>{book.createdAt}</a>
+               
                       </div>
 
 

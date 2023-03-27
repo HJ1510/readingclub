@@ -85,6 +85,7 @@ const Libray = ({onBookSelect}) => {
     >
                 <img src={book.thumbnail} alt={book.title} />
                 <h5>{book.title}</h5>
+              
               </div>
             </Col>
           ))}
@@ -95,6 +96,7 @@ const Libray = ({onBookSelect}) => {
               <div>
                 <h3 style={{margin:"20px"}}>{selectedBook.title}</h3>
                 <p>{selectedBook.contents}</p>
+                
               </div>
             )}
           </Col>
