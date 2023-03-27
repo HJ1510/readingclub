@@ -65,12 +65,16 @@ function Main() {
   }, [nextImage]);
 
   useEffect(() => {
-    if (currentImageRef.current && nextImageRef.current&&currentImageRef.current.classList) {
-      currentImageRef.current.classList.add("next");
-      nextImageRef.current.classList.add("prev");
-      setTimeout(() => { currentImageRef.current.classList&& 
-        currentImageRef.current.classList.remove("next");
-        nextImageRef.current.classList.remove("prev");
+    if (
+      currentImageRef.current &&
+      nextImageRef.current &&
+      currentImageRef.current.classList
+    ) {
+      currentImageRef.current.classList.add('next');
+      nextImageRef.current.classList.add('prev');
+      const timeoutId = setTimeout(() => {
+        currentImageRef.current.classList.remove('next');
+        nextImageRef.current.classList.remove('prev');
       }, 1000);
 
       return () => clearTimeout(timeoutId);
