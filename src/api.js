@@ -314,7 +314,6 @@ export async function updateMemberStatus({ no, memberId }, body) {
       `/api/meetings/${no}/members/${memberId}`,
       body
     );
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);

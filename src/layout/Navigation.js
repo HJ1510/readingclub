@@ -11,7 +11,7 @@ function Navigation() {
   const navigate = useNavigate();
   const [inlogin, setinlogin] = useState(false);
   const { userInfo } = useSelector((state) => state.user);
-const [user,setUser]= useState();
+  const [user, setUser] = useState();
   const handleMouseEnter = (e) => {
     e.target.querySelector('::before');
   };
@@ -32,7 +32,7 @@ const [user,setUser]= useState();
 
   useEffect(() => {
     dispatch(auth()).then((response) => {
-      setUser(response.payload)
+      setUser(response.payload);
       // 로그인 하지 않은상태
       if (!response.payload.isAuth) {
         setinlogin(true);
@@ -48,39 +48,38 @@ const [user,setUser]= useState();
         <nav>
           <ul className='nav-menu'>
             <li>
-              <NavLink to={'/meeting'} activeclassname='active'>
+              <NavLink to={'/meeting'} activeClassName='active'>
                 Meetings
               </NavLink>
             </li>
             {inlogin ? null : (
-            <li>
-              <NavLink to={'/mymeeting'} activeclassname='active'>
-                My Meeting
-              </NavLink>
-            </li>
+              <li>
+                <NavLink to={'/mymeeting'} activeClassName='active'>
+                  My Meeting
+                </NavLink>
+              </li>
             )}
             <li>
-              
-              <NavLink to={'/booknote/notelist'} activeclassname='active'>
+              <NavLink to={'/booknote/notelist'} activeClassName='active'>
                 Notes
               </NavLink>
             </li>
             {inlogin ? null : (
+              <li>
+                <NavLink to={'/booknote'} activeClassName='active'>
+                  My Note
+                </NavLink>
+              </li>
+            )}
+            {inlogin ? null : (
+              <li>
+                <NavLink to={'/note/notebookmark'} activeClassName='active'>
+                  Boomarked
+                </NavLink>
+              </li>
+            )}
             <li>
-              <NavLink to={'/booknote'} activeClassName='active'>
-                My Note
-              </NavLink>
-            </li>
-           )}
-           {inlogin ? null : (
-            <li>
-              <NavLink to={'/note/notebookmark'} activeclassname='active'>
-                Boomarked
-              </NavLink>
-            </li>
-           )}
-            <li>
-              <NavLink to={'/community'} activeclassname='active'>
+              <NavLink to={'/community'} activeClassName='active'>
                 Community
               </NavLink>
             </li>
@@ -97,9 +96,9 @@ const [user,setUser]= useState();
                     로그아웃 / {userInfo && userInfo.name + '님'}
                   </Link>
                 </li>
-                
+
                 <li>
-                  <Link to={`/member`} className="login">
+                  <Link to={`/member`} className='login'>
                     회원정보
                   </Link>
                 </li>

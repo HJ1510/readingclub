@@ -16,12 +16,11 @@ function MeetingAdmin() {
   const now = 60;
 
   const handleClick = async (no, memberId, status) => {
-    console.log(no);
-    console.log(memberId);
-    console.log(status);
     try {
-      const data = await updateMemberStatus({ no, memberId }, status);
-      console.log(data);
+      const body = { status: status };
+      const data = await updateMemberStatus({ no, memberId }, body);
+      setMeetinginfo(data);
+      window.location.reload();
     } catch (err) {
       console.error(err);
     }
@@ -31,7 +30,7 @@ function MeetingAdmin() {
     getMeetingByNo(parseInt(no)).then((meeting) => {
       setMeetinginfo(meeting);
     });
-  }, []);
+  }, [members, no, meetinginfo]);
 
   return (
     <Layout className={styles.meeting}>
@@ -86,7 +85,15 @@ function MeetingAdmin() {
                         </button>
                       </>
                     )}
-                    {item.status === 'full_member' && <button>내보내기</button>}
+                    {item.status === 'full_member' && (
+                      <button
+                        onClick={() =>
+                          handleClick(no, item.userId, 'rejected_member')
+                        }
+                      >
+                        내보내기
+                      </button>
+                    )}
                     {item.status === 'rejected_member' && (
                       <span>탈퇴회원입니다</span>
                     )}

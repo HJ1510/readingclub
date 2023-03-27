@@ -1,5 +1,6 @@
 import { meetingList } from 'MeetigData';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 // import "assets/css/component/meeting/Meeting.css";
 
 function MyMeetingList(props) {
@@ -77,12 +78,16 @@ function MyMeetingList(props) {
                         <div className='d-flex justify-content-between align-items-center'>
                           <div className='btn-group'>
                             {item.members[0].role === 'host' ? (
-                              <button
-                                type='button'
-                                className='btn btn-sm btn-outline-secondary'
+                              <Link
+                                to={`/meeting/admin/${item.autoIncrementField}`}
                               >
-                                모임관리
-                              </button>
+                                <button
+                                  type='button'
+                                  className='btn btn-sm btn-outline-secondary'
+                                >
+                                  모임관리
+                                </button>
+                              </Link>
                             ) : (
                               <button
                                 type='button'
