@@ -1,78 +1,42 @@
+import axios from "axios";
 import { useState } from "react";
-import "../../assets/css/component/comment/BComment.css";
 
-const INITIAL_VALUES = {
-  title: "",
-  rating: 0,
-  content: "",
-  imgFile: null,
-};
 
-function CommentForm({
-  initialValues = INITIAL_VALUES,
-  onSubmitSuccess,
-  onCancel,
-  onSubmit,
-}) {
-  const [values, setValues] = useState(initialValues);
-  const [isSubmitting, setIsubmitting] = useState(false);
-  const [submittingError, setSubmittingError] = useState(null);
+function BCommentForm(){
 
-  const commentChange = (e) => {
-    const { name, value } = e.target;
-    setValues((prevValues) => ({ ...prevValues, [name]: value }));
+
+  const [values, setValues] = useState("");
+
+  const handleCommentChange = (e) => {
+    setValues(e.values.target)
   };
-
-  const commentSubmit = async (e) => {
+  const handleCommentSubmit =  (e) => {
     e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("content", values.content);
-    formData.append("title", "제목");
-    formData.append("rating", 2);
-
-    let result;
-    try {
-      setSubmittingError(null);
-      setIsubmitting(true);
-      result = await onSubmit(formData);
-    } catch (error) {
-      setSubmittingError(error);
-      return;
-    } finally {
-      setIsubmitting(false);
+    let body ={
+      content:"asds"
     }
-    console.log(result);
-    const { review } = result;
-
-    onSubmitSuccess(review);
-    setValues(INITIAL_VALUES);
+    axios.post("/api/Bcomments",body).then((res)=>{
+        console.log(res)
+    })
   };
 
   return (
     <div>
       <div>코멘트폼</div>
-      <form className="ReviewForm" onSubmit={commentSubmit}>
-        {/* <FileInput
-          name="imgFile"
-          defaultValue={values.imgFile}
-          onChange={handleChange}
-        /> */}
+      <div className="ReviewForm">
         <textarea
           name="content"
-          value={values.content}
           placeholder="내용을 입력해주세요"
-          onChange={commentChange}
+          onChange={handleCommentChange}
         />
-        <button type="sumbit" disabled={isSubmitting}>
+        <button  onClick={handleCommentSubmit}>
           확인
         </button>
-        {onCancel && <button onClick={onCancel}>취소</button>}
-        {submittingError && <div>{submittingError.message}</div>}
-        {/** type="sumbit" -> onSubmit 이벤트 발생 */}
-      </form>
+        <button>취소</button>
+  
+      </div>
     </div>
   );
 }
 
-export default CommentForm;
+export default BCommentForm;

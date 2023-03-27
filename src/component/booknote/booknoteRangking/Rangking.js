@@ -90,6 +90,7 @@ const[user,setuser]= useState([]);
           </Typography>
           {notes
         .sort((a, b) => b.hit - a.hit)
+        .slice(0, 5) // add this line to only keep the top 5 notes
           .map((note, index) => {
             let icon;
             if (index === 0) {
@@ -124,6 +125,7 @@ const[user,setuser]= useState([]);
           <div>
             {user
             .sort((a, b) => b.postCount - a.postCount)
+            .slice(0, 5)
             .map((post, index) => {
               let icon;
               if (index === 0) {
@@ -159,6 +161,7 @@ const[user,setuser]= useState([]);
           <div>
             {notes 
             .sort((a, b) => b.likes - a.likes)
+            .slice(0, 5)
             .map((note, index) => {
               let icon;
               if (index === 0) {

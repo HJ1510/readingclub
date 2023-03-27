@@ -63,8 +63,8 @@ function Heatmap() {
           />
         </div>
       </Col>
-      <Col md={3}> 
-        <span className="color-text">less</span>
+      <Col md={3} style={{paddingTop:"130px"}}> 
+        <span className="color-text"> less {" "}</span>
         <span className="color-box color-scale-0" />
         <span className="color-box color-scale-4" />
         <span className="color-box color-scale-8" />

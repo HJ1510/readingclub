@@ -1,7 +1,5 @@
 import { useState } from "react";
-import "../../assets/css/component/comment/Comment.css";
-import CommentForm from "./CommentForm";
-
+import BCommentForm from "./BCommentForm";
 const styles = {
   wrapper: {
     margin: 8,
@@ -41,7 +39,7 @@ function formatDate(value) {
   return `${date.getFullYear()}. ${date.getMonth() + 1}. ${date.getDate()}`;
 }
 
-function CommentListItem({ item, onDelete, onEdit }) {
+function BCommentListItem({ item, onDelete, onEdit }) {
   const deleteCommentClick = () => onDelete(item.id);
   const editCommentClick = () => onEdit(item.id);
 
@@ -64,7 +62,7 @@ function CommentListItem({ item, onDelete, onEdit }) {
   );
 }
 
-function CommentList({ items, onDelete, onUpdate, onUpdateSuccess }) {
+function BCommentList({ items, onDelete, onUpdate, onUpdateSuccess }) {
   const [edittingID, setEdittingID] = useState(null);
 
   const commentCancel = () => setEdittingID(null);
@@ -85,18 +83,15 @@ function CommentList({ items, onDelete, onUpdate, onUpdateSuccess }) {
             };
             return (
               <div key={item.id}>
-                <CommentForm
-                  initialValues={initialValues}
-                  onCancel={commentCancel}
-                  onSubmit={commentSubmit}
-                  onSubmitSuccess={commentSubmitSuccess}
+                <BCommentForm
+              
                 />
               </div>
             );
           }
           return (
             <div key={item.id}>
-              <CommentListItem
+              <BCommentListItem
                 item={item}
                 onDelete={onDelete}
                 onEdit={setEdittingID}
@@ -109,4 +104,4 @@ function CommentList({ items, onDelete, onUpdate, onUpdateSuccess }) {
   );
 }
 
-export default CommentList;
+export default BCommentList;

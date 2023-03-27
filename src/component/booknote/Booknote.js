@@ -91,7 +91,7 @@ function Booknote() {
         <div className={styles.booknote}>
           <div className={styles.booknotelay}>
             <div className={styles.booknote_sidebar}>
-              <div className='sidebar-card'></div>
+              <div className='sidebar-card' >
               {id&&(
                 <img
                 className={styles.avatar}
@@ -103,12 +103,13 @@ function Booknote() {
                 {id&&(
                   <h1 className={styles.carduser}>{id.name}</h1>
                 )}
-                
+                </div>
               </div>
+              
               <div className='cardusercolum'>
                 <Link
                   style={{
-                    color: 'var(--color-fg-muted) !important',
+                    color: 'black',
                     textDecorationLine: 'none',
                   }}
                   to='https://github.com/YuumiNam?tab=followers'
@@ -125,7 +126,7 @@ function Booknote() {
                 .
                 <Link
                   style={{
-                    color: 'var(--color-fg-muted) !important',
+                    color: 'black',
                     textDecorationLine: 'none',
                   }}
                   to='https://github.com/YuumiNam?tab=following'
@@ -146,7 +147,8 @@ function Booknote() {
                 >
                   노트 작성하기 📗
                 </Link>
-                <Link to='#' onClick={handleModalOpen}>
+                <br/>
+                <Link to='#'   style={{ textDecoration: 'none', color: 'black' }} onClick={handleModalOpen}>
                   목표도서 설정하기
                 </Link>
                 <Modal show={showModal} onHide={handleModalClose}>

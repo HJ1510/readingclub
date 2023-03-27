@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { createComment, deleteComment, getComments, updateComment } from "api";
-import CommentList from "./BCommentList";
-import CommentForm from "./CommentForm";
+import BCommentForm from "./BCommentForm";
+import BCommentList from "./BCommentList";
 
-function Comment() {
+
+function BComment() {
   const [items, setItems] = useState([]);
   const [order, setOrder] = useState("createdAt");
   const [loadingError, setLoadingError] = useState(null);
@@ -59,11 +60,11 @@ function Comment() {
         <button onClick={newestClick}>최신순</button>
         <button onClick={bestClick}>베스트순</button>
       </div>
-      <CommentForm
+      <BCommentForm
         onSubmit={createComment}
         onSubmitSuccess={createCommetSuccess}
       />
-      <CommentList
+      <BCommentList
         items={sortedItems}
         onDelete={commentDelete}
         onUpdate={updateComment}
@@ -74,4 +75,4 @@ function Comment() {
   );
 }
 
-export default Comment;
+export default BComment;

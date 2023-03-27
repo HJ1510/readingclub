@@ -16,24 +16,26 @@
   --Layout-gutter: 24px;
   display: block;
   font-size: 20px;
+  margin-right: 20px;
   /* text-align: center; */
 }
 .bookcontainer {
-  background-color: var(--color-canvas-default);
-  border-color: #e6e0e0;
+  border-color:  #d0d7de;
   border-radius: var(--primer-borderRadius-medium, 6px);
   border-width: var(--primer-borderWidth-thin, 1px);
   border-radius: 20px;
-  overflow: hidden;
+
   display: flex;
   gap: 15px;
+  border-style: solid  ;
+  padding:  10px;
 }
 
 .bookcontainer::before,
 .glassbox::before {
   content: '';
   position: relative;
-  height: 1px;
+  height: 2px;
 
   background-color: red;
   animation: border-slide 5s linear infinite;
@@ -62,11 +64,15 @@
 }
 
 .booknote_mian {
-  display: block;
+
   --Layout-sidebar-width: 296px;
-  border-bottom: 1px solid var(--color-border-default);
+  border-style: solid  ;
+  border-radius: var(--primer-borderRadius-medium, 6px);
+  border-color: #d0d7de;
   box-shadow: none;
-  height: 500px;
+
+  border-width: var(--primer-borderWidth-thin, 1px);
+  padding: 20px;
 }
 
 .position-relative {
@@ -124,15 +130,15 @@
 }
 .glassbox {
   margin-top: 18px;
-
+  border: var(--primer-borderWidth-thin, 1px) solid #d0d7de !important;
   --Layout-sidebar-width: 296px;
-  background-color: var(--color-canvas-default);
-  border-color: #e6e0e0;
+
+  
   border-radius: var(--primer-borderRadius-medium, 6px);
 
-  border-width: var(--primer-borderWidth-thin, 1px);
-  border-radius: 20px;
-  height: 170px;
+ padding: 3px;
+ border-radius: 20px;
+  height: 190px;
   width: 100%;
 }
 
