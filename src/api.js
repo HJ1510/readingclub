@@ -245,3 +245,64 @@ export async function updateReviewArticleById({ no, id }, formData) {
     throw new Error('reviewArticle 게시글 수정하는데 실패하였습니다');
   }
 }
+
+// meetingBoardArticle 작성
+export async function insertMeetingBoardArticle(no, formData) {
+  try {
+    const response = await axios.post(
+      `/api/meeting/${no}/reviewArticle/create`,
+      formData
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error('reviewArticle 게시글 생성하는데 실패하였습니다');
+  }
+}
+
+// 모임별 전체 meetingBoardArticle 조회
+export async function getMeetingBoardArticlesByMeetingNo(no, page) {
+  try {
+    const response = await axios.get(
+      `/api/meeting/${no}/meetingArticle?page=${page}`
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error('meetingArticle 리스트를 불러오는데 실패했습니다');
+  }
+}
+
+// 특정 meetingBoardArticle 조회
+export async function getMeetingBoardArticleById(no, id) {
+  try {
+    const response = await axios.get(`/api/meeting/${no}/meetingArticle/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('meetingArticle 게시글 조회하는데 실패하였습니다');
+  }
+}
+
+// 특정 meetingBoardArticle 삭제
+export async function deleteMeetingBoardArticleById(no, id) {
+  try {
+    const response = await axios.delete(
+      `/api/meeting/${no}/meetingArticle/${id}`
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error('meetingArticle 게시글 삭제하는데 실패하였습니다');
+  }
+}
+
+// 특정 meetingBoardArticle 수정
+export async function updateMeetingBoardArticleById({ no, id }, formData) {
+  try {
+    const response = await axios.patch(
+      `/api/meeting/${no}/meetingArticle/${id}`,
+      formData
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error); // 오류 메시지 출력
+    throw new Error('meetingArticle 게시글 수정하는데 실패하였습니다');
+  }
+}

@@ -1,7 +1,11 @@
 import { useParams } from 'react-router';
 import { useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { insertFAQArticle, insertReviewArticle } from 'api';
+import {
+  insertFAQArticle,
+  insertReviewArticle,
+  insertMeetingBoardArticle,
+} from 'api';
 import ArticleForm from './ArticleForm';
 import Layout from 'layout/Layout';
 
@@ -24,9 +28,9 @@ function ArticleWrite() {
         case 'review':
           response = await insertReviewArticle(no ? no : '', formData);
           break;
-        // case 'meetingBoard':
-        //   response = await insertMeetingBoardArticle(no ? no : '', formData);
-        //   break;
+        case 'meetingBoard':
+          response = await insertMeetingBoardArticle(no ? no : '', formData);
+          break;
         default:
           throw new Error('게시판이 생성되지 않았습니다.');
       }

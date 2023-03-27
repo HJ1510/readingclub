@@ -46,7 +46,11 @@ function MeetingGroup() {
         /> */}
         <Row>
           <Col>
-            <MeetingCalender apiFunction={getOrdersByNo} />
+            <MeetingCalender
+              apiFunction={getOrdersByNo}
+              no={no}
+              title='groupScheduleCalendar'
+            />
           </Col>
         </Row>
         <Row>
@@ -82,7 +86,7 @@ function MeetingGroup() {
           })}
 
         <Row>
-          <Board title='모임원 게시판' />
+          <Board title='meetingBoard' />
         </Row>
       </Container>
     </Layout>

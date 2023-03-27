@@ -1,6 +1,10 @@
 import ArticleList from './ArticleList';
 import styles from 'assets/css/component/meeting/Board.module.css';
-import { getFAQArticlesByMeetingNo, getReviewArticlesByMeetingNo } from 'api';
+import {
+  getFAQArticlesByMeetingNo,
+  getReviewArticlesByMeetingNo,
+  getMeetingBoardArticlesByMeetingNo,
+} from 'api';
 import { useParams, useNavigate } from 'react-router-dom';
 
 function Board({ title }) {
@@ -16,11 +20,21 @@ function Board({ title }) {
     return reviewArticle;
   };
 
+  const loadMeetingBoardArticles = async (page) => {
+    const meetingBoardArticle = await getMeetingBoardArticlesByMeetingNo(
+      no,
+      page
+    );
+    return meetingBoardArticle;
+  };
+
   let loadData;
   if (title === 'FAQ') {
     loadData = loadFAQArticles;
   } else if (title === 'review') {
     loadData = loadReviewArticles;
+  } else if (title === 'meetingBoard') {
+    loadData = loadMeetingBoardArticles;
   }
 
   return (

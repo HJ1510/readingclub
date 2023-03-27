@@ -18,13 +18,15 @@ function formatDate(value) {
 function ArticleList({ title, loadData, no }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [data, handlePageChange] = useArticle(loadData);
+  // console.log(data);
   const items =
     title === 'FAQ'
       ? data.faqArticles
       : title === 'review'
       ? data.reviewArticles
-      : data.meetingBoardArticles;
+      : data.meetingArticles;
   const totalPages = data.totalPages;
+  // console.log(items);
 
   const handlePaginationPageChange = (page) => {
     setCurrentPage(page);
@@ -47,11 +49,21 @@ function ArticleList({ title, loadData, no }) {
         </Row>
         {items && items.length !== 0 ? (
           <div className={styles.articleList}>
+            <Row className={styles.boardHeader}>
+              <Col md={1}></Col>
+              <Col md={1}>No.</Col>
+              <Col md={5}>제목</Col>
+              <Col md={1}>작성자</Col>
+              <Col md={2}>작성일</Col>
+              <Col md={1}>조회수</Col>
+            </Row>
             {items.map((item, idx) => (
               <div key={idx}>
                 <Row className={styles.articles}>
                   <Col md={1}></Col>
-                  <Col md={1}>{item.autoIncrementField}</Col>
+                  {/* <Col md={1}>{item.autoIncrementField}</Col>
+                   */}
+                  <Col md={1}>{items.length - idx}</Col>
                   <Col md={5} className={styles.articlesTitle}>
                     <Link to={`${item._id}`} state={{ title: title }}>
                       {item.title}

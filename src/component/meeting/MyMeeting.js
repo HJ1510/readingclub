@@ -32,6 +32,7 @@ function MyMeeting() {
                 apiFunction={getUserMeetings}
                 userId={userData._id}
                 className={styles.Calender}
+                title='joinedGroupScheduleCalendar'
               />
             )}
           </Col>
