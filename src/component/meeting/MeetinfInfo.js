@@ -19,6 +19,12 @@ function MeetingInfo() {
   const [authUser, setAuthUser] = useState({});
   const dispatch = useDispatch();
   const members = useMembers(no);
+  console.log(authUser);
+  console.log(members);
+
+  const isHost = members.some(
+    (member) => member.userId === authUser._id && member.role === 'host'
+  );
 
   const totalMembers = members.length;
 
@@ -206,9 +212,11 @@ function MeetingInfo() {
             <Link to={`/meeting/group/${no}`}>
               <p>모임 게시판</p>
             </Link>
-            <Link to={`/meeting/admin/${no}`}>
-              <p>관리</p>
-            </Link>
+            {isHost && (
+              <Link to={`/meeting/admin/${no}`}>
+                <p>관리</p>
+              </Link>
+            )}
             <div>
               <p onClick={handleClick}>가입신청</p>
             </div>

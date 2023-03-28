@@ -14,6 +14,7 @@ function MeetingAdmin() {
   const [meetinginfo, setMeetinginfo] = useState('');
   const members = useMembers(no);
   const now = 60;
+  console.log(members);
 
   const handleClick = async (no, memberId, status) => {
     try {
@@ -50,58 +51,85 @@ function MeetingAdmin() {
           </Col>
         </Row>
 
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4" style={{marginTop:"20px",marginBottom:"30px"}}>
-
+        <div
+          className='row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4'
+          style={{ marginTop: '20px', marginBottom: '30px' }}
+        >
           {members &&
             members.map((member, idx) => {
               return (
+                <div className='col' key={idx}>
+                  <div className='card shadow-sm'>
+                    {member.imgpath.path ? (
+                      <img
+                        style={{ height: '200px' }}
+                        src={`/${member.imgpath.path}`}
+                        alt='member'
+                      />
+                    ) : (
+                      <img src={profile} alt='profile' />
+                    )}
 
-                <div className="col" key={idx} >
-
-                  <div className="card shadow-sm">
-                    <img style={{ height: "200px" }} src={`/${member.imgpath.path}`} alt='member' />
-                    <strong style={{ margin: "10px" }} class=" text-success"> {member.role}</strong>
-                    <div class="card-body">
-
-                      <strong className="card-text" style={{ fontSize: "1.5em" }}>{member.name}</strong>
-
+                    <strong style={{ margin: '10px' }} class=' text-success'>
+                      {' '}
+                      {member.role}
+                    </strong>
+                    <div class='card-body'>
+                      <strong
+                        className='card-text'
+                        style={{ fontSize: '1.5em' }}
+                      >
+                        {member.name}
+                      </strong>
 
                       <p>{member.status}</p>
-                      <div className="d-flex justify-content-between align-items-center">
-                      {member.status === 'provisional_member' && (
-                        <div className="btn-group">
-
-                          <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() =>
-                            handleClick(no, member.userId, 'full_member')
-                          }>승인</button>
-                          <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() =>
-                            handleClick(no, member.userId, 'rejected_member')
-                          }>거부</button>
-                          
+                      <div className='d-flex justify-content-between align-items-center'>
+                        {member.status === 'provisional_member' && (
+                          <div className='btn-group'>
+                            <button
+                              type='button'
+                              className='btn btn-sm btn-outline-secondary'
+                              onClick={() =>
+                                handleClick(no, member.userId, 'full_member')
+                              }
+                            >
+                              승인
+                            </button>
+                            <button
+                              type='button'
+                              className='btn btn-sm btn-outline-secondary'
+                              onClick={() =>
+                                handleClick(
+                                  no,
+                                  member.userId,
+                                  'rejected_member'
+                                )
+                              }
+                            >
+                              거부
+                            </button>
+                          </div>
+                        )}
+                        {member.status === 'full_member' && (
+                          <button
+                            className='btn btn-sm btn-outline-secondary'
+                            onClick={() =>
+                              handleClick(no, member.userId, 'rejected_member')
+                            }
+                          >
+                            내보내기
+                          </button>
+                        )}
+                        {member.status === 'rejected_member' && (
+                          <span>탈퇴회원입니다</span>
+                        )}
                       </div>
-                            )}  
-                            {member.status === 'full_member' && (
-                      <button  className="btn btn-sm btn-outline-secondary"
-                        onClick={() =>
-                          handleClick(no, member.userId, 'rejected_member')
-                        }
-                      >
-                        내보내기
-                      </button>
-                    )}
-                    {member.status === 'rejected_member' && (
-                      <span>탈퇴회원입니다</span>
-                    )}
-                        </div>
-
                     </div>
                   </div>
                 </div>
-
               );
             })}
         </div>
-    
       </Container>
     </Layout>
   );

@@ -88,7 +88,14 @@ function ArticleView() {
                 </div>
                 <div className={styles.WriterInfo}>
                   <div className={styles.Writer_profile_img}>
-                    <img src={`/${data.creator.imgpath.path}`} alt='profile' />
+                    {data.creator.imgpath ? (
+                      <img
+                        src={`/${data.creator.imgpath.path}`}
+                        alt='profile'
+                      />
+                    ) : (
+                      <img src={profile} alt='profile' />
+                    )}
                   </div>
                   <div className={styles.article_writer}>
                     <div>{data?.creator?.name}</div>
