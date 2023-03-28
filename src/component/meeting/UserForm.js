@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { getUserMeetings } from 'api';
 import { BsFillPeopleFill } from 'react-icons/bs';
+import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 
 function UserForm() {
   const [meeting, setMeeting] = useState([]);
@@ -87,7 +88,7 @@ function UserForm() {
                 disabled={startIndex === 0}
                 style={{ float: 'left', marginLeft: '20px', marginTop: '10px' }}
               >
-                &lt;
+                <BiChevronLeft />
               </button>
               <button
                 onClick={handleNext}
@@ -98,7 +99,7 @@ function UserForm() {
                   marginTop: '10px',
                 }}
               >
-                &gt;
+                <BiChevronRight />
               </button>
             </>
           )}

@@ -16,9 +16,18 @@ function MeetingList({ title, searchMeetings, keyword }) {
   const handleAutoIncrementFieldClick = () => setOrder('autoIncrementField');
   const handleFirstDateClick = () => setOrder('firstDate');
 
+  const sortedItems = meetingItems.sort((a, b) => {
+    if (order === 'autoIncrementField') {
+      return b.autoIncrementField - a.autoIncrementField;
+    } else if (order === 'firstDate') {
+      return new Date(a.order[0].date) - new Date(b.order[0].date);
+    }
+  });
+
   // node api
   const listLoad = async (search) => {
     const { meetings } = await getMeetings();
+    console.log(meetings);
     const sortedMeetings = meetings.sort(
       (a, b) => b.autoIncrementField - a.autoIncrementField
     );
@@ -31,9 +40,23 @@ function MeetingList({ title, searchMeetings, keyword }) {
 
   return (
     <div>
-    <div style={{ textAlign: 'left',marginBottom:"20px" }}>
-        <Button variant="outline-secondary" size="sm"  onClick={handleAutoIncrementFieldClick} style={{ marginLeft : '170px' }}>최신순</Button>
-        <Button variant="outline-secondary" size="sm"  onClick={handleFirstDateClick} style={{ marginRight: '200px' }}>최근날짜순</Button>
+      <div style={{ textAlign: 'left', marginBottom: '20px' }}>
+        <Button
+          variant='outline-secondary'
+          size='sm'
+          onClick={handleAutoIncrementFieldClick}
+          style={{ marginLeft: '170px' }}
+        >
+          최신순
+        </Button>
+        <Button
+          variant='outline-secondary'
+          size='sm'
+          onClick={handleFirstDateClick}
+          style={{ marginRight: '200px' }}
+        >
+          최근날짜순
+        </Button>
       </div>
       <div>
         {keyword
