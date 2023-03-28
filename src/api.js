@@ -255,12 +255,13 @@ export async function updateReviewArticleById({ no, id }, formData) {
 export async function insertMeetingBoardArticle(no, formData) {
   try {
     const response = await axios.post(
-      `/api/meeting/${no}/reviewArticle/create`,
+      `/api/meeting/${no}/meetingArticle/create`,
       formData
     );
+    console.log(response.data);
     return response.data;
   } catch (error) {
-    throw new Error('reviewArticle 게시글 생성하는데 실패하였습니다');
+    throw new Error('meetingBoardArticle 게시글 생성하는데 실패하였습니다');
   }
 }
 

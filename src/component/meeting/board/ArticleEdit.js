@@ -7,6 +7,8 @@ import {
   updateFAQArticleById,
   getReviewArticleById,
   updateReviewArticleById,
+  getMeetingBoardArticleById,
+  updateMeetingBoardArticleById,
 } from 'api';
 import ArticleForm from './ArticleForm';
 import Layout from 'layout/Layout';
@@ -33,9 +35,9 @@ function ArticleEdit() {
         case 'review':
           data = await getReviewArticleById(no, id);
           break;
-        // case 'meetingBoard':
-        //   data = await getMeetingBoardArticleById(no, id);
-        //   break;
+        case 'meetingBoard':
+          data = await getMeetingBoardArticleById(no, id);
+          break;
         default:
           throw new Error('게시판이 생성되지 않았습니다.');
       }
@@ -62,9 +64,9 @@ function ArticleEdit() {
         case 'review':
           response = await updateReviewArticleById({ no, id }, formData);
           break;
-        // case 'meetingBoard':
-        //   response = await updateMeetingBoardArticleById({ no, id }, formData);
-        //   break;
+        case 'meetingBoard':
+          response = await updateMeetingBoardArticleById({ no, id }, formData);
+          break;
         default:
           throw new Error('게시판이 생성되지 않았습니다.');
       }

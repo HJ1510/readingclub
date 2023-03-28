@@ -114,7 +114,7 @@ function ArticleView() {
                   {data?.hashtags?.map((hashtag, idx) => {
                     return (
                       <p className={styles.hashTag} key={idx}>
-                        해시태그 : {hashtag}
+                        #{hashtag}
                       </p>
                     );
                   })}

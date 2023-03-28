@@ -9,6 +9,7 @@ import { auth } from 'actions/user_action';
 import { useDispatch } from 'react-redux';
 import MeetingModal from './MeetingModal';
 import { useMembers } from 'hooks/useMembers';
+import { useMeetingInfo } from 'hooks/useMeetingInfo';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
 
 function MeetingInfo() {
@@ -19,8 +20,10 @@ function MeetingInfo() {
   const [authUser, setAuthUser] = useState({});
   const dispatch = useDispatch();
   const members = useMembers(no);
-  console.log(authUser);
-  console.log(members);
+  const meetingInfo = useMeetingInfo(no);
+  // console.log(authUser);
+  // console.log(members);
+  console.log(meetingInfo);
 
   const isHost = members.some(
     (member) => member.userId === authUser._id && member.role === 'host'

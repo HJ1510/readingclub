@@ -20,7 +20,7 @@ function MeetingGroup() {
   const [showModal, setShowModal] = useState(false);
   const members = useMembers(no);
   const meetingInfo = useMeetingInfo(no);
-  console.log(meetingInfo);
+  // console.log(meetingInfo);
   // const [messages, setMessages] = useState([]);
 
   // useEffect(() => {

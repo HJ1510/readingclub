@@ -28,7 +28,7 @@ function ArticleList({ title, loadData, no }) {
       ? data.reviewArticles
       : data.meetingArticles;
   const totalPages = data.totalPages;
-  // console.log(items);
+  // console.log(data);
 
   const handlePaginationPageChange = (page) => {
     setCurrentPage(page);
