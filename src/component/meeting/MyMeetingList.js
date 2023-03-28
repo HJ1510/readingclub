@@ -96,7 +96,7 @@ function MyMeetingList(props) {
                       <div className='btn-group'>
                         {item.role === 'host' ? (
                           <Link
-                            to={`/meeting/admin/${item.autoIncrementField}`}
+                            to={`/meeting/admin/${item.no}`}
                           >
                             <button
                               type='button'
