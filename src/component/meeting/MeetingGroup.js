@@ -55,6 +55,22 @@ function MeetingGroup() {
               </div>
             </div>
           </section>
+          <section className='py-5 text-center container'>
+            <div className='row py-lg-5'>
+              <div className='col-lg-6 col-md-8 mx-auto'>
+                <h1 className='fw-light'>{meetingInfo.title}</h1>
+                <p className='lead text-muted'>{meetingInfo.introduce}</p>
+
+                {meetingInfo.order?.map((order) => (
+                  <p className='lead text-muted'>일정 : {order.date}</p>
+                ))}
+                <p className='lead text-muted'>장소 : {meetingInfo.location}</p>
+                <p>
+                  <Button onClick={() => handlechat(no)}>채팅 열기</Button>
+                </p>
+              </div>
+            </div>
+          </section>
           <Col>
             <MeetingCalender
               apiFunction={getOrdersByNo}
