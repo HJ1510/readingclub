@@ -161,7 +161,7 @@ function SearchBar() {
                          
                           <a style={{ marginRight: "20px" }}>조회수 : {book.hit}</a>
                           <a>🧡 {book.likes}</a>
-                          <Link to={`/booknote/${book._id}`}   className="stretched-link " style={{ marginLeft: "160px" }}>View</Link>
+                          <Link to={`/booknote/${book._id}`}    style={{ marginLeft: "160px" }}>View</Link>
                         </div>
                
                       </div>
