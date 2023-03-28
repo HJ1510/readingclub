@@ -14,7 +14,7 @@ function ArticleWrite() {
   const navigate = useNavigate();
   const location = useLocation();
   const { title } = location.state;
-  console.log(title);
+  // console.log(title);
 
   const userData = useSelector((state) => state.user.userData);
 
@@ -34,7 +34,7 @@ function ArticleWrite() {
         default:
           throw new Error('게시판이 생성되지 않았습니다.');
       }
-      console.log(response);
+      // console.log(response);
       navigate(-1);
     } catch (error) {
       console.error(error);

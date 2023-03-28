@@ -34,8 +34,8 @@ function ArticleView() {
 
   const location = useLocation();
   const { title } = location.state;
-  console.log(title);
-  console.log(data);
+  // console.log(title);
+  // console.log(data);
 
   useEffect(() => {
     const articleLoad = async (no, id) => {

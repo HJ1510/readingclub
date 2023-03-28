@@ -8,7 +8,7 @@ import 'assets/css/component/meeting/Meeting.css';
 
 function MyMeetingList(props) {
   const meeting = props.meeting;
-  console.log(meeting);
+  // console.log(meeting);
 
   const [authUser, setAuthUser] = useState({});
   const dispatch = useDispatch();
@@ -24,9 +24,9 @@ function MyMeetingList(props) {
   // };
 
   const handleClick = async (no, memberId, status) => {
-    console.log(no);
-    console.log(memberId);
-    console.log(status);
+    // console.log(no);
+    // console.log(memberId);
+    // console.log(status);
     try {
       const body = { status: status };
       await updateMemberStatus({ no, memberId }, body);
@@ -95,9 +95,7 @@ function MyMeetingList(props) {
                     <div className='d-flex justify-content-between align-items-center'>
                       <div className='btn-group'>
                         {item.role === 'host' ? (
-                          <Link
-                            to={`/meeting/admin/${item.no}`}
-                          >
+                          <Link to={`/meeting/admin/${item.no}`}>
                             <button
                               type='button'
                               className='btn btn-sm btn-outline-secondary'

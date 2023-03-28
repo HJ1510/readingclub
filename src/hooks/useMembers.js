@@ -8,7 +8,7 @@ export function useMembers(no) {
     async function fetchData() {
       try {
         const members = await getAllMembersByNo(parseInt(no));
-        console.log(members);
+        // console.log(members);
         setMembers(members);
       } catch (error) {
         console.error(error);

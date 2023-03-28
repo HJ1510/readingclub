@@ -23,7 +23,7 @@ function MeetingInfo() {
   const meetingInfo = useMeetingInfo(no);
   // console.log(authUser);
   // console.log(members);
-  console.log(meetingInfo);
+  // console.log(meetingInfo);
 
   const isHost = members.some(
     (member) => member.userId === authUser._id && member.role === 'host'

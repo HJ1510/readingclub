@@ -12,7 +12,7 @@ import { useState } from 'react';
 function Meeting() {
   const [searchMeetings, setSearchMeetings] = useState([]);
   const [keyword, setKeyword] = useState('');
-  console.log(searchMeetings);
+  // console.log(searchMeetings);
 
   const handleMeetingsChange = (meetings) => {
     setSearchMeetings(meetings);

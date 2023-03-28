@@ -26,10 +26,10 @@ function Category({ onMeetingsChange, onKeywordChange }) {
     e.preventDefault();
 
     const data = await getSearchMeetingByKwd(keyword);
-    console.log(data);
+    // console.log(data);
     setSearchMeetings(data);
     onMeetingsChange(data);
-    console.log(searchMeetings);
+    // console.log(searchMeetings);
   };
 
   return (
@@ -56,7 +56,8 @@ function Category({ onMeetingsChange, onKeywordChange }) {
         <Form className={styles.meetingSearch}>
           <div>
             <input
-              style={{marginLeft:"300px"}} placeholder='모임이름 :)'
+              style={{ marginLeft: '300px' }}
+              placeholder='모임이름 :)'
               onChange={handleKeywordChange}
             ></input>
           </div>
@@ -67,9 +68,7 @@ function Category({ onMeetingsChange, onKeywordChange }) {
           </div>
         </Form>
       </Col>
-      <Col md={1}>
-       
-      </Col>
+      <Col md={1}></Col>
     </Row>
   );
 }

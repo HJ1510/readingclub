@@ -51,8 +51,8 @@ function MeetingCalender({ apiFunction, title, no }) {
   const handleEventClick = (clickInfo) => {
     if (title !== 'allScheduleCalendar') return;
     const meetingId = clickInfo.event._def.extendedProps.meetingNo;
-    console.log(meetingId);
-    console.log(clickInfo);
+    // console.log(meetingId);
+    // console.log(clickInfo);
     window.location.href = `/meeting/info/${meetingId}`;
   };
 

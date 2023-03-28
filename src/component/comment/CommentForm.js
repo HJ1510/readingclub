@@ -1,10 +1,10 @@
-import { useState } from "react";
-import "../../assets/css/component/comment/Comment.css";
+import { useState } from 'react';
+import '../../assets/css/component/comment/Comment.css';
 
 const INITIAL_VALUES = {
-  title: "",
+  title: '',
   rating: 0,
-  content: "",
+  content: '',
   imgFile: null,
 };
 
@@ -27,9 +27,9 @@ function CommentForm({
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("content", values.content);
-    formData.append("title", "제목");
-    formData.append("rating", 2);
+    formData.append('content', values.content);
+    formData.append('title', '제목');
+    formData.append('rating', 2);
 
     let result;
     try {
@@ -42,7 +42,7 @@ function CommentForm({
     } finally {
       setIsubmitting(false);
     }
-    console.log(result);
+    // console.log(result);
     const { review } = result;
 
     onSubmitSuccess(review);
@@ -50,21 +50,21 @@ function CommentForm({
   };
 
   return (
-    <div  style={{maxWidth:"1200px",  margin: "0 auto"}}>
+    <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
       <div>코멘트폼</div>
-      <form className="ReviewForm" onSubmit={commentSubmit}>
+      <form className='ReviewForm' onSubmit={commentSubmit}>
         {/* <FileInput
           name="imgFile"
           defaultValue={values.imgFile}
           onChange={handleChange}
         /> */}
         <textarea
-          name="content"
+          name='content'
           value={values.content}
-          placeholder="내용을 입력해주세요"
+          placeholder='내용을 입력해주세요'
           onChange={commentChange}
         />
-        <button type="sumbit" disabled={isSubmitting}>
+        <button type='sumbit' disabled={isSubmitting}>
           확인
         </button>
         {onCancel && <button onClick={onCancel}>취소</button>}

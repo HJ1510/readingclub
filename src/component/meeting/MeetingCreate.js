@@ -68,14 +68,14 @@ function MeetingCreate() {
     e.preventDefault();
 
     const form = e.target; // 이벤트가 발생한 폼 요소
-    console.log(form);
+    // console.log(form);
     const formData = new FormData(form); // 폼 데이터 추출
     formData.append('creator', authUser._id);
     formData.append('imgFile', values.imgFile);
 
     try {
       const response = await createMeetings(formData);
-      console.log(response);
+      // console.log(response);
       navigate(-1);
     } catch (error) {
       console.error(error);

@@ -8,8 +8,8 @@ import { Button } from 'react-bootstrap';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
 
 function MeetingList({ title, searchMeetings, keyword }) {
-  console.log(searchMeetings);
-  console.log(keyword);
+  // console.log(searchMeetings);
+  // console.log(keyword);
   const [meetingItems, setmeetingItems] = useState([]);
   const [order, setOrder] = useState('autoIncrementField');
 
@@ -27,7 +27,7 @@ function MeetingList({ title, searchMeetings, keyword }) {
   // node api
   const listLoad = async (search) => {
     const { meetings } = await getMeetings();
-    console.log(meetings);
+    // console.log(meetings);
     const sortedMeetings = meetings.sort(
       (a, b) => b.autoIncrementField - a.autoIncrementField
     );

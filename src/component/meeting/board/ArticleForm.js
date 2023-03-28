@@ -38,9 +38,9 @@ function ArticleForm({ initialValues, onSubmit, user }) {
     data.append('content', formData.content);
     data.append('hashtags', formData.hashtags);
     data.append('creator', user._id);
-    for (let [key, value] of data.entries()) {
-      console.log(key, value);
-    }
+    // for (let [key, value] of data.entries()) {
+    //   console.log(key, value);
+    // }
     onSubmit(data);
   };
 

@@ -52,7 +52,7 @@ export async function deleteComment(id) {
 export async function getMeetings() {
   try {
     const response = await axios.get('/api/meeting/all');
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   } catch (error) {
     throw new Error('모임 데이터를 불러오는데 실패했습니다');
@@ -258,7 +258,7 @@ export async function insertMeetingBoardArticle(no, formData) {
       `/api/meeting/${no}/meetingArticle/create`,
       formData
     );
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   } catch (error) {
     throw new Error('meetingBoardArticle 게시글 생성하는데 실패하였습니다');

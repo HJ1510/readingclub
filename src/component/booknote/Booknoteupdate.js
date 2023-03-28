@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import "../../assets/css/component/note/WirteEdbook.css";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import axios from "axios";
-import { Button, Container } from "react-bootstrap";
-import Libray from "./searchbook";
-import { useParams } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import '../../assets/css/component/note/WirteEdbook.css';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import axios from 'axios';
+import { Button, Container } from 'react-bootstrap';
+import Libray from './searchbook';
+import { useParams } from 'react-router-dom';
 import Layout from './../../layout/Layout';
 const Booknoteupdate = () => {
   const dispatch = useDispatch();
@@ -22,27 +22,25 @@ const Booknoteupdate = () => {
   };
 
   const [movieContent, setMovieContent] = useState({
-    title: "",
-    content: "",
+    title: '',
+    content: '',
   });
   const cancle = (e) => {
     e.preventDefault();
-  
+
     navigate(`/booknote/${id}`);
   };
 
   useEffect(() => {
     const fetchPostData = async () => {
-        try {
-            const res = await axios.get(`/api/notelist/${id}`, {
-        
-            });
-        
-            setPostData(res.data);
-            setMovieContent({
-              title: res.data.title,
-              content: res.data.content,
-            });
+      try {
+        const res = await axios.get(`/api/notelist/${id}`, {});
+
+        setPostData(res.data);
+        setMovieContent({
+          title: res.data.title,
+          content: res.data.content,
+        });
         setSelectedBook({
           title: res.data.booktitle,
           thumbnail: res.data.thumbnail,
@@ -52,7 +50,6 @@ const Booknoteupdate = () => {
           authors: res.data.authors,
           datetime: res.data.bookdatetime,
         });
-    
       } catch (error) {
         console.error(error);
       }
@@ -60,9 +57,8 @@ const Booknoteupdate = () => {
     if (id) {
       fetchPostData();
     }
-       
   }, [id]);
- 
+
   const handleSubmit = (e) => {
     e.preventDefault(); // Form 요소의 기본 동작을 방지합니다.
 
@@ -73,9 +69,8 @@ const Booknoteupdate = () => {
     axios
       .put(`/api/notelist/${id}`, body)
       .then((response) => {
-   
-        alert("수정완료 되었습니다");
-        navigate("/booknote")
+        alert('수정완료 되었습니다');
+        navigate('/booknote');
       })
       .catch((error) => {
         console.error(error);
@@ -103,63 +98,55 @@ const Booknoteupdate = () => {
   };
   return (
     <Layout>
-     
-      <Container className="cs">
-        <h1 style={{ marginLeft: "20px" }}>독서 노트 만들기</h1>
-        <Libray  />
-        <div className="App">
-          <div className="form-wrapper">
+      <Container className='cs'>
+        <h1 style={{ marginLeft: '20px' }}>독서 노트 만들기</h1>
+        <Libray />
+        <div className='App'>
+          <div className='form-wrapper'>
             <input
-              className="title-input"
-              type="text"
-              placeholder="제목"
+              className='title-input'
+              type='text'
+              placeholder='제목'
               onChange={getValue}
-              name="title"
-              style={{ width: "500px" }}
-              value={postData?.note.title || ""}
+              name='title'
+              style={{ width: '500px' }}
+              value={postData?.note.title || ''}
             />
 
             <input
-              type="file"
-              accept="image/jpg,image/png,image/jpeg,image/gif"
+              type='file'
+              accept='image/jpg,image/png,image/jpeg,image/gif'
               multiple
               onChange={onChangeImageInput}
             />
             <CKEditor
               editor={ClassicEditor}
-              data={postData?.note.content || ""}
+              data={postData?.note.content || ''}
               onReady={(editor) => {
                 // You can store the "editor" and use when it is needed.
-                console.log("Editor is ready to use!", editor);
+                console.log('Editor is ready to use!', editor);
               }}
               onChange={(event, editor) => {
                 const data = editor.getData();
-                console.log({ event, editor, data });
                 setMovieContent({
                   ...movieContent,
                   content: data,
                 });
               }}
-              onBlur={(event, editor) => {
-                console.log("Blur.", editor);
-              }}
-              onFocus={(event, editor) => {
-                console.log("Focus.", editor);
-              }}
+              onBlur={(event, editor) => {}}
+              onFocus={(event, editor) => {}}
             />
           </div>
 
-          <Button variant="primary" onClick={handleSubmit}>
+          <Button variant='primary' onClick={handleSubmit}>
             수정완료
           </Button>
 
-          <Button variant="primary" type="submit" onClick={cancle} >
+          <Button variant='primary' type='submit' onClick={cancle}>
             수정 취소
-
           </Button>
         </div>
-        </Container>
-    
+      </Container>
     </Layout>
   );
 };

@@ -21,7 +21,7 @@ function Join(props) {
   const [gender, setGender] = useState('male');
   const [date, setDate] = useState('');
   const [nickname, setNickname] = useState('');
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState('');
   // Call when input file type changes
   const handleFileChange = (e) => {
     setImage(e.target.files[0]);
@@ -84,7 +84,7 @@ function Join(props) {
     e.preventDefault();
 
     let formData = new FormData();
-    console.log(formData);
+    // console.log(formData);
     formData.append('file', image);
     formData.append('email', email);
     formData.append('password', password);
@@ -92,7 +92,7 @@ function Join(props) {
     formData.append('gender', gender);
     formData.append('date', date);
     formData.append('nickname', nickname);
-  
+
     dispatch(
       registerUser(formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
@@ -128,9 +128,8 @@ function Join(props) {
             <Form>
               <>
                 <form>
-                <label htmlFor="image">프로필 이미지 업로드</label>
+                  <label htmlFor='image'>프로필 이미지 업로드</label>
                   <input type='file' name='file' onChange={handleFileChange} />
-              
                 </form>
               </>
               <Form.Group as={Row} className='mb-3'>

@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { insertBoard, noteList } from "../../actions/borad_action";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { insertBoard, noteList } from '../../actions/borad_action';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import "../../assets/css/component/note/WirteEdbook.css";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
+import '../../assets/css/component/note/WirteEdbook.css';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
 
-import { Button, Form } from "react-bootstrap";
+import { Button, Form } from 'react-bootstrap';
 
-import Libray from "./searchbook";
+import Libray from './searchbook';
 
 const WriteEditor = () => {
   const dispatch = useDispatch();
   const [imageList, setImageList] = useState([]);
   const navigate = useNavigate();
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState('');
   const [selectedBook, setSelectedBook] = useState(null);
 
   const handleBookSelect = (book) => {
@@ -23,11 +23,10 @@ const WriteEditor = () => {
   };
 
   const [movieContent, setMovieContent] = useState({
-    title: "",
-    content: "",
+    title: '',
+    content: '',
   });
 
-  
   const submitReview = (e) => {
     e.preventDefault();
     let body = {
@@ -40,13 +39,12 @@ const WriteEditor = () => {
       publisher: selectedBook.publisher,
       authors: selectedBook.authors,
       bookdatetime: selectedBook.datetime,
-      category:category,
-    
+      category: category,
     };
     dispatch(insertBoard(body)).then((response) => {
       if (response.payload.success) {
-        alert("등록완료");
-        navigate("/booknote");
+        alert('등록완료');
+        navigate('/booknote');
       }
     });
   };
@@ -123,60 +121,58 @@ const WriteEditor = () => {
     setImageList([...imageList, ...e.target.files]);
   };
   return (
-    <div >
+    <div>
       <Form onSubmit={submitReview}>
-      <h1>독서 노트 만들기</h1>
-      
-      <Libray onBookSelect={handleBookSelect} />
-        <div className="App">
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
-  <option value="">카테고리 선택</option>
-  <option value="소설">소설</option>
-  <option value="비소설">비소설</option>
-  <option value="자기계발">자기계발</option>
-  <option value="역사">역사</option>
-</select>
+        <h1>독서 노트 만들기</h1>
 
-          <div className="form-wrapper">
+        <Libray onBookSelect={handleBookSelect} />
+        <div className='App'>
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value=''>카테고리 선택</option>
+            <option value='소설'>소설</option>
+            <option value='비소설'>비소설</option>
+            <option value='자기계발'>자기계발</option>
+            <option value='역사'>역사</option>
+          </select>
+
+          <div className='form-wrapper'>
             <input
-              className="title-input"
-              type="text"
-              placeholder="제목"
+              className='title-input'
+              type='text'
+              placeholder='제목'
               onChange={getValue}
-              name="title"
-              style={{ width: "500px" }}
+              name='title'
+              style={{ width: '500px' }}
             />
             <input
-              type="file"
-              accept="image/jpg,image/png,image/jpeg,image/gif"
+              type='file'
+              accept='image/jpg,image/png,image/jpeg,image/gif'
               multiple
               onChange={onChangeImageInput}
             />
             <CKEditor
               editor={ClassicEditor}
-              data=""
+              data=''
               onReady={(editor) => {
                 // You can store the "editor" and use when it is needed.
-                console.log("Editor is ready to use!", editor);
+                console.log('Editor is ready to use!', editor);
               }}
               onChange={(event, editor) => {
                 const data = editor.getData();
-                console.log({ event, editor, data });
                 setMovieContent({
                   ...movieContent,
                   content: data,
                 });
               }}
-              onBlur={(event, editor) => {
-                console.log("Blur.", editor);
-              }}
-              onFocus={(event, editor) => {
-                console.log("Focus.", editor);
-              }}
+              onBlur={(event, editor) => {}}
+              onFocus={(event, editor) => {}}
             />
           </div>
-         
-          <Button variant="primary" type="submit">
+
+          <Button variant='primary' type='submit'>
             등록
           </Button>
         </div>

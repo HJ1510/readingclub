@@ -18,7 +18,7 @@ function ArticleEdit() {
   const navigate = useNavigate();
   const location = useLocation();
   const { title } = location.state;
-  console.log(title);
+  // console.log(title);
 
   const [editMode, setEditMode] = useState(false);
   const [article, setArticle] = useState(null);
@@ -70,7 +70,7 @@ function ArticleEdit() {
         default:
           throw new Error('게시판이 생성되지 않았습니다.');
       }
-      console.log(response);
+      // console.log(response);
       navigate(-1);
     } catch (error) {
       console.error(error);
