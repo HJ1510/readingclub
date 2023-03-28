@@ -32,7 +32,7 @@ function Category() {
       <Col md={3}>
         <Form className={styles.meetingSearch}>
           <div>
-            <input placeholder='모임이름, 해시태그 :)'></input>
+            <input style={{marginLeft:"300px"}} placeholder='모임이름, 해시태그 :)'></input>
           </div>
           <div>
             <button>
@@ -42,15 +42,7 @@ function Category() {
         </Form>
       </Col>
       <Col md={1}>
-        <Dropdown className={styles.meetingSort}>
-          <Dropdown.Toggle variant='success' size='sm' id='dropdown-basic'>
-            최신순
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item href='#/action-1'>최신순</Dropdown.Item>
-            <Dropdown.Item href='#/action-2'>마감임박순</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+       
       </Col>
     </Row>
   );

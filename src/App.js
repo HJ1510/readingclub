@@ -24,6 +24,7 @@ import Jofrom from 'components/jofrom';
 import { Member } from './component/user/Member';
 import Rangking from 'component/booknote/booknoteRangking/Rangking';
 import BComment from 'component/booknote/booknoteCommet';
+import Test3 from 'component/community/test3';
 
 axios.defaults.withCredentials = true;
 const App = () => {
@@ -48,6 +49,7 @@ const App = () => {
       <Route path='jo/:no' element={<Jofrom></Jofrom>} />
       <Route path='chat' element={<Chat></Chat>} />
       <Route path='community' element={<Community />} />
+      <Route path='Test3' element={<Test3 />} />
    
       <Route path='booknote'>
         <Route index element={<Booknote />} />

@@ -86,8 +86,8 @@ function Main() {
       <Row className='image-wrapper'>
         <Col md={1}></Col>
         <Col md={2}>
-          <h2>Hello</h2>
-          <h3>{currentImage.title}</h3>
+         
+          <h3  style={{fontWeight:"bolder",fontSize:"2.5em"}}>“{currentImage.title}</h3>
         </Col>
         <Col>
           <img
@@ -100,12 +100,13 @@ function Main() {
           <img src={nextImage.url} alt={nextImage.title} ref={nextImageRef} />
         </Col>
         <Col md={2} className='image-info'>
-          <h2>Bye</h2>
-          <h3>{nextImage.title}</h3>
+      
+          <h3 style={{fontWeight:"bolder",fontSize:"2.5em"}}>{nextImage.title}”</h3>
         </Col>
         <Col md={1}></Col>
       </Row>
     </Layout>
+    
   );
 }
 

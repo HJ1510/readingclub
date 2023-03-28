@@ -156,7 +156,7 @@ return (
       </section>
 
       <article id="article-content" class="col-md-9 col-lg-8">
-      <textbox>{parse(data1.content)}</textbox>
+      <textbox><img src="https://bimage.interpark.com/partner/goods_image/7/4/8/4/310327484g.jpg"/>{parse(data1.content)}</textbox>
       </article>
     </div>
     <div class="row g-5" id="article-buttons">
