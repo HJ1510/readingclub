@@ -117,9 +117,9 @@ function Booknote() {
                   노트 작성하기 📗
                 </Link>
                 <br/>
-                <Link to='#'   style={{ textDecoration: 'none', color: 'black' }} onClick={handleModalOpen}>
+                <div   style={{ textDecoration: 'none', color: 'black' }} onClick={handleModalOpen}>
                   목표도서 설정하기 💪
-                </Link>
+                </div>
                 <Modal show={showModal} onHide={handleModalClose}>
                   <Modal.Header closeButton>
                     <Modal.Title>목표도서 설정하기</Modal.Title>

@@ -50,7 +50,7 @@ function MeetingAdmin() {
           </Col>
         </Row>
 
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4" style={{marginTop:"20px"}}>
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4" style={{marginTop:"20px",marginBottom:"30px"}}>
 
           {members &&
             members.map((member, idx) => {
@@ -101,8 +101,7 @@ function MeetingAdmin() {
               );
             })}
         </div>
-        <p style={{marginTop:"20px"}}>출석부</p>
-        <AttendanceList orders={data.order} />
+    
       </Container>
     </Layout>
   );
