@@ -114,7 +114,7 @@ function SearchBar() {
                          )}</p>
  
                          <div style={{ display: "flex" }}>
-                           <Link to={`/booknote/${book._id}`}   className="stretched-link " style={{ marginRight: "20px" }}>View</Link>
+                           <Link to={`/booknote/${book._id}`} style={{ marginRight: "20px" }}>View</Link>
                            <a style={{ marginRight: "20px" }}>조회수 : {book.hit}</a>
                            <a>🧡 {book.likes}</a>
  
