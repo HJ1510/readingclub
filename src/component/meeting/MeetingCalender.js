@@ -50,10 +50,10 @@ function MeetingCalender({ apiFunction, title, no }) {
 
   const handleEventClick = (clickInfo) => {
     if (title !== 'allScheduleCalendar') return;
-    const meetingId = clickInfo.event._def.extendedProps.autoIncrementField;
+    const meetingId = clickInfo.event._def.extendedProps.meetingNo;
     console.log(meetingId);
     console.log(clickInfo);
-    window.location.href = 'http://43.201.37.40:3000/meeting/info/' + meetingId;
+    window.location.href = `/meeting/info/${meetingId}`;
   };
 
   useEffect(() => {
