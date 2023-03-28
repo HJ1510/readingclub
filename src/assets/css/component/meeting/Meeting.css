@@ -13,7 +13,30 @@
   vertical-align: baseline;
   border-radius: 0.25rem;
 }
+.member {
+  font-size: 16px;
+  font-weight: bold;
+}
 
+.member.waiting {
+  color: yellow;
+}
+
+.member.withdrawal {
+  color: red;
+}
+
+.member.host {
+  color: blue;
+}
+
+.member.regular {
+  color: green;
+}
+
+.member.unknown {
+  color: gray;
+}
 .meetingStatus.recruiting {
   color: #fff;
   background-color: #007bff;

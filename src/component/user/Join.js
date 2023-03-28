@@ -21,7 +21,7 @@ function Join(props) {
   const [gender, setGender] = useState('male');
   const [date, setDate] = useState('');
   const [nickname, setNickname] = useState('');
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("");
   // Call when input file type changes
   const handleFileChange = (e) => {
     setImage(e.target.files[0]);

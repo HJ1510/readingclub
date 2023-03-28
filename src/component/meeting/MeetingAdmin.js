@@ -8,7 +8,7 @@ import data from 'mockAttend.json';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
 import { useMembers } from 'hooks/useMembers';
 import { getMeetingByNo, updateMemberStatus } from 'api';
-
+import 'assets/css/component/meeting/Meeting.css';
 function MeetingAdmin() {
   const { no } = useParams();
   const [meetinginfo, setMeetinginfo] = useState('');
@@ -50,7 +50,7 @@ function MeetingAdmin() {
           </Col>
         </Row>
 
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4" style={{marginTop:"20px",marginBottom:"30px"}}>
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4" style={{ marginTop: "20px", marginBottom: "30px" }}>
 
           {members &&
             members.map((member, idx) => {
@@ -65,34 +65,44 @@ function MeetingAdmin() {
 
                       <strong className="card-text" style={{ fontSize: "1.5em" }}>{member.name}</strong>
 
-
-                      <p>{member.status}</p>
+                      <p className={`member ${member.status === 'provisional_member' ? 'waiting' :
+                          member.status === 'rejected_member' ? 'withdrawal' :
+                            member.status === 'host' ? 'host' :
+                              member.status === 'full_member' ? 'regular' :
+                                'unknown'
+                        }`}>
+                        {member.status === 'provisional_member' ? '가입 대기중' :
+                          member.status === 'rejected_member' ? '탈퇴한 회원' :
+                            member.status === 'host' ? 'host' :
+                              member.status === 'full_member' ? '정회원' :
+                                'Unknown status'}
+                      </p>
                       <div className="d-flex justify-content-between align-items-center">
-                      {member.status === 'provisional_member' && (
-                        <div className="btn-group">
+                        {member.status === 'provisional_member' && (
+                          <div className="btn-group">
 
-                          <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() =>
-                            handleClick(no, member.userId, 'full_member')
-                          }>승인</button>
-                          <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() =>
-                            handleClick(no, member.userId, 'rejected_member')
-                          }>거부</button>
-                          
+                            <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() =>
+                              handleClick(no, member.userId, 'full_member')
+                            }>승인</button>
+                            <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() =>
+                              handleClick(no, member.userId, 'rejected_member')
+                            }>거부</button>
+
+                          </div>
+                        )}
+                        {member.status === 'full_member' && (
+                          <button className="btn btn-sm btn-outline-secondary"
+                            onClick={() =>
+                              handleClick(no, member.userId, 'rejected_member')
+                            }
+                          >
+                            내보내기
+                          </button>
+                        )}
+                        {member.status === 'rejected_member' && (
+                          <span>탈퇴회원입니다</span>
+                        )}
                       </div>
-                            )}  
-                            {member.status === 'full_member' && (
-                      <button  className="btn btn-sm btn-outline-secondary"
-                        onClick={() =>
-                          handleClick(no, member.userId, 'rejected_member')
-                        }
-                      >
-                        내보내기
-                      </button>
-                    )}
-                    {member.status === 'rejected_member' && (
-                      <span>탈퇴회원입니다</span>
-                    )}
-                        </div>
 
                     </div>
                   </div>
@@ -101,7 +111,7 @@ function MeetingAdmin() {
               );
             })}
         </div>
-    
+
       </Container>
     </Layout>
   );
