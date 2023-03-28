@@ -64,7 +64,7 @@ function UserForm() {
               {meeting.slice(startIndex, endIndex).map((item, idx) => {
                 return (
                   <div className='bnt-user-meeting' key={idx}>
-                    <a href={`http://localhost:3000/meeting/group/${item.no}`}>
+                    <a href={`/meeting/group/${item.no}`}>
                       <Button
                         variant={
                           item.memberStatus === 'host'
