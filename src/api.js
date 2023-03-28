@@ -334,3 +334,15 @@ export async function updateMemberStatus({ no, memberId }, body) {
 //   const body = await response.json();
 //   return body;
 // }
+
+// 모임 검색
+export async function getSearchMeetingByKwd(kwd) {
+  try {
+    const response = await axios.get(`/api/meeting-search`, {
+      params: { keyword: kwd },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error('meetingArticle 게시글 조회하는데 실패하였습니다');
+  }
+}

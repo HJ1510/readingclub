@@ -5,9 +5,28 @@ import Col from 'react-bootstrap/Col';
 import { Dropdown } from 'react-bootstrap';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
 import { HiSearch } from 'react-icons/hi';
+import { useState, useEffect } from 'react';
+import { getSearchMeetingByKwd } from 'api';
 
-function Category() {
+function Category({ onMeetingsChange, onKeywordChange }) {
   const categorys = ['건강/취미', '경제경영', '공무원수험서', '과학', '달력'];
+  const [keyword, setKeyword] = useState('');
+  const [searchMeetings, setSearchMeetings] = useState([]);
+
+  const handleKeywordChange = (event) => {
+    setKeyword(event.target.value);
+    onKeywordChange(event.target.value);
+  };
+
+  const handleSearchClick = async (e) => {
+    e.preventDefault();
+
+    const data = await getSearchMeetingByKwd(keyword);
+    console.log(data);
+    setSearchMeetings(data);
+    onMeetingsChange(data);
+    console.log(searchMeetings);
+  };
 
   return (
     <Row>
@@ -32,10 +51,13 @@ function Category() {
       <Col md={3}>
         <Form className={styles.meetingSearch}>
           <div>
-            <input placeholder='모임이름, 해시태그 :)'></input>
+            <input
+              placeholder='모임이름, 해시태그 :)'
+              onChange={handleKeywordChange}
+            ></input>
           </div>
           <div>
-            <button>
+            <button onClick={handleSearchClick}>
               <HiSearch size='24' />
             </button>
           </div>
