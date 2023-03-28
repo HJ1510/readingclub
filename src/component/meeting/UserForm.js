@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { getUserMeetings } from 'api';
-import { fontSize } from '@mui/system';
+import { BsFillPeopleFill } from 'react-icons/bs';
 
 function UserForm() {
   const [meeting, setMeeting] = useState([]);
@@ -65,11 +65,18 @@ function UserForm() {
                   <div className='bnt-user-meeting' key={idx}>
                     <a href={`http://localhost:3000/meeting/group/${item.no}`}>
                       <Button
-                        variant='outline-dark'
+                        variant={
+                          item.memberStatus === 'host'
+                            ? 'outline-primary'
+                            : 'outline-dark'
+                        }
                         size='lg'
                         style={{ width: '100%', marginBottom: '20px' }}
                       >
-                        {item.title}/{item.memberStatus}
+                        {item.title}{' '}
+                        {item.memberStatus === 'host' && (
+                          <BsFillPeopleFill size='24' color='blue' />
+                        )}
                       </Button>
                     </a>
                   </div>

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
 
 .Board {
   margin-bottom: 5rem;
@@ -89,7 +89,8 @@
 }
 
 .Writer_profile_img img {
-  width: 3rem;
+  width: 80px;
+  border-radius: 50%;
 }
 
 .ArticleContentBox {

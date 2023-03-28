@@ -13,9 +13,13 @@ function Category({ onMeetingsChange, onKeywordChange }) {
   const [keyword, setKeyword] = useState('');
   const [searchMeetings, setSearchMeetings] = useState([]);
 
-  const handleKeywordChange = (event) => {
+  const handleKeywordChange = async (event) => {
     setKeyword(event.target.value);
     onKeywordChange(event.target.value);
+
+    const data = await getSearchMeetingByKwd(event.target.value);
+    setSearchMeetings(data);
+    onMeetingsChange(data);
   };
 
   const handleSearchClick = async (e) => {
@@ -52,7 +56,7 @@ function Category({ onMeetingsChange, onKeywordChange }) {
         <Form className={styles.meetingSearch}>
           <div>
             <input
-              placeholder='모임이름, 해시태그 :)'
+              placeholder='모임이름 :)'
               onChange={handleKeywordChange}
             ></input>
           </div>

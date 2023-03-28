@@ -28,6 +28,7 @@ function ArticleView() {
   const location = useLocation();
   const { title } = location.state;
   console.log(title);
+  console.log(data);
 
   useEffect(() => {
     const articleLoad = async (no, id) => {
@@ -80,7 +81,7 @@ function ArticleView() {
                 </div>
                 <div className={styles.WriterInfo}>
                   <div className={styles.Writer_profile_img}>
-                    <img src={profile}></img>
+                    <img src={`/${data.creator.imgpath.path}`} alt='profile' />
                   </div>
                   <div className={styles.article_writer}>
                     <div>{data?.creator?.name}</div>
@@ -89,7 +90,7 @@ function ArticleView() {
                     <div>{formatDate(data.createdAt)}</div>
                   </div>
                   <div className={styles.article_hit}>
-                    <div>{data.hitCount}</div>
+                    <div>조회수 {data.hitCount}</div>
                   </div>
                 </div>
               </div>
@@ -119,9 +120,9 @@ function ArticleView() {
               <Link to={`../info/${no}`}>
                 <button>목록으로</button>
               </Link>
-              <div className={styles.CommentBox}>
+              {/* <div className={styles.CommentBox}>
                 <Comment />
-              </div>
+              </div> */}
             </div>
           ) : (
             'loading...'
