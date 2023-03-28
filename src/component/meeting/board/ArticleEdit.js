@@ -77,8 +77,7 @@ function ArticleEdit() {
 
   return (
     <Layout>
-      <h1>ArticleEdit</h1>
-      <h2>{editMode ? '글 수정하기' : '글 작성하기'}</h2>
+      <p>{title} 수정</p>
       <ArticleForm
         initialValues={editMode ? article : null}
         onSubmit={handleSubmit}

@@ -178,16 +178,16 @@ function MeetingInfo() {
     <Layout className={styles.Meetinginfo}>
       <Container>
         <Row>
-          <Col>
-            <div>
+          <Col className='meeting-info'>
+            <div className='meeting-title'>
               <h2>모임 이름 : {meetinginfo.title}</h2>
             </div>
             {meetinginfo.creator && (
-              <div>
+              <div className='meeting-creator'>
                 <h2>모임장 : {meetinginfo.creator.name}</h2>
               </div>
             )}
-            <div>
+            <div className='meeting-max-num'>
               <h2>정원 : {meetinginfo.maxNum}</h2>
             </div>
           </Col>
