@@ -28,14 +28,17 @@
   margin-left: auto;
   text-align: center;
   font-size: larger;
-  background-color: #171717;
+  background-color: #f8f6f6;
 }
 
 .footersection {
   height: 300px;
-  font-size: 20px;
-  padding-top: 80px;
-  background-color: #171717;
+  display: block;
+
+  align-items: center;
+  font-size: 16px;
+  letter-spacing: -.16px;
+  font-weight: 700;
 }
 
 .footersection p {

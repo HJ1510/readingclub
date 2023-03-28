@@ -49,47 +49,39 @@ function MeetingAdmin() {
             <p>{meetinginfo.location}</p>
           </Col>
         </Row>
-        {members &&
-          members.map((member, idx) => {
-            return (
-              <Row key={idx}>
-                <Col>
-                  <div className={styles.member}>
-                    {member.imgpath && member.imgpath.path ? (
-                      <img src={`/${member.imgpath.path}`} alt='member' />
-                    ) : (
-                      <img src={profile} alt='member' />
-                    )}
-                    <div>
-                      <p>이름: {member.name}</p>
-                      <p>권한: {member.role}</p>
-                      <p>상태: {member.status}</p>
-                    </div>
-                    <ProgressBar
-                      className={styles.attendanceBar}
-                      now={now}
-                      label={`${now}%`}
-                    />
-                    {member.status === 'provisional_member' && (
-                      <>
-                        <button
-                          onClick={() =>
+
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4" style={{marginTop:"20px"}}>
+
+          {members &&
+            members.map((member, idx) => {
+              return (
+
+                <div className="col" key={idx} >
+
+                  <div className="card shadow-sm">
+                    <img style={{ height: "200px" }} src={`/${member.imgpath.path}`} alt='member' />
+                    <strong style={{ margin: "10px" }} class=" text-success"> {member.role}</strong>
+                    <div class="card-body">
+
+                      <strong className="card-text" style={{ fontSize: "1.5em" }}>{member.name}</strong>
+
+
+                      <p>{member.status}</p>
+                      <div className="d-flex justify-content-between align-items-center">
+                      {member.status === 'provisional_member' && (
+                        <div className="btn-group">
+
+                          <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() =>
                             handleClick(no, member.userId, 'full_member')
-                          }
-                        >
-                          승인
-                        </button>
-                        <button
-                          onClick={() =>
+                          }>승인</button>
+                          <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() =>
                             handleClick(no, member.userId, 'rejected_member')
-                          }
-                        >
-                          승인거부
-                        </button>
-                      </>
-                    )}
-                    {member.status === 'full_member' && (
-                      <button
+                          }>거부</button>
+                          
+                      </div>
+                            )}  
+                            {member.status === 'full_member' && (
+                      <button  className="btn btn-sm btn-outline-secondary"
                         onClick={() =>
                           handleClick(no, member.userId, 'rejected_member')
                         }
@@ -100,12 +92,16 @@ function MeetingAdmin() {
                     {member.status === 'rejected_member' && (
                       <span>탈퇴회원입니다</span>
                     )}
+                        </div>
+
+                    </div>
                   </div>
-                </Col>
-              </Row>
-            );
-          })}
-        <p>출석부</p>
+                </div>
+
+              );
+            })}
+        </div>
+        <p style={{marginTop:"20px"}}>출석부</p>
         <AttendanceList orders={data.order} />
       </Container>
     </Layout>

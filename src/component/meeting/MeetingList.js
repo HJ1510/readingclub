@@ -4,6 +4,7 @@ import { getMeetings } from 'api';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import { Button } from 'react-bootstrap';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
 
 function MeetingList({ title }) {
@@ -50,9 +51,9 @@ function MeetingList({ title }) {
 
   return (
     <div>
-      <div>
-        <button onClick={handleAutoIncrementFieldClick}>최신순</button>
-        <button onClick={handleFirstDateClick}>최근날짜순</button>
+    <div style={{ textAlign: 'left',marginBottom:"20px" }}>
+        <Button variant="outline-secondary" size="sm"  onClick={handleAutoIncrementFieldClick} style={{ marginLeft : '170px' }}>최신순</Button>
+        <Button variant="outline-secondary" size="sm"  onClick={handleFirstDateClick} style={{ marginRight: '200px' }}>최근날짜순</Button>
       </div>
       <div>
         {meetingItems
