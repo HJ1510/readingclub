@@ -43,8 +43,7 @@ function ArticleWrite() {
 
   return (
     <Layout>
-      <h2>글 작성</h2>
-      <p>{title}</p>
+      <p>{title} 작성</p>
       <ArticleForm onSubmit={handleSubmit} user={userData} />
     </Layout>
   );

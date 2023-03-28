@@ -60,7 +60,7 @@ function Navigation() {
               </li>
             )}
             <li>
-              <NavLink to={'/booknote/notelist'} activeClassName='active'>
+              <NavLink to={'/notelist'} activeClassName='active'>
                 Notes
               </NavLink>
             </li>

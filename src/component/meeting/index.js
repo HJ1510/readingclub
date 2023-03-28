@@ -7,8 +7,17 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import styles from 'assets/css/component/meeting/Meeting.module.css';
 import { getAllOrders } from 'api';
+import { useState } from 'react';
 
 function Meeting() {
+  const [searchMeetings, setSearchMeetings] = useState([]);
+  const [keyword, setKeyword] = useState('');
+  console.log(searchMeetings);
+
+  const handleMeetingsChange = (meetings) => {
+    setSearchMeetings(meetings);
+  };
+
   return (
     <div className={styles.Meeting}>
       <Layout>
@@ -27,12 +36,19 @@ function Meeting() {
         </Row>
         <Row className={styles.Category}>
           <Col>
-            <Category />
+            <Category
+              onMeetingsChange={handleMeetingsChange}
+              onKeywordChange={setKeyword}
+            />
           </Col>
         </Row>
         <Row>
           <Col className={styles.MeetingList}>
-            <MeetingList title='wholeMeeting' />
+            <MeetingList
+              title='wholeMeeting'
+              searchMeetings={searchMeetings}
+              keyword={keyword}
+            />
           </Col>
         </Row>
       </Layout>

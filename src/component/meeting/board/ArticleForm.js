@@ -58,7 +58,6 @@ function ArticleForm({ initialValues, onSubmit, user }) {
             type='text'
             name='title'
             value={formData.title}
-            placeholder='title'
             onChange={handleInputChange}
             id={styles.title_txt}
           />

@@ -53,13 +53,13 @@ const App = () => {
    
       <Route path='booknote'>
         <Route index element={<Booknote />} />
-        <Route path='notelist' element={<Rangking />} />
         <Route path='writebook' element={<Writebook />} />
         <Route path=':id' element={<Booknoteno />} />
         <Route path=':id/edit' element={<Booknoteupdate />} />
         <Route path='progress' element={<Progress />} />
-        <Route path='bcommente' element={<BComment></BComment>}/>
+        <Route path='bcommente' element={<BComment></BComment>} />
       </Route>
+      <Route path='notelist' element={<Rangking />} />
     </Routes>
   );
 };

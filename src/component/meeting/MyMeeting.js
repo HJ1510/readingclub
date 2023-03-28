@@ -14,8 +14,27 @@ function MyMeeting() {
 
   const listLoad = async (id) => {
     const loadMeetings = await getUserMeetings(id);
-    setMeeting(loadMeetings);
-    console.log(meeting);
+
+    const meetings = loadMeetings.map((meeting) => ({
+      title: meeting.title,
+      role: meeting.members[0].role,
+      memberStatus: meeting.members[0].status,
+      no: meeting.autoIncrementField,
+      membersLength: meeting.members.length,
+      maxNum: meeting.maxNum,
+      imgFile: meeting.imgFile,
+      meetingStatus: meeting.meetingStatus,
+    }));
+
+    const sortedMeetings = meetings.sort((a, b) => b.no - a.no);
+    setMeeting(sortedMeetings);
+    // memberStatus가 'host', 'full_member'인 모임만 보이게
+    // const filteredMeetings = sortedMeetings.filter(
+    //   (meeting) =>
+    //     meeting.memberStatus === 'host' ||
+    //     meeting.memberStatus === 'full_member'
+    // );
+    // setMeeting(filteredMeetings);
   };
 
   useEffect(() => {

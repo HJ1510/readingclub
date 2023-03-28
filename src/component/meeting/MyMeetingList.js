@@ -90,11 +90,11 @@ function MyMeetingList(props) {
                     </p>
                     <p className='title'>{item.title}</p>
                     <p className='maxNum'>
-                      {item.members.length}/{item.maxNum}
+                      {item.membersLength}/{item.maxNum}
                     </p>
                     <div className='d-flex justify-content-between align-items-center'>
                       <div className='btn-group'>
-                        {item.members[0].role === 'host' ? (
+                        {item.role === 'host' ? (
                           <Link
                             to={`/meeting/admin/${item.autoIncrementField}`}
                           >
