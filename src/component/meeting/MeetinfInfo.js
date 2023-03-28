@@ -26,6 +26,8 @@ function MeetingInfo() {
     (member) => member.userId === authUser._id && member.role === 'host'
   );
 
+  const isMember = members.some((member) => member.userId === authUser._id);
+
   const totalMembers = members.length;
 
   // 객체 생성 시, 초기값 설정
@@ -163,7 +165,8 @@ function MeetingInfo() {
         setMessage('오류입니다');
       }
     } catch (error) {
-      console.error(error);
+      setShowModal(true);
+      setMessage(error.message);
     }
   };
 
@@ -217,8 +220,13 @@ function MeetingInfo() {
                 <p>관리</p>
               </Link>
             )}
+
             <div>
-              <p onClick={handleClick}>가입신청</p>
+              {isMember ? (
+                <p>가입신청완료</p>
+              ) : (
+                <p onClick={handleClick}>가입신청</p>
+              )}
             </div>
             {showModal && (
               <MeetingModal message={message} onClose={handleCloseModal} />
