@@ -14,6 +14,7 @@ function MeetingAdmin() {
   const [meetinginfo, setMeetinginfo] = useState('');
   const members = useMembers(no);
   const now = 60;
+  console.log(members);
 
   const handleClick = async (no, memberId, status) => {
     try {
@@ -50,11 +51,24 @@ function MeetingAdmin() {
           </Col>
         </Row>
 
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4" style={{ marginTop: "20px", marginBottom: "30px" }}>
-
+        <div
+          className='row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4'
+          style={{ marginTop: '20px', marginBottom: '30px' }}
+        >
           {members &&
             members.map((member, idx) => {
               return (
+                <div className='col' key={idx}>
+                  <div className='card shadow-sm'>
+                    {member.imgpath.path ? (
+                      <img
+                        style={{ height: '200px' }}
+                        src={`/${member.imgpath.path}`}
+                        alt='member'
+                      />
+                    ) : (
+                      <img src={profile} alt='profile' />
+                    )}
 
                 <div className="col" key={idx} >
 
@@ -107,7 +121,6 @@ function MeetingAdmin() {
                     </div>
                   </div>
                 </div>
-
               );
             })}
         </div>
