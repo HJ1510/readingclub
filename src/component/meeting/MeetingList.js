@@ -34,6 +34,19 @@ function MeetingList({ title, searchMeetings, keyword }) {
     setmeetingItems(sortedMeetings);
   };
 
+  //오늘날짜 이전은 제외
+  // const listLoad = async (search) => {
+  //   const { meetings } = await getMeetings();
+  //   const today = new Date();
+  //   const filteredMeetings = meetings.filter(
+  //     (meeting) => new Date(meeting.order[0].date) >= today
+  //   );
+  //   const sortedMeetings = filteredMeetings.sort(
+  //     (a, b) => b.autoIncrementField - a.autoIncrementField
+  //   );
+  //   setmeetingItems(sortedMeetings);
+  // };
+
   useEffect(() => {
     listLoad();
   }, []);

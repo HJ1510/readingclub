@@ -23,7 +23,7 @@ function MeetingInfo() {
   const meetingInfo = useMeetingInfo(no);
   // console.log(authUser);
   // console.log(members);
-  // console.log(meetingInfo);
+  console.log(meetingInfo);
 
   const isHost = members.some(
     (member) => member.userId === authUser._id && member.role === 'host'
@@ -149,6 +149,40 @@ function MeetingInfo() {
     },
   };
 
+  const hiddenData = {
+    series: [100],
+    options: {
+      chart: {
+        type: 'pie',
+      },
+      labels: ['hidden'],
+      colors: ['#F2CDA6', '#A6CAF0', '#80C080'],
+      title: {
+        align: 'left',
+        style: {
+          fontSize: '20px',
+          color: '#263238',
+        },
+      },
+      legend: {
+        position: 'bottom',
+      },
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200,
+            },
+            legend: {
+              position: 'bottom',
+            },
+          },
+        },
+      ],
+    },
+  };
+
   const PieChart = ({ options, series }) => {
     return <Chart options={options} series={series} type='pie' />;
   };
@@ -208,6 +242,11 @@ function MeetingInfo() {
               <PieChart
                 options={genderData.options}
                 series={genderData.series}
+              />
+
+              <PieChart
+                options={hiddenData.options}
+                series={hiddenData.series}
               />
               <PieChart options={agesData.options} series={agesData.series} />
             </Col>
